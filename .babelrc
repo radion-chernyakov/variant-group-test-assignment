@@ -1,0 +1,13 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    [
+      "@stylexjs/babel-plugin",
+      {
+        "runtimeInjection": false,
+        "genConditionalClasses": true,
+        "treeshakeCompensation": true
+      }
+    ]
+  ]
+}

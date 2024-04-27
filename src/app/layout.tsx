@@ -1,7 +1,16 @@
-import { Inter } from "next/font/google";
+import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
+import * as stylex from "@stylexjs/stylex";
+
+const styles = stylex.create({
+  base: {
+    fontSize: 16,
+    lineHeight: 1.5,
+    color: "grey",
+  },
+  highlighted: {
+    color: "rebeccapurple",
+  },
 });
 
 export const metadata = {
@@ -17,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body {...stylex.props(styles.base, styles.highlighted)}>{children}</body>
     </html>
   );
 }
