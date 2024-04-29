@@ -2,7 +2,13 @@ import * as stylex from "@stylexjs/stylex"
 import { type StyleXStyles } from "@stylexjs/stylex/lib/StyleXTypes"
 import { type ReactNode } from "react"
 
-import { sizeTokens, weightTokens, smallLineHeight } from "./tokens.stylex"
+import { colors } from "../tokens.stylex"
+import {
+  sizeTokens,
+  weightTokens,
+  smallLineHeight,
+  colorTokens,
+} from "./tokens.stylex"
 
 export type Size = "xSmall" | "small" | "medium" | "large" | "xLarge"
 
@@ -12,6 +18,10 @@ type AsTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "label" | "p"
 
 type TextAlign = "center"
 
+type ColorScheme = "default" | "danger"
+
+type ColorVariant = "default" | "light"
+
 export default function Text({
   size = "medium",
   weight = "normal",
@@ -19,6 +29,8 @@ export default function Text({
   style,
   as: As = "p",
   textAlign,
+  colorScheme = "default",
+  colorVariant = "default",
 }: {
   size?: Size
   weight?: Weight
@@ -26,14 +38,18 @@ export default function Text({
   style?: StyleXStyles
   as?: AsTag
   textAlign?: TextAlign
+  colorScheme?: ColorScheme
+  colorVariant?: ColorVariant
 }) {
   const sizeTheme = sizeMap[size]
   const weightTheme = weightMap[weight]
+  const colorTheme = colorMap[colorScheme][colorVariant]
   return (
     <As
       {...stylex.props(
         weightTheme,
         sizeTheme,
+        colorTheme,
         styles.base,
         textAlign && textAlignMap[textAlign],
         style,
@@ -118,4 +134,27 @@ const weightMap = {
   medium: mediumWeightTheme,
   semibold: semiboldWeightTheme,
   bold: boldWeightTheme,
+}
+
+const lightDefaultColor = stylex.createTheme(colorTokens, {
+  color: colors.gray400,
+})
+
+const lightDangerColor = stylex.createTheme(colorTokens, {
+  color: colors.red400,
+})
+
+const defaultDangerColor = stylex.createTheme(colorTokens, {
+  color: colors.red800,
+})
+
+const colorMap = {
+  default: {
+    default: undefined,
+    light: lightDefaultColor,
+  },
+  danger: {
+    default: defaultDangerColor,
+    light: lightDangerColor,
+  },
 }

@@ -30,7 +30,7 @@ export const colors = stylex.defineVars({
   red100: "#fee4e2",
   red200: "#fda29b",
   red300: "#ff776d",
-  red400: "#f13d41",
+  red400: "#F04438",
   red500: "#b72e30",
   red600: "#891e20",
   red700: "#530f10",

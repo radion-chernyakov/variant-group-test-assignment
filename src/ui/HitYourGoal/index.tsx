@@ -14,7 +14,7 @@ export default function HitYourGoal({ progress }: { progress: number }) {
             Hit your goal
           </Text>
           <Text
-            style={styles.grayText}
+            colorVariant="light"
             size="medium"
             weight="light"
             textAlign="center"
@@ -63,9 +63,6 @@ const styles = stylex.create({
     display: "flex",
     flexDirection: "column",
     gap: 16,
-  },
-  grayText: {
-    color: colors.gray400,
   },
   buttonContainer: {
     display: "flex",
