@@ -6,7 +6,11 @@
       {
         "runtimeInjection": false,
         "genConditionalClasses": true,
-        "treeshakeCompensation": true
+        "treeshakeCompensation": true,
+        "unstable_moduleResolution": {
+          "type": "commonJS",
+          "rootDir": "/Users/radionchernyakov/work/variant-group-test-assignment"
+        }
       }
     ]
   ]

@@ -2,4 +2,28 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Fixel", "Fixel Fallback";
+}
+
+button {
+  all: unset;
+}
+
+@font-face {
+  font-family: "Fixel";
+  src: url("/FixelVariable.woff2") format("woff2-variations");
+  font-weight: 125 950;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Fixel Fallback";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Arial");
+  ascent-override: 68.36%;
+  descent-override: 18.99%;
+  line-gap-override: 27.54%;
+  size-adjust: 105.32%;
 }
