@@ -2,7 +2,7 @@
 import { type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { type StyleXStyles } from "@stylexjs/stylex/lib/StyleXTypes";
-import { sizeTokens, weightTokens } from "./tokens.stylex";
+import { sizeTokens, weightTokens, smallLineHeight } from "./tokens.stylex";
 
 export type Size = "xSmall" | "small" | "medium" | "large" | "xLarge";
 
@@ -33,28 +33,38 @@ const styles = stylex.create({
     fontVariationSettings: "'wdth' 80",
     fontWeight: weightTokens.fontWeight,
     fontSize: sizeTokens.fontSize,
-    lineHeight: 1.56,
+    lineHeight: sizeTokens.lineHeight,
   },
 });
 
+const lineHeightMap: Record<Size, number> = {
+  xSmall: 20,
+  small: smallLineHeight,
+  medium: 28,
+  large: 44,
+  xLarge: 60,
+};
+
+export const getLineHeight = (size: Size) => lineHeightMap[size];
+
 const xSmallSizeTheme = stylex.createTheme(sizeTokens, {
   fontSize: "14px",
-  lineHeight: "20px",
+  lineHeight: `${lineHeightMap.xSmall}px`,
 });
 
 const mediumSizeTheme = stylex.createTheme(sizeTokens, {
   fontSize: "18px",
-  lineHeight: "28px",
+  lineHeight: `${lineHeightMap.medium}px`,
 });
 
 const largeSizeTheme = stylex.createTheme(sizeTokens, {
   fontSize: "36px",
-  lineHeight: "44px",
+  lineHeight: `${lineHeightMap.large}px`,
 });
 
 const xLargeSizeTheme = stylex.createTheme(sizeTokens, {
   fontSize: "48px",
-  lineHeight: "60px",
+  lineHeight: `${lineHeightMap.xLarge}px`,
 });
 
 const sizeMap = {

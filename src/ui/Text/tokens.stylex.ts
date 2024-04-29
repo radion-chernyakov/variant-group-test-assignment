@@ -1,7 +1,9 @@
 import * as stylex from '@stylexjs/stylex';
 
+export const smallLineHeight = 16
+
 export const sizeTokens = stylex.defineVars({
-  fontSize: '16px',
+  fontSize: `${smallLineHeight}x`,
   lineHeight: '24px',
 })
 

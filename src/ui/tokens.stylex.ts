@@ -1,5 +1,9 @@
 import * as stylex from '@stylexjs/stylex';
 
+export const borderRadius = stylex.defineVars({
+  control: "6px",
+  section: "12px",
+})
 
 export const colors = stylex.defineVars({
   green50: '#D3F8DF',
@@ -11,11 +15,11 @@ export const colors = stylex.defineVars({
   green600: '#005422',
   green700: '#003211',
   green800: '#021d09',
-  gray50: '#f6f6f6',
+  gray50: '#F2F4F7',
   gray100: '#D0D5DD',
   gray200: '#bdbdbd',
   gray300: '#98A2B3',
-  gray400: '#828282',
+  gray400: '#667085',
   gray500: '#475467',
   gray600: '#4c4c4c',
   gray700: '#292929',
@@ -29,4 +33,4 @@ export const colors = stylex.defineVars({
   red600: '#891e20',
   red700: '#530f10',
   red800: '#350700',
-})
+}) // #667085

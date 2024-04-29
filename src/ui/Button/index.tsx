@@ -8,7 +8,7 @@ import {
   useId,
 } from "react";
 import * as stylex from "@stylexjs/stylex";
-import { colors } from "../tokens.stylex";
+import { borderRadius, colors } from "../tokens.stylex";
 import { baseButtonTokens, buttonSize, buttonIntent } from "./tokens.stylex";
 import Text, { type Size as TextSize } from "~/ui/Text";
 import { type StyleXStyles } from "@stylexjs/stylex/lib/StyleXTypes";
@@ -74,8 +74,8 @@ export default function Button({
         sizeTheme,
         intentTheme,
         buttonStyles.base,
-        intent === "functional" && buttonStyles.functionalIntent,
         !children && buttonStyles.iconOnly,
+        intent === "functional" && buttonStyles.functionalIntent,
         iconPositionStyles
       )}
     >
@@ -110,7 +110,7 @@ const textSizeMap: Record<Size, TextSize> = {
 
 const buttonStyles = stylex.create({
   base: {
-    borderRadius: "6px",
+    borderRadius: borderRadius.control,
     cursor: { default: "pointer", ":disabled": "default" },
     flexDirection: "row",
     borderWidth: baseButtonTokens.borderWidth,
@@ -148,7 +148,7 @@ const buttonStyles = stylex.create({
     borderWidth: "0px",
   },
   iconOnly: {
-    paddingHorizontal: buttonSize.paddingVertical,
+    paddingHorizontal: `calc(${buttonSize.paddingVertical} - ${baseButtonTokens.borderWidth})`,
   },
   iconBlockEnd: {
     flexDirection: "row-reverse",
