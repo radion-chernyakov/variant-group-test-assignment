@@ -1,11 +1,12 @@
-"use client";
-import { type ReactNode } from "react";
-import * as stylex from "@stylexjs/stylex";
-import Logo from "~/ui/icons/Logo.svg";
-import Button from "~/ui/Button";
-import Home from "~/ui/icons/Home.svg";
+"use client"
 
-console.log(Logo);
+import * as stylex from "@stylexjs/stylex"
+import { type ReactNode } from "react"
+import Button from "~/ui/Button"
+import Home from "~/ui/icons/Home.svg"
+import Logo from "~/ui/icons/Logo.svg"
+
+console.log(Logo)
 
 export default function Header({ userSection }: { userSection?: ReactNode }) {
   return (
@@ -22,7 +23,7 @@ export default function Header({ userSection }: { userSection?: ReactNode }) {
         />
       </div>
     </header>
-  );
+  )
 }
 
 const styles = stylex.create({
@@ -36,4 +37,4 @@ const styles = stylex.create({
     alignItems: "center",
     gap: "24px",
   },
-});
+})

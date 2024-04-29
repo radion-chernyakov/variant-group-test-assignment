@@ -1,11 +1,12 @@
-"use client";
-import Button from "~/ui/Button";
-import Text from "~/ui/Text";
-import Plus from "~/ui/icons/Plus.svg";
-import Header from "~/ui/Header";
-import ApplicationLetter from "~/ui/ApplicationLetter";
-import HitYourGoal from "~/ui/HitYourGoal";
-import ProgressBar from "~/ui/ProgressBar";
+"use client"
+
+import ApplicationLetter from "~/ui/ApplicationLetter"
+import Button from "~/ui/Button"
+import Header from "~/ui/Header"
+import HitYourGoal from "~/ui/HitYourGoal"
+import ProgressBar from "~/ui/ProgressBar"
+import Text from "~/ui/Text"
+import Plus from "~/ui/icons/Plus.svg"
 
 console.log(
   Button,
@@ -14,8 +15,8 @@ console.log(
   Header,
   ApplicationLetter,
   HitYourGoal,
-  ProgressBar
-);
+  ProgressBar,
+)
 
 export default function Test() {
   return (
@@ -24,5 +25,5 @@ export default function Test() {
         Create New
       </Button>
     </>
-  );
+  )
 }

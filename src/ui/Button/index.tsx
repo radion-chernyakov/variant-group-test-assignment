@@ -1,4 +1,7 @@
-"use client";
+"use client"
+
+import * as stylex from "@stylexjs/stylex"
+import { type StyleXStyles } from "@stylexjs/stylex/lib/StyleXTypes"
 import {
   type ComponentProps,
   type ComponentType,
@@ -6,45 +9,44 @@ import {
   type SVGProps,
   type MouseEventHandler,
   useId,
-} from "react";
-import * as stylex from "@stylexjs/stylex";
-import { borderRadius, colors } from "../tokens.stylex";
-import { baseButtonTokens, buttonSize, buttonIntent } from "./tokens.stylex";
-import Text, { type Size as TextSize } from "~/ui/Text";
-import { type StyleXStyles } from "@stylexjs/stylex/lib/StyleXTypes";
+} from "react"
+import Text, { type Size as TextSize } from "~/ui/Text"
 
-type Size = "small" | "medium";
+import { borderRadius, colors } from "../tokens.stylex"
+import { baseButtonTokens, buttonSize, buttonIntent } from "./tokens.stylex"
 
-type Intent = "submit" | "action" | "functional";
+type Size = "small" | "medium"
 
-type IconPosition = "block-start" | "block-end";
+type Intent = "submit" | "action" | "functional"
+
+type IconPosition = "block-start" | "block-end"
 
 type ChildrenProps =
   | {
-      icon: ComponentType<Pick<SVGProps<SVGElement>, "height" | "width">>;
-      iconPosition: IconPosition;
-      children: ReactNode;
-      label?: undefined;
+      icon: ComponentType<Pick<SVGProps<SVGElement>, "height" | "width">>
+      iconPosition: IconPosition
+      children: ReactNode
+      label?: undefined
     }
   | {
-      icon: ComponentType<Pick<SVGProps<SVGElement>, "height" | "width">>;
-      iconPosition?: undefined;
-      children?: undefined;
-      label: string;
+      icon: ComponentType<Pick<SVGProps<SVGElement>, "height" | "width">>
+      iconPosition?: undefined
+      children?: undefined
+      label: string
     }
   | {
-      icon?: undefined;
-      iconPosition?: undefined;
-      children: ReactNode;
-      label?: undefined;
-    };
+      icon?: undefined
+      iconPosition?: undefined
+      children: ReactNode
+      label?: undefined
+    }
 
 type Props = {
-  size: Size;
-  intent: Intent;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  size: Size
+  intent: Intent
+  onClick: MouseEventHandler<HTMLButtonElement>
 } & ChildrenProps &
-  Pick<ComponentProps<"button">, "type" | "disabled">;
+  Pick<ComponentProps<"button">, "type" | "disabled">
 
 export default function Button({
   children,
@@ -56,14 +58,14 @@ export default function Button({
   label: labeledBy,
   ...restButtonProps
 }: Props) {
-  const labeledById = useId();
-  const iconSize = iconSizeMap[size];
-  const sizeTheme = sizeThemes[size];
-  const intentTheme = intentThemes[intent];
+  const labeledById = useId()
+  const iconSize = iconSizeMap[size]
+  const sizeTheme = sizeThemes[size]
+  const intentTheme = intentThemes[intent]
 
   const iconPositionStyles = iconPosition
     ? iconPositionMap[iconPosition]
-    : undefined;
+    : undefined
 
   return (
     <button
@@ -76,7 +78,7 @@ export default function Button({
         buttonStyles.base,
         !children && buttonStyles.iconOnly,
         intent === "functional" && buttonStyles.functionalIntent,
-        iconPositionStyles
+        iconPositionStyles,
       )}
     >
       {!children && (
@@ -95,18 +97,18 @@ export default function Button({
         </Text>
       )}
     </button>
-  );
+  )
 }
 
 const iconSizeMap: Record<Size, number> = {
   small: 20,
   medium: 24,
-};
+}
 
 const textSizeMap: Record<Size, TextSize> = {
   small: "small",
   medium: "medium",
-};
+}
 
 const buttonStyles = stylex.create({
   base: {
@@ -159,22 +161,22 @@ const buttonStyles = stylex.create({
   mediumTextContainer: {
     translate: "0 2px",
   },
-});
+})
 
 const textPositionAdjustmentMap: Record<Size, StyleXStyles> = {
   small: buttonStyles.mediumTextContainer,
   medium: buttonStyles.smallTextContainer,
-};
+}
 
 const smallSizeTheme = stylex.createTheme(buttonSize, {
   paddingVertical: "10px",
   paddingHorizontal: "18px",
-});
+})
 
 const sizeThemes = {
   medium: undefined,
   small: smallSizeTheme,
-};
+}
 
 const actionIntentTheme = stylex.createTheme(buttonIntent, {
   focusRing: colors.gray100,
@@ -187,7 +189,7 @@ const actionIntentTheme = stylex.createTheme(buttonIntent, {
   backgroundColor: "transparent",
   backgroundColorDisabled: "transparent",
   backgroundColorHover: "transparent",
-});
+})
 
 const functionalIntentTheme = stylex.createTheme(buttonIntent, {
   focusRing: colors.gray100,
@@ -200,15 +202,15 @@ const functionalIntentTheme = stylex.createTheme(buttonIntent, {
   backgroundColor: "transparent",
   backgroundColorDisabled: "transparent",
   backgroundColorHover: "transparent",
-});
+})
 
 const intentThemes = {
   submit: undefined,
   action: actionIntentTheme,
   functional: functionalIntentTheme,
-};
+}
 
 const iconPositionMap: Record<IconPosition, StyleXStyles | undefined> = {
   "block-start": undefined,
   "block-end": buttonStyles.iconBlockEnd,
-};
+}

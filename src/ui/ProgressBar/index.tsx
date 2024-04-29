@@ -1,13 +1,14 @@
-import * as stylex from "@stylexjs/stylex";
-import Text from "~/ui/Text";
-import { colors } from "../tokens.stylex";
-import CheckIcon from "~/ui/icons/Check.svg";
+import * as stylex from "@stylexjs/stylex"
+import Text from "~/ui/Text"
+import CheckIcon from "~/ui/icons/Check.svg"
 
-const maxProgress = 5;
+import { colors } from "../tokens.stylex"
 
-type ProgressStyle = "rounded" | "dots";
-type TextStyle = "short" | "full";
-type Layout = "vertical" | "horizontal";
+const maxProgress = 5
+
+type ProgressStyle = "rounded" | "dots"
+type TextStyle = "short" | "full"
+type Layout = "vertical" | "horizontal"
 
 export default function ProgressBar({
   progress,
@@ -15,26 +16,26 @@ export default function ProgressBar({
   textStyle,
   layout,
 }: {
-  progress: number;
-  progressStyle: ProgressStyle;
-  textStyle: TextStyle;
-  layout: Layout;
+  progress: number
+  progressStyle: ProgressStyle
+  textStyle: TextStyle
+  layout: Layout
 }) {
-  const effectiveMaxProgress = progress < maxProgress ? maxProgress : progress;
+  const effectiveMaxProgress = progress < maxProgress ? maxProgress : progress
 
-  const compactText = `${progress} out of ${effectiveMaxProgress}`;
+  const compactText = `${progress} out of ${effectiveMaxProgress}`
 
   const fullProgressText =
     progress > maxProgress
       ? `${progress}/${effectiveMaxProgress} applications generated`
-      : `${progress}/5 applications generated`;
+      : `${progress}/5 applications generated`
 
   const displayTextMap: Record<TextStyle, string> = {
     short: compactText,
     full: fullProgressText,
-  };
+  }
 
-  const displayText = displayTextMap[textStyle];
+  const displayText = displayTextMap[textStyle]
 
   return (
     <div
@@ -53,7 +54,7 @@ export default function ProgressBar({
               {...stylex.props(
                 styles.progressItem,
                 progressItemStyleMap[progressStyle],
-                completed && styles.progressItemCompleted
+                completed && styles.progressItemCompleted,
               )}
             />
           ))
@@ -65,7 +66,7 @@ export default function ProgressBar({
         {displayText}
       </Text>
     </div>
-  );
+  )
 }
 
 const styles = stylex.create({
@@ -105,20 +106,20 @@ const styles = stylex.create({
   progressItemCompleted: {
     backgroundColor: colors.gray900,
   },
-});
+})
 
 const progressItemStyleMap: Record<ProgressStyle, stylex.StyleXStyles> = {
   rounded: styles.progressItemRounded,
   dots: styles.progressItemDot,
-};
+}
 
 const layoutMap: Record<Layout, stylex.StaticStyles> = {
   horizontal: styles.containerHorizontal,
   vertical: styles.containerVertical,
-};
+}
 
 const getProgressVisualizationData = (progress: number) =>
   Array.from(Array(maxProgress)).map((_, index) => ({
     completed: index < progress,
     key: index,
-  }));
+  }))

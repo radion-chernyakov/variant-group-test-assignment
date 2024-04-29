@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react"
 
-import Text from "./index";
+import Text from "./index"
 
 const meta: Meta<typeof Text> = {
   component: Text,
@@ -23,10 +23,10 @@ const meta: Meta<typeof Text> = {
     },
   },
   render: (props) => <Text {...props} />,
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Text>;
+export default meta
+type Story = StoryObj<typeof Text>
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.
@@ -37,4 +37,4 @@ export const Default: Story = {
   args: {
     size: "medium",
   },
-};
+}

@@ -1,5 +1,6 @@
-import * as stylex from '@stylexjs/stylex';
-import { colors } from '../tokens.stylex';
+import * as stylex from "@stylexjs/stylex"
+
+import { colors } from "../tokens.stylex"
 
 export const baseButtonTokens = stylex.defineVars({
   borderWidth: `1px`,
@@ -7,8 +8,8 @@ export const baseButtonTokens = stylex.defineVars({
 
 export const buttonSize = stylex.defineVars({
   gap: "12px",
-  paddingVertical: '16px',
-  paddingHorizontal: '28px',
+  paddingVertical: "16px",
+  paddingHorizontal: "28px",
 })
 
 export const buttonIntent = stylex.defineVars({

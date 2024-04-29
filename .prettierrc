@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    "prettier-plugin-stylex-key-sort",
+    "@trivago/prettier-plugin-sort-imports"
+  ],
+  "semi": false,
+  "importOrder": ["^~ui/(.*)$", "^[./]"],
+  "importOrderSeparation": true
+}

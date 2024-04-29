@@ -1,3 +1,3 @@
 export default function ApplicationsPage() {
-  return null;
+  return null
 }

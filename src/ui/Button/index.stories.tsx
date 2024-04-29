@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react"
+import { fn } from "@storybook/test"
 
-import Button from "./index";
+import Button from "./index"
 
 const FakeIcon = ({ height, width }: { height: number; width: number }) => (
   <div
@@ -12,7 +12,7 @@ const FakeIcon = ({ height, width }: { height: number; width: number }) => (
       backgroundColor: "currentcolor",
     }}
   />
-);
+)
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -67,10 +67,10 @@ const meta: Meta<typeof Button> = {
     },
   },
   render: (props) => <Button {...props} />,
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Button>;
+export default meta
+type Story = StoryObj<typeof Button>
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.
@@ -82,18 +82,18 @@ export const Primary: Story = {
     size: "medium",
     intent: "submit",
   },
-};
+}
 
 export const Small: Story = {
   args: {
     size: "small",
     intent: "submit",
   },
-};
+}
 
 export const Medium: Story = {
   args: {
     size: "medium",
     intent: "submit",
   },
-};
+}

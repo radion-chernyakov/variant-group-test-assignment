@@ -1,23 +1,25 @@
-"use client";
-import { Fragment } from "react";
-import * as stylex from "@stylexjs/stylex";
-import { borderRadius, colors } from "../tokens.stylex";
-import Text, { type Size as TextSize, getLineHeight } from "~/ui/Text";
-import Button from "~/ui/Button";
+"use client"
+
+import * as stylex from "@stylexjs/stylex"
+import { Fragment } from "react"
+import Button from "~/ui/Button"
+import Text, { type Size as TextSize, getLineHeight } from "~/ui/Text"
+
+import { borderRadius, colors } from "../tokens.stylex"
 
 type Application = {
-  id: string;
-  company: string;
-  position: string;
-  letter: string;
-};
+  id: string
+  company: string
+  position: string
+  letter: string
+}
 
 export default function ApplicationLetter({
   application,
   textSize = "medium",
 }: {
-  application: Application;
-  textSize: TextSize;
+  application: Application
+  textSize: TextSize
 }) {
   return (
     <section {...stylex.props(styles.container)}>
@@ -56,7 +58,7 @@ export default function ApplicationLetter({
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 const styles = stylex.create({
@@ -98,4 +100,4 @@ const styles = stylex.create({
     width: "100%",
     background: `linear-gradient(180deg, transparent 0%, ${colors.gray50} 100%)`,
   }),
-});
+})

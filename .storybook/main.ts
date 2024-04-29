@@ -1,4 +1,4 @@
-import type { StorybookConfig } from "@storybook/nextjs";
+import type { StorybookConfig } from "@storybook/nextjs"
 import StylexPlugin from "@stylexjs/webpack-plugin"
 
 const config: StorybookConfig = {
@@ -17,6 +17,6 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  staticDirs: [{ from: '../public', to: '/assets' }],
-};
-export default config;
+  staticDirs: [{ from: "../public", to: "/assets" }],
+}
+export default config

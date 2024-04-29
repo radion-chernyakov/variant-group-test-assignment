@@ -1,8 +1,9 @@
-import * as stylex from "@stylexjs/stylex";
-import { borderRadius, colors } from "../tokens.stylex";
-import Text from "~/ui/Text";
-import Button from "../Button";
-import ProgressBar from "../ProgressBar";
+import * as stylex from "@stylexjs/stylex"
+import Text from "~/ui/Text"
+
+import Button from "../Button"
+import ProgressBar from "../ProgressBar"
+import { borderRadius, colors } from "../tokens.stylex"
 
 export default function HitYourGoal({ progress }: { progress: number }) {
   return (
@@ -43,7 +44,7 @@ export default function HitYourGoal({ progress }: { progress: number }) {
         />
       </div>
     </section>
-  );
+  )
 }
 
 const styles = stylex.create({
@@ -78,4 +79,4 @@ const styles = stylex.create({
     alignItems: "center",
     flexDirection: "column",
   },
-});
+})

@@ -1,12 +1,12 @@
 /** @type {import("@stylexjs/nextjs-plugin").stylexPlugin} */
-import stylexPlugin from '@stylexjs/nextjs-plugin'
+import stylexPlugin from "@stylexjs/nextjs-plugin"
 
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
 /** @type {import("~/env.js").env } */
-const env = await import("./src/env.js");
+const env = await import("./src/env.js")
 
 /** @type {import('next').NextConfig} */
 const config = {
@@ -15,7 +15,7 @@ const config = {
     // Grab the existing rule that handles SVG imports
     // @ts-expect-error No way I gonna write types for configuring webpack
     const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.('.svg'),
+      rule.test?.test?.(".svg"),
     )
 
     config.module.rules.push(
@@ -30,7 +30,7 @@ const config = {
         test: /\.svg$/i,
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
-        use: ['@svgr/webpack'],
+        use: ["@svgr/webpack"],
       },
     )
 
@@ -46,4 +46,4 @@ console.log(import.meta.dirname)
 export default stylexPlugin({
   dev: env.NODE_ENV === "development",
   rootDir: import.meta.dirname,
-})(config);
+})(config)
