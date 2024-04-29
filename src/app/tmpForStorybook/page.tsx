@@ -4,8 +4,10 @@ import Text from "~/ui/Text";
 import Plus from "~/ui/icons/Plus.svg";
 import Header from "~/ui/Header";
 import ApplicationLetter from "~/ui/ApplicationLetter";
+import HitYourGoal from "~/ui/HitYourGoal";
+import ProgressBar from "~/ui/ProgressBar";
 
-console.log(Header, ApplicationLetter);
+console.log(Header, ApplicationLetter, HitYourGoal, ProgressBar);
 
 export default function Test() {
   return (

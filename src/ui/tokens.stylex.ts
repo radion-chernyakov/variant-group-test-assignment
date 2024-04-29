@@ -6,7 +6,7 @@ export const borderRadius = stylex.defineVars({
 })
 
 export const colors = stylex.defineVars({
-  green50: '#D3F8DF',
+  green50: '#edfcf2',
   green100: '#c8edd4',
   green200: '#7ed08f',
   green300: '#39b860',
@@ -24,6 +24,8 @@ export const colors = stylex.defineVars({
   gray600: '#4c4c4c',
   gray700: '#292929',
   gray800: '#344054',
+  gray900: '#101828', // check is it fits into 800
+  gray25: '#C6C7CB', // find proper number for this guy too
   red50: '#ffebe9',
   red100: '#fee4e2',
   red200: '#fda29b',
