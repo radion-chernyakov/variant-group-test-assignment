@@ -3,8 +3,9 @@ import Button from "~/ui/Button";
 import Text from "~/ui/Text";
 import Plus from "~/ui/icons/Plus.svg";
 import Header from "~/ui/Header";
+import ApplicationLetter from "~/ui/ApplicationLetter";
 
-console.log(Header);
+console.log(Header, ApplicationLetter);
 
 export default function Test() {
   return (
