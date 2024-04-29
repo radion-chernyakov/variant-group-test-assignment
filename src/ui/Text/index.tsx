@@ -1,4 +1,3 @@
-"use client";
 import { type ReactNode } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { type StyleXStyles } from "@stylexjs/stylex/lib/StyleXTypes";
@@ -8,23 +7,27 @@ export type Size = "xSmall" | "small" | "medium" | "large" | "xLarge";
 
 type Weight = "light" | "normal" | "medium" | "semibold" | "bold";
 
+type AsTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "label" | "p";
+
 export default function Text({
   size,
   weight = "normal",
   children,
   style,
+  as: As = "p",
 }: {
   size: Size;
   weight: Weight;
   children: ReactNode;
   style: StyleXStyles;
+  as?: AsTag;
 }) {
   const sizeTheme = sizeMap[size];
   const weightTheme = weightMap[weight];
   return (
-    <div {...stylex.props(weightTheme, sizeTheme, styles.base, style)}>
+    <As {...stylex.props(weightTheme, sizeTheme, styles.base, style)}>
       {children}
-    </div>
+    </As>
   );
 }
 
