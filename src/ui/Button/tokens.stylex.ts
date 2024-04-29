@@ -23,17 +23,3 @@ export const buttonIntent = stylex.defineVars({
   backgroundColorDisabled: colors.gray100,
   backgroundColorHover: colors.green400,
 })
-
-export const baseTextTokens = stylex.defineVars({
-  gap: "8px",
-  fontWeight: 600,
-  lineHeight: "1.56",
-})
-
-export const smallButtonTextTokens = stylex.defineVars({
-  fontSize: '16px',
-})
-
-export const mediumButtonTextTokens = stylex.defineVars({
-  fontSize: '18px',
-})

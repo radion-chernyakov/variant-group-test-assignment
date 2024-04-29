@@ -1,5 +1,3 @@
-"use client";
-
 import {
   type ComponentProps,
   type ComponentType,
@@ -10,14 +8,8 @@ import {
 } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { colors } from "../tokens.stylex";
-import {
-  baseButtonTokens,
-  baseTextTokens,
-  smallButtonTextTokens,
-  mediumButtonTextTokens,
-  buttonSize,
-  buttonIntent,
-} from "./tokens.stylex";
+import { baseButtonTokens, buttonSize, buttonIntent } from "./tokens.stylex";
+import Text, { type Size as TextSize } from "~/ui/Text";
 import { type StyleXStyles } from "@stylexjs/stylex/lib/StyleXTypes";
 
 type Size = "small" | "medium";
@@ -35,7 +27,7 @@ type ChildrenProps =
     }
   | {
       icon: ComponentType<Pick<SVGProps<SVGElement>, "height" | "width">>;
-      iconPosition: IconPosition;
+      iconPosition?: undefined;
       children?: undefined;
       label: string;
     }
@@ -94,11 +86,9 @@ export default function Button({
       {Icon && <Icon width={iconSize} height={iconSize} />}
       {children && (
         <Text
-          style={
-            (size === "medium" && buttonStyles.mediumTextContainer) ||
-            (size === "small" && buttonStyles.smallTextContainer)
-          }
-          size={size}
+          weight="semibold"
+          style={textPositionAdjustmentMap[size]}
+          size={textSizeMap[size]}
         >
           {children}
         </Text>
@@ -112,28 +102,10 @@ const iconSizeMap: Record<Size, number> = {
   medium: 24,
 };
 
-function Text({
-  size,
-  children,
-  style,
-}: {
-  size: Size;
-  children: ReactNode;
-  style: StyleXStyles;
-}) {
-  return (
-    <div
-      {...stylex.props(
-        textStyles.base,
-        size === "medium" && textStyles.medium,
-        size === "small" && textStyles.small,
-        style
-      )}
-    >
-      {children}
-    </div>
-  );
-}
+const textSizeMap: Record<Size, TextSize> = {
+  small: "small",
+  medium: "medium",
+};
 
 const buttonStyles = stylex.create({
   base: {
@@ -188,6 +160,11 @@ const buttonStyles = stylex.create({
   },
 });
 
+const textPositionAdjustmentMap: Record<Size, StyleXStyles> = {
+  small: buttonStyles.mediumTextContainer,
+  medium: buttonStyles.smallTextContainer,
+};
+
 const smallSizeTheme = stylex.createTheme(buttonSize, {
   paddingVertical: "10px",
   paddingHorizontal: "18px",
@@ -234,17 +211,3 @@ const iconPositionMap: Record<IconPosition, StyleXStyles | undefined> = {
   "block-start": undefined,
   "block-end": buttonStyles.iconBlockEnd,
 };
-
-const textStyles = stylex.create({
-  base: {
-    fontWeight: baseTextTokens.fontWeight,
-    fontSize: "18px",
-    lineHeight: baseTextTokens.lineHeight,
-  },
-  small: {
-    fontSize: smallButtonTextTokens.fontSize,
-  },
-  medium: {
-    fontSize: mediumButtonTextTokens.fontSize,
-  },
-});
