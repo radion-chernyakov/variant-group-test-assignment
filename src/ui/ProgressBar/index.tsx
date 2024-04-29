@@ -62,7 +62,7 @@ export default function ProgressBar({
           <CheckIcon />
         )}
       </div>
-      <Text style={styles.text} weight="light" size="medium">
+      <Text style={styles.text} textAlign="center" weight="light" size="medium">
         {displayText}
       </Text>
     </div>
@@ -84,7 +84,6 @@ const styles = stylex.create({
   },
   text: {
     color: colors.gray400,
-    textAlign: "center",
   },
   progressItemsContainer: {
     justifyContent: "center",

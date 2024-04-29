@@ -10,18 +10,14 @@ export default function HitYourGoal({ progress }: { progress: number }) {
     <section {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.innerContainer)}>
         <div {...stylex.props(styles.topSection)}>
-          <Text
-            style={styles.alignTextCenter}
-            as="h2"
-            size="large"
-            weight="semibold"
-          >
+          <Text as="h2" size="large" weight="semibold" textAlign="center">
             Hit your goal
           </Text>
           <Text
-            style={[styles.alignTextCenter, styles.grayText]}
+            style={styles.grayText}
             size="medium"
             weight="light"
+            textAlign="center"
           >
             Generate and send out couple more job applications today to get
             hired faster
@@ -67,9 +63,6 @@ const styles = stylex.create({
     display: "flex",
     flexDirection: "column",
     gap: 16,
-  },
-  alignTextCenter: {
-    textAlign: "center",
   },
   grayText: {
     color: colors.gray400,

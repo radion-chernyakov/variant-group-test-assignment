@@ -10,23 +10,35 @@ type Weight = "light" | "normal" | "medium" | "semibold" | "bold"
 
 type AsTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "label" | "p"
 
+type TextAlign = "center"
+
 export default function Text({
-  size,
+  size = "medium",
   weight = "normal",
   children,
   style,
   as: As = "p",
+  textAlign,
 }: {
-  size: Size
-  weight: Weight
+  size?: Size
+  weight?: Weight
   children: ReactNode
-  style: StyleXStyles
+  style?: StyleXStyles
   as?: AsTag
+  textAlign?: TextAlign
 }) {
   const sizeTheme = sizeMap[size]
   const weightTheme = weightMap[weight]
   return (
-    <As {...stylex.props(weightTheme, sizeTheme, styles.base, style)}>
+    <As
+      {...stylex.props(
+        weightTheme,
+        sizeTheme,
+        styles.base,
+        textAlign && textAlignMap[textAlign],
+        style,
+      )}
+    >
       {children}
     </As>
   )
@@ -39,7 +51,14 @@ const styles = stylex.create({
     fontSize: sizeTokens.fontSize,
     lineHeight: sizeTokens.lineHeight,
   },
+  alignCenter: {
+    textAlign: "center",
+  },
 })
+
+const textAlignMap: Record<TextAlign, stylex.StyleXStyles> = {
+  center: styles.alignCenter,
+}
 
 const lineHeightMap: Record<Size, number> = {
   xSmall: 20,
