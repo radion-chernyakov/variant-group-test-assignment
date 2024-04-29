@@ -3,7 +3,7 @@ import Text from "~/ui/Text"
 
 import Button from "../Button"
 import ProgressBar from "../ProgressBar"
-import { borderRadius, colors } from "../tokens.stylex"
+import { borderRadius, colors, spacing } from "../tokens.stylex"
 
 export default function HitYourGoal({ progress }: { progress: number }) {
   return (
@@ -56,11 +56,11 @@ const styles = stylex.create({
     maxWidth: 480,
     display: "flex",
     flexDirection: "column",
-    gap: 32,
+    gap: spacing.xLarge,
   },
   topSection: {
     display: "flex",
     flexDirection: "column",
-    gap: 16,
+    gap: spacing.normal,
   },
 })

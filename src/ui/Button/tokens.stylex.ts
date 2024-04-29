@@ -1,13 +1,13 @@
 import * as stylex from "@stylexjs/stylex"
 
-import { colors } from "../tokens.stylex"
+import { colors, spacing } from "../tokens.stylex"
 
 export const baseButtonTokens = stylex.defineVars({
   borderWidth: `1px`,
 })
 
 export const buttonSize = stylex.defineVars({
-  gap: "12px",
+  gap: spacing.medium,
   paddingVertical: "16px",
   paddingHorizontal: "28px",
 })

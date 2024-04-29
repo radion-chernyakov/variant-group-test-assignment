@@ -6,7 +6,7 @@ import Button from "~/ui/Button"
 import { type Size as TextSize, getLineHeight } from "~/ui/Text"
 import TextWithTextClamp from "~/ui/TextWithTextClamp"
 
-import { borderRadius, colors } from "../tokens.stylex"
+import { borderRadius, colors, spacing } from "../tokens.stylex"
 
 type Application = {
   id: string
@@ -67,7 +67,7 @@ const styles = stylex.create({
     backgroundColor: colors.gray50,
     borderRadius: borderRadius.control,
     padding: "24px",
-    gap: "16px",
+    gap: spacing.normal,
   },
   buttonSection: {
     display: "flex",

@@ -36,3 +36,11 @@ export const colors = stylex.defineVars({
   red700: "#530f10",
   red800: "#350700",
 }) // #667085
+
+export const spacing = stylex.defineVars({
+  small: 8,
+  medium: 12,
+  normal: 16,
+  large: 24,
+  xLarge: 32,
+})

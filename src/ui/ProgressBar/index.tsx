@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex"
 import Text from "~/ui/Text"
 import CheckIcon from "~/ui/icons/Check.svg"
 
-import { colors } from "../tokens.stylex"
+import { colors, spacing } from "../tokens.stylex"
 
 const maxProgress = 5
 
@@ -62,7 +62,12 @@ export default function ProgressBar({
           <CheckIcon />
         )}
       </div>
-      <Text colorVariant="light" textAlign="center" weight="light" size="medium">
+      <Text
+        colorVariant="light"
+        textAlign="center"
+        weight="light"
+        size="medium"
+      >
         {displayText}
       </Text>
     </div>
@@ -75,18 +80,18 @@ const styles = stylex.create({
     width: "max-content",
   },
   containerVertical: {
-    gap: 8,
+    gap: spacing.small,
     flexDirection: "column",
   },
   containerHorizontal: {
-    gap: 16,
+    gap: spacing.normal,
     flexDirection: "row-reverse",
   },
   progressItemsContainer: {
     justifyContent: "center",
     alignItems: "center",
     display: "flex",
-    gap: 8,
+    gap: spacing.small,
   },
   progressItemRounded: {
     width: "32px",

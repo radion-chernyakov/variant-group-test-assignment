@@ -6,6 +6,8 @@ import Button from "~/ui/Button"
 import Home from "~/ui/icons/Home.svg"
 import Logo from "~/ui/icons/Logo.svg"
 
+import { spacing } from "../tokens.stylex"
+
 console.log(Logo)
 
 export default function Header({ userSection }: { userSection?: ReactNode }) {
@@ -35,6 +37,6 @@ const styles = stylex.create({
   userSection: {
     display: "flex",
     alignItems: "center",
-    gap: "24px",
+    gap: spacing.large,
   },
 })
