@@ -26,7 +26,7 @@ const meta: Meta<typeof Text> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof Text>;
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.

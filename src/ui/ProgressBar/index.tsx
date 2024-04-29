@@ -40,7 +40,7 @@ export default function ProgressBar({
     <div
       {...stylex.props(styles.container, layoutMap[layout])}
       role="progressbar"
-      aria-valuemin="0"
+      aria-valuemin={0}
       aria-valuemax={effectiveMaxProgress}
       aria-valuenow={progress}
       aria-valuetext={fullProgressText}
@@ -109,7 +109,7 @@ const styles = stylex.create({
 
 const progressItemStyleMap: Record<ProgressStyle, stylex.StyleXStyles> = {
   rounded: styles.progressItemRounded,
-  dot: styles.progressItemDot,
+  dots: styles.progressItemDot,
 };
 
 const layoutMap: Record<Layout, stylex.StaticStyles> = {

@@ -26,7 +26,11 @@ export default function HitYourGoal({ progress }: { progress: number }) {
             hired faster
           </Text>
           <div {...stylex.props(styles.buttonContainer)}>
-            <Button size="medium" intent="submit">
+            <Button
+              size="medium"
+              intent="submit"
+              onClick={() => console.log("click!")}
+            >
               Create New
             </Button>
           </div>
@@ -35,6 +39,7 @@ export default function HitYourGoal({ progress }: { progress: number }) {
           textStyle="full"
           progress={progress}
           progressStyle="rounded"
+          layout="vertical"
         />
       </div>
     </section>
