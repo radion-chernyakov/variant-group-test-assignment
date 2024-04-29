@@ -22,15 +22,14 @@ export default function HitYourGoal({ progress }: { progress: number }) {
             Generate and send out couple more job applications today to get
             hired faster
           </Text>
-          <div {...stylex.props(styles.buttonContainer)}>
-            <Button
-              size="medium"
-              intent="submit"
-              onClick={() => console.log("click!")}
-            >
-              Create New
-            </Button>
-          </div>
+          <Button
+            alignSelf="center"
+            size="medium"
+            intent="submit"
+            onClick={() => console.log("click!")}
+          >
+            Create New
+          </Button>
         </div>
         <ProgressBar
           textStyle="full"
@@ -63,10 +62,5 @@ const styles = stylex.create({
     display: "flex",
     flexDirection: "column",
     gap: 16,
-  },
-  buttonContainer: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column",
   },
 })

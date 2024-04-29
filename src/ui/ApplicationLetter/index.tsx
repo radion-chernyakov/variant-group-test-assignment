@@ -39,24 +39,22 @@ export default function ApplicationLetter({
         <div {...stylex.props(styles.textGradientOverlay(textSize))} />
       </div>
       <div {...stylex.props(styles.buttonSection)}>
-        <div {...stylex.props(styles.buttonWrapper)}>
-          <Button
-            intent="functional"
-            size="small"
-            onClick={() => console.log("delete")}
-          >
-            Delete
-          </Button>
-        </div>
-        <div {...stylex.props(styles.buttonWrapper)}>
-          <Button
-            intent="functional"
-            size="small"
-            onClick={() => console.log("copy")}
-          >
-            Copy to clipboard
-          </Button>
-        </div>
+        <Button
+          alignSelf="flex-start"
+          intent="functional"
+          size="small"
+          onClick={() => console.log("delete")}
+        >
+          Delete
+        </Button>
+        <Button
+          alignSelf="flex-end"
+          intent="functional"
+          size="small"
+          onClick={() => console.log("copy")}
+        >
+          Copy to clipboard
+        </Button>
       </div>
     </section>
   )
@@ -77,8 +75,7 @@ const styles = stylex.create({
   },
   buttonWrapper: {
     display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
+    flexDirection: "row",
   },
   textWrapper: {
     position: "relative",

@@ -41,7 +41,10 @@ type ChildrenProps =
       label?: undefined
     }
 
+type AlignSelf = "flex-start" | "flex-end" | "center"
+
 type Props = {
+  alignSelf?: AlignSelf
   size: Size
   intent: Intent
   onClick: MouseEventHandler<HTMLButtonElement>
@@ -56,6 +59,7 @@ export default function Button({
   iconPosition,
   onClick,
   label: labeledBy,
+  alignSelf,
   ...restButtonProps
 }: Props) {
   const labeledById = useId()
@@ -78,6 +82,7 @@ export default function Button({
         buttonStyles.base,
         !children && buttonStyles.iconOnly,
         intent === "functional" && buttonStyles.functionalIntent,
+        alignSelf && alignMap[alignSelf],
         iconPositionStyles,
       )}
     >
@@ -121,7 +126,6 @@ const buttonStyles = stylex.create({
     gap: buttonSize.gap,
     borderStyle: "solid",
     display: "flex",
-    flex: "1",
     alignItems: "center",
     justifyContent: "center",
     boxShadow: {
@@ -144,6 +148,15 @@ const buttonStyles = stylex.create({
       ":disabled": buttonIntent.backgroundColorDisabled,
     },
   },
+  alignSelfFlexStart: {
+    alignSelf: "flex-start",
+  },
+  alignSelfFlexEnd: {
+    alignSelf: "flex-end",
+  },
+  alignSelfFlexCenter: {
+    alignSelf: "center",
+  },
   functionalIntent: {
     padding: "10px",
     margin: "-10px",
@@ -162,6 +175,12 @@ const buttonStyles = stylex.create({
     translate: "0 2px",
   },
 })
+
+const alignMap: Record<AlignSelf, StyleXStyles> = {
+  "flex-end": buttonStyles.alignSelfFlexEnd,
+  "flex-start": buttonStyles.alignSelfFlexStart,
+  center: buttonStyles.alignSelfFlexCenter,
+}
 
 const textPositionAdjustmentMap: Record<Size, StyleXStyles> = {
   small: buttonStyles.mediumTextContainer,
