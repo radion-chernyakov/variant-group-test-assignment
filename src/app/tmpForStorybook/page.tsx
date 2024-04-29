@@ -1,8 +1,10 @@
 "use client";
-
 import Button from "~/ui/Button";
 import Text from "~/ui/Text";
 import Plus from "~/ui/icons/Plus.svg";
+import Header from "~/ui/Header";
+
+console.log(Header);
 
 export default function Test() {
   return (

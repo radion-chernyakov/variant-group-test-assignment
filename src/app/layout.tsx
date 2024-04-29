@@ -1,3 +1,4 @@
+import Header from "~/ui/Header";
 import "./globals.css";
 
 import * as stylex from "@stylexjs/stylex";
@@ -26,7 +27,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body {...stylex.props(styles.base, styles.highlighted)}>{children}</body>
+      <body {...stylex.props(styles.base, styles.highlighted)}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
