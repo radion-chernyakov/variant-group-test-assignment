@@ -5,7 +5,10 @@ import { type ComponentProps } from "react"
 
 import { inputsTokens } from "../tokens.stylex"
 
-type Props = Exclude<ComponentProps<"textarea">, "className" | "style">
+type Props = Exclude<
+  ComponentProps<"textarea">,
+  "className" | "style" | "disabled"
+>
 
 export default function Textarea(props: Props) {
   return <textarea {...props} {...stylex.props(styles.textarea)} />

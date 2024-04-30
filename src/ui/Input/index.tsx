@@ -5,7 +5,7 @@ import { type ComponentProps } from "react"
 
 import { inputsTokens } from "../tokens.stylex"
 
-type Props = Exclude<ComponentProps<"input">, "className" | "style">
+type Props = Exclude<ComponentProps<"input">, "className" | "style" | "disabled">
 
 export default function Input(props: Props) {
   return <input {...props} {...stylex.props(styles.input)} />

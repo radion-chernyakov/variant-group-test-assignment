@@ -51,6 +51,9 @@ type Props = {
 } & ChildrenProps &
   Pick<ComponentProps<"button">, "type" | "disabled">
 
+// TODO: avoid disabling buttons inside forms (using either context or selectors) to improve UX
+// see https://adrianroselli.com/2024/02/dont-disable-form-controls.html
+
 export default function Button({
   children,
   size,
