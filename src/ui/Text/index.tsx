@@ -44,6 +44,7 @@ export default function Text({
   const sizeTheme = sizeMap[size]
   const weightTheme = weightMap[weight]
   const colorTheme = colorMap[colorScheme][colorVariant]
+  console.log(colorTheme)
   return (
     <As
       {...stylex.props(
@@ -62,6 +63,7 @@ export default function Text({
 
 const styles = stylex.create({
   base: {
+    color: colorTokens.color,
     fontVariationSettings: "'wdth' 80",
     fontWeight: weightTokens.fontWeight,
     fontSize: sizeTokens.fontSize,

@@ -1,6 +1,7 @@
 "use client"
 
 import ApplicationLetter from "~/ui/ApplicationLetter"
+import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
 import Button from "~/ui/Button"
 import Header from "~/ui/Header"
 import HitYourGoal from "~/ui/HitYourGoal"
@@ -16,6 +17,7 @@ console.log(
   ApplicationLetter,
   HitYourGoal,
   ProgressBar,
+  ApplicationLetterPreview,
 )
 
 export default function Test() {

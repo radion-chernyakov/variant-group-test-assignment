@@ -38,9 +38,14 @@ export const colors = stylex.defineVars({
 }) // #667085
 
 export const spacing = stylex.defineVars({
-  small: 8,
-  medium: 12,
-  normal: 16,
-  large: 24,
-  xLarge: 32,
+  small: "8px",
+  medium: "12px",
+  normal: "16px",
+  large: "24px",
+  xLarge: "32px",
+})
+
+export const random = stylex.defineVars({
+  angle0: stylex.types.angle('0deg'),
+  angle180: stylex.types.angle('180deg'),
 })
