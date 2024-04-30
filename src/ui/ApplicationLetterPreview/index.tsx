@@ -6,7 +6,7 @@ import Text from "~/ui/Text"
 
 import Button from "../Button"
 import { borderRadius, colors, spacing } from "../tokens.stylex"
-import { gradientPosition } from "./tokens.stylex"
+import { animationTokens } from "./tokens.stylex"
 
 type ApplicationPreview =
   | {
@@ -114,10 +114,16 @@ function Generating() {
 
 const circleAnimation = stylex.keyframes({
   from: {
-    [gradientPosition.top]: "-50%",
+    [animationTokens.top]: "-50%",
+    [animationTokens.opacity]: "0.48",
+  },
+  "50%": {
+    [animationTokens.top]: "50%",
+    [animationTokens.opacity]: "1",
   },
   to: {
-    [gradientPosition.top]: "150%",
+    [animationTokens.top]: "150%",
+    [animationTokens.opacity]: "0.48",
   },
 })
 
@@ -137,9 +143,10 @@ const generatingCircleStyles = stylex.create({
     animationDuration: "1s",
     animationIterationCount: "infinite",
     animationTimingFunction: "cubic-bezier(0.2, 0, 1, 0.8)",
+    opacity: animationTokens.opacity,
     // TODO: use tokens instead of hardcoded colors
     background: `radial-gradient(
-      60.16% 60.16% at ${gradientPosition.top} 21.88%,
+      60.16% 60.16% at ${animationTokens.top} 21.88%,
       #FFFFFF 0%,
       rgba(255, 255, 255, 0.16) 100%
     ),
