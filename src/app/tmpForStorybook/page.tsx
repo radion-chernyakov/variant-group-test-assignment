@@ -5,8 +5,11 @@ import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
 import Button from "~/ui/Button"
 import Header from "~/ui/Header"
 import HitYourGoal from "~/ui/HitYourGoal"
+import Input from "~/ui/Input"
+import Label from "~/ui/Label"
 import ProgressBar from "~/ui/ProgressBar"
 import Text from "~/ui/Text"
+import Textarea from "~/ui/Textarea"
 import Plus from "~/ui/icons/Plus.svg"
 
 console.log(
@@ -18,6 +21,9 @@ console.log(
   HitYourGoal,
   ProgressBar,
   ApplicationLetterPreview,
+  Label,
+  Input,
+  Textarea,
 )
 
 export default function Test() {

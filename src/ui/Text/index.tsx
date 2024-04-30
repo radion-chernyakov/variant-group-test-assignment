@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex"
 import { type StyleXStyles } from "@stylexjs/stylex/lib/StyleXTypes"
-import { type ReactNode } from "react"
+import { type ComponentProps, type ElementType, type ReactNode } from "react"
 
 import { colors } from "../tokens.stylex"
 import {
@@ -14,39 +14,57 @@ export type Size = "xSmall" | "small" | "medium" | "large" | "xLarge"
 
 type Weight = "light" | "normal" | "medium" | "semibold" | "bold"
 
-type AsTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "label" | "p"
-
 type TextAlign = "center"
 
 type ColorScheme = "default" | "danger"
 
 type ColorVariant = "default" | "light"
 
-export default function Text({
-  size = "medium",
-  weight = "normal",
-  children,
-  style,
-  as: As = "p",
-  textAlign,
-  colorScheme = "default",
-  colorVariant = "default",
-}: {
+// https://www.totaltypescript.com/pass-component-as-prop-react
+
+type DistributiveOmit<
+  T,
+  TOmitted extends PropertyKey,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+> = T extends any ? Omit<T, TOmitted> : never
+
+type CustomProps<T> = {
   size?: Size
   weight?: Weight
   children: ReactNode
   style?: StyleXStyles
-  as?: AsTag
+  as?: T
   textAlign?: TextAlign
   colorScheme?: ColorScheme
   colorVariant?: ColorVariant
-}) {
+}
+
+type Props<T extends ElementType> = CustomProps<T> &
+  Exclude<
+    DistributiveOmit<ComponentProps<T>, keyof CustomProps<T>>,
+    "className" | "style"
+  >
+
+export default function Text<T extends ElementType>({
+  size = "medium",
+  weight = "normal",
+  children,
+  style,
+  as,
+  textAlign,
+  colorScheme = "default",
+  colorVariant = "default",
+  ...restProps
+}: Props<T>) {
   const sizeTheme = sizeMap[size]
   const weightTheme = weightMap[weight]
   const colorTheme = colorMap[colorScheme][colorVariant]
-  console.log(colorTheme)
+
+  const ElementType = as ?? "p"
+
   return (
-    <As
+    <ElementType
+      {...restProps}
       {...stylex.props(
         weightTheme,
         sizeTheme,
@@ -57,7 +75,7 @@ export default function Text({
       )}
     >
       {children}
-    </As>
+    </ElementType>
   )
 }
 

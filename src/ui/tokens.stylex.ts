@@ -45,7 +45,18 @@ export const spacing = stylex.defineVars({
   xLarge: "32px",
 })
 
-export const random = stylex.defineVars({
-  angle0: stylex.types.angle('0deg'),
-  angle180: stylex.types.angle('180deg'),
+export const inputsTokens = stylex.defineVars({
+  fontSize: "16px",
+  lineHeight: "24px",
+  color: colors.gray900,
+  borderRadius: borderRadius.control,
+  borderWidth: "1px",
+  borderColor: colors.gray100,
+  borderStyle: "solid",
+  outline: "none",
+  boxShadow: {
+    default: "none",
+    ":focus-visible": `0px 0px 0px 4px ${colors.green50}`,
+  },
+  placeholderColor: colors.gray400,
 })
