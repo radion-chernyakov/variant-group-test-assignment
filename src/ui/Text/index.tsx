@@ -16,9 +16,23 @@ type Weight = "light" | "normal" | "medium" | "semibold" | "bold"
 
 type TextAlign = "center"
 
-type ColorScheme = "default" | "danger"
+type ColorScheme = "default" | "danger" | "inherit"
 
 type ColorVariant = "default" | "light"
+
+type ColorProps =
+  | {
+      colorScheme?: undefined
+      colorVariant?: ColorVariant
+    }
+  | {
+      colorScheme?: Exclude<ColorScheme, "inherit">
+      colorVariant?: ColorVariant
+    }
+  | {
+      colorScheme: "inherit"
+      colorVariant?: undefined
+    }
 
 // https://www.totaltypescript.com/pass-component-as-prop-react
 
@@ -35,9 +49,7 @@ type CustomProps<T> = {
   style?: StyleXStyles
   as?: T
   textAlign?: TextAlign
-  colorScheme?: ColorScheme
-  colorVariant?: ColorVariant
-}
+} & ColorProps
 
 type Props<T extends ElementType> = CustomProps<T> &
   Exclude<
@@ -58,7 +70,9 @@ export default function Text<T extends ElementType>({
 }: Props<T>) {
   const sizeTheme = sizeMap[size]
   const weightTheme = weightMap[weight]
-  const colorTheme = colorMap[colorScheme][colorVariant]
+
+  const colorTheme =
+    colorScheme !== "inherit" && colorMap[colorScheme][colorVariant]
 
   const ElementType = as ?? "p"
 
@@ -166,6 +180,10 @@ const lightDangerColor = stylex.createTheme(colorTokens, {
 
 const defaultDangerColor = stylex.createTheme(colorTokens, {
   color: colors.red800,
+})
+
+const defaultDefaultColor = stylex.createTheme(colorTokens, {
+  color: colors.gray800,
 })
 
 const colorMap = {

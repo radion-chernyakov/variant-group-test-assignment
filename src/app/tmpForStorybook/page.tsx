@@ -1,5 +1,6 @@
 "use client"
 
+import ApplicationForm from "~/components/ApplicationForm"
 import ApplicationLetter from "~/ui/ApplicationLetter"
 import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
 import Button from "~/ui/Button"
@@ -24,6 +25,7 @@ console.log(
   Label,
   Input,
   Textarea,
+  ApplicationForm,
 )
 
 export default function Test() {

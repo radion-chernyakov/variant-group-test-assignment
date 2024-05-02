@@ -12,6 +12,8 @@ type Application = {
   id: string
   company: string
   position: string
+  skills: string
+  details: string
   letter: string
 }
 

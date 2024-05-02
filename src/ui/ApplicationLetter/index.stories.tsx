@@ -19,6 +19,8 @@ export const LongText: Story = {
     application: {
       id: "1",
       company: "Stripe",
+      skills: "Doing stuff",
+      details: "I'm very skillful",
       position: "UX designer",
       letter: `Dear Stripe team,
 I am a highly skilled product designer with a passion for creating intuitive, user-centered designs. I have a strong background in design systems and am excited about the opportunity to join the Stripe product design team and work on building out the design system for the platform.

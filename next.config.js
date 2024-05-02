@@ -41,8 +41,6 @@ const config = {
   },
 }
 
-console.log(import.meta.dirname)
-
 export default stylexPlugin({
   dev: env.NODE_ENV === "development",
   rootDir: import.meta.dirname,

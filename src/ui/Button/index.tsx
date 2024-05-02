@@ -11,6 +11,7 @@ import {
   useId,
 } from "react"
 import Text, { type Size as TextSize } from "~/ui/Text"
+import Loading from "~/ui/icons/Loading.svg"
 
 import { borderRadius, colors } from "../tokens.stylex"
 import { baseButtonTokens, buttonSize, buttonIntent } from "./tokens.stylex"
@@ -44,10 +45,12 @@ type ChildrenProps =
 type AlignSelf = "flex-start" | "flex-end" | "center"
 
 type Props = {
+  grow?: boolean
   alignSelf?: AlignSelf
   size: Size
   intent: Intent
-  onClick: MouseEventHandler<HTMLButtonElement>
+  onClick?: MouseEventHandler<HTMLButtonElement>
+  loading?: boolean
 } & ChildrenProps &
   Pick<ComponentProps<"button">, "type" | "disabled">
 
@@ -60,9 +63,12 @@ export default function Button({
   intent,
   icon: Icon,
   iconPosition,
-  onClick,
+  onClick: rawOnClick,
   label: labeledBy,
   alignSelf,
+  grow,
+  loading,
+  type: rawType,
   ...restButtonProps
 }: Props) {
   const labeledById = useId()
@@ -74,10 +80,18 @@ export default function Button({
     ? iconPositionMap[iconPosition]
     : undefined
 
+  const onClick = (e: Parameters<MouseEventHandler<HTMLButtonElement>>[0]) => {
+    if (loading) return
+    rawOnClick && rawOnClick(e)
+  }
+
+  const type = loading ? "button" : rawType
+
   return (
     <button
       aria-labelledby={!children ? labeledById : undefined}
       onClick={onClick}
+      type={type}
       {...restButtonProps}
       {...stylex.props(
         sizeTheme,
@@ -86,6 +100,8 @@ export default function Button({
         !children && buttonStyles.iconOnly,
         intent === "functional" && buttonStyles.functionalIntent,
         alignSelf && alignMap[alignSelf],
+        grow && buttonStyles.grow,
+        loading && buttonStyles.loading,
         iconPositionStyles,
       )}
     >
@@ -94,11 +110,20 @@ export default function Button({
           {labeledBy}
         </span>
       )}
+      {loading && (
+        <div {...stylex.props(buttonStyles.loadingSpinner)}>
+          <Loading />
+        </div>
+      )}
       {Icon && <Icon width={iconSize} height={iconSize} />}
       {children && (
         <Text
+          colorScheme="inherit"
           weight="semibold"
-          style={textPositionAdjustmentMap[size]}
+          style={[
+            textPositionAdjustmentMap[size],
+            loading && buttonStyles.textLoading,
+          ]}
           size={textSizeMap[size]}
         >
           {children}
@@ -118,8 +143,21 @@ const textSizeMap: Record<Size, TextSize> = {
   medium: "medium",
 }
 
+const rotateAnimation = stylex.keyframes({
+  from: {
+    rotate: "0deg",
+  },
+  // "50%": {
+  //   rotate: "180deg",
+  // },
+  to: {
+    rotate: "180deg",
+  },
+})
+
 const buttonStyles = stylex.create({
   base: {
+    position: "relative",
     borderRadius: borderRadius.control,
     cursor: { default: "pointer", ":disabled": "default" },
     flexDirection: "row",
@@ -151,6 +189,20 @@ const buttonStyles = stylex.create({
       ":disabled": buttonIntent.backgroundColorDisabled,
     },
   },
+  loading: {
+    cursor: "default",
+  },
+  textLoading: {
+    opacity: 0,
+  },
+  loadingSpinner: {
+    position: "absolute",
+    display: "flex",
+    animationName: rotateAnimation,
+    animationDuration: "0.5s",
+    animationTimingFunction: "linear",
+    animationIterationCount: "infinite",
+  },
   alignSelfFlexStart: {
     alignSelf: "flex-start",
   },
@@ -176,6 +228,9 @@ const buttonStyles = stylex.create({
   },
   mediumTextContainer: {
     translate: "0 2px",
+  },
+  grow: {
+    flexGrow: 1,
   },
 })
 

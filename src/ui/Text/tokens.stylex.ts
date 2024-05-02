@@ -13,5 +13,5 @@ export const weightTokens = stylex.defineVars({
 })
 
 export const colorTokens = stylex.defineVars({
-  color: colors.gray800,
+  color: "unset",
 })

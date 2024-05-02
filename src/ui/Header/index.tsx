@@ -8,8 +8,6 @@ import Logo from "~/ui/icons/Logo.svg"
 
 import { spacing } from "../tokens.stylex"
 
-console.log(Logo)
-
 export default function Header({ userSection }: { userSection?: ReactNode }) {
   return (
     <header {...stylex.props(styles.header)}>

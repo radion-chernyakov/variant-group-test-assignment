@@ -7,7 +7,7 @@ export const borderRadius = stylex.defineVars({
 
 export const colors = stylex.defineVars({
   green50: "#edfcf2",
-  green100: "#c8edd4",
+  green100: "#73E2A3",
   green200: "#7ed08f",
   green300: "#39b860",
   green400: "#009743",
@@ -38,6 +38,7 @@ export const colors = stylex.defineVars({
 }) // #667085
 
 export const spacing = stylex.defineVars({
+  xSmall: "6px",
   small: "8px",
   medium: "12px",
   normal: "16px",
@@ -52,11 +53,15 @@ export const inputsTokens = stylex.defineVars({
   borderRadius: borderRadius.control,
   borderWidth: "1px",
   borderColor: colors.gray100,
+  borderColorFocus: colors.green100,
+  borderColorInvalid: colors.red200,
   borderStyle: "solid",
   outline: "none",
-  boxShadow: {
-    default: "none",
-    ":focus-visible": `0px 0px 0px 4px ${colors.green50}`,
-  },
+  boxShadow: `0px 0px 0px 4px ${colors.green50}`,
+  boxShadowInvalid: `0px 0px 0px 4px ${colors.red100}`,
   placeholderColor: colors.gray400,
+})
+
+export const tmp = stylex.defineVars({
+  size: stylex.types.resolution("100px")
 })
