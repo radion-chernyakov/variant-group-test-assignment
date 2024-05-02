@@ -19,7 +19,7 @@ const formSchema = z.object({
   details: z.string().min(15).max(1200),
 })
 
-type ApplicationFormData = z.infer<typeof formSchema>
+export type ApplicationFormData = z.infer<typeof formSchema>
 
 type InitialValues = Partial<ApplicationFormData>
 

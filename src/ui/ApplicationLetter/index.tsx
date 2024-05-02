@@ -2,20 +2,12 @@
 
 import * as stylex from "@stylexjs/stylex"
 import { Fragment } from "react"
+import type { Application } from "~/applications/store"
 import Button from "~/ui/Button"
 import { type Size as TextSize, getLineHeight } from "~/ui/Text"
 import TextWithTextClamp from "~/ui/TextWithTextClamp"
 
 import { borderRadius, colors, spacing } from "../tokens.stylex"
-
-type Application = {
-  id: string
-  company: string
-  position: string
-  skills: string
-  details: string
-  letter: string
-}
 
 export default function ApplicationLetter({
   application,

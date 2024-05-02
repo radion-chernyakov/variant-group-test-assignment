@@ -8,10 +8,11 @@ import Button from "../Button"
 import { borderRadius, colors, spacing } from "../tokens.stylex"
 import { animationTokens } from "./tokens.stylex"
 
+// TODO: use type Application
 type ApplicationPreview =
   | {
       letter: string
-      generating: false
+      generating?: undefined
     }
   | {
       letter?: undefined
