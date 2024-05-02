@@ -1,3 +1,5 @@
+import * as stylex from "@stylexjs/stylex"
+
 import "./globals.css"
 
 export const metadata = {
@@ -13,9 +15,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <body {...stylex.props(styles.container)}>{children}</body>
     </html>
   )
 }
+
+const styles = stylex.create({
+  container: {
+    minHeight: "100vh",
+    paddingTop: "32px",
+    paddingBottom: "120px",
+    paddingHorizontal: "32px",
+    display: "flex",
+  },
+})

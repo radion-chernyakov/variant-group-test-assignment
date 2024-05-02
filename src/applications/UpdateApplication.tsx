@@ -65,5 +65,6 @@ const styles = stylex.create({
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     gap: "32px",
+    flexGrow: "1",
   },
 })
