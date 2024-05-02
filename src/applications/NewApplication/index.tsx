@@ -31,7 +31,7 @@ export default function NewApplication({
             setResult({ data: application })
             onResult({})
             console.log("Before redirect")
-            await router.push(`/applications/${application.id}`)
+            router.push(`/applications/${application.id}`)
           } catch {
             onResult({ error: "Something went wrong" })
             setResult({ error: "Something went wrong" })
