@@ -2,51 +2,46 @@
 
 import * as stylex from "@stylexjs/stylex"
 import { Fragment, useId } from "react"
+import { type Application } from "~/applications/store"
 import Text from "~/ui/Text"
+import { type Result } from "~/utils/result"
 
 import Button from "../Button"
 import { borderRadius, colors, spacing } from "../tokens.stylex"
 import { animationTokens } from "./tokens.stylex"
 
-// TODO: use type Application
-type ApplicationPreview =
-  | {
-      letter: string
-      generating?: undefined
-    }
-  | {
-      letter?: undefined
-      generating: true
-    }
+type ApplicationResult = Result<Application>
 
 export default function ApplicationLetterPreview({
-  preview,
+  applicationResult,
 }: {
-  preview: ApplicationPreview | null
+  applicationResult: ApplicationResult | null
 }) {
   return (
     <div {...stylex.props(styles.container)}>
-      {!preview && (
+      {!applicationResult && (
         <Text size="medium" colorVariant="light" weight="normal">
           Your personalized job application will appear here...
         </Text>
       )}
-      {preview?.generating && (
+      {applicationResult?.loading && (
         <div {...stylex.props(styles.loadingContainer)}>
           <Generating />
         </div>
       )}
-      {preview?.letter && (
+      {applicationResult?.data && (
         <>
           <div {...stylex.props(styles.textContainer)}>
-            {preview.letter.split("\n").map((paragraph, index) => (
-              <Fragment key={index}>
-                <Text size="medium" colorVariant="light" weight="normal">
-                  {paragraph}
-                </Text>
-                <br />
-              </Fragment>
-            ))}
+            {applicationResult.data.letter
+              .split("\n")
+              .map((paragraph, index) => (
+                <Fragment key={index}>
+                  <Text size="medium" colorVariant="light" weight="normal">
+                    {paragraph}
+                  </Text>
+                  <br />
+                </Fragment>
+              ))}
           </div>
           <div {...stylex.props(styles.buttonsContainer)}>
             <Button

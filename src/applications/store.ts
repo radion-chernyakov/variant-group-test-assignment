@@ -1,33 +1,65 @@
 import { useSyncExternalStore } from "react"
+import z from "zod"
 
-export type Application = {
-  id: string
-  company: string
-  position: string
-  skills: string
-  details: string
-  letter: string
-}
+const applicationSchema = z.object({
+  id: z.string(),
+  company: z.string(),
+  position: z.string(),
+  skills: z.string(),
+  details: z.string(),
+  letter: z.string(),
+})
 
-type ApplicationData = Omit<Application, 'id'>
+export type Application = z.infer<typeof applicationSchema>
 
-const applications = new Map<string, ApplicationData>()
+
+const localStorageKey = 'applications'
+
+type ApplicationData = Omit<Application, "id">
+
+let applications: Array<Application> = (() => {
+  try {
+    return z.array(applicationSchema).parse(JSON.parse(localStorage.getItem(localStorageKey) ?? ""))
+  } catch {
+    return []
+  }
+})()
 
 export const addApplication = (application: ApplicationData) => {
-  const newId = crypto.randomUUID()
-  applications.set(newId, application)
-  return {
-    id: newId,
+  const id = crypto.randomUUID()
+  const newApplication = {
+    id,
     ...application
   }
+  applications = [...applications, newApplication]
+  emitChange()
+  return newApplication
 }
 
 export const removeApplicationsById = (id: string) => {
-  applications.delete(id)
+  applications = applications.filter(application => application.id !== id)
+  emitChange()
 }
 
-export const updateApplication = ({ id, ...applicationData }: Application) => {
-  applications.set(id, applicationData)
+export const updateApplication = ({ id, ...applicationData }: Application): Application => {
+  const updatedApplication = {
+    id,
+    ...applicationData
+  }
+
+  const applicationIndex = applications.findIndex(({ id: applicationId }) => applicationId === id)
+  if (applicationIndex) {
+    applications = applications.map((application, index) => {
+      if (index === applicationIndex) return application
+
+      return updatedApplication
+    })
+    emitChange()
+    return updatedApplication
+  } else {
+    // TODO: throw & report error
+    return updatedApplication
+  }
 }
 
 type Listener = () => void
@@ -39,13 +71,15 @@ function subscribe(listener: Listener) {
   return () => listeners.delete(listener)
 }
 
-function getSnapshot(): Array<Application> {
-  return [...applications.entries()].map(([id, applicationData]) => ({
-    id,
-    ...applicationData,
-  }))
+export function useApplications() {
+  return useSyncExternalStore(subscribe, () => applications, () => null)
 }
 
-function useApplications() {
-  return useSyncExternalStore(subscribe, getSnapshot)
+export function useApplication(id: string) {
+  return useSyncExternalStore(subscribe, () => applications.find(({ id: applicationId }) => applicationId === id) ?? null, () => null)
+}
+
+function emitChange() {
+  listeners.forEach(listener => listener())
+  localStorage.setItem(localStorageKey, JSON.stringify(applications))
 }

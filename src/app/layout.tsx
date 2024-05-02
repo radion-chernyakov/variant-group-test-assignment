@@ -1,18 +1,4 @@
-import * as stylex from "@stylexjs/stylex"
-import Header from "~/ui/Header"
-
 import "./globals.css"
-
-const styles = stylex.create({
-  base: {
-    fontSize: 16,
-    lineHeight: 1.5,
-    color: "grey",
-  },
-  highlighted: {
-    color: "rebeccapurple",
-  },
-})
 
 export const metadata = {
   title: "Create T3 App",
@@ -27,8 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body {...stylex.props(styles.base, styles.highlighted)}>
-        <Header />
+      <body>
         {children}
       </body>
     </html>
