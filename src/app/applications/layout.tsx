@@ -3,6 +3,8 @@ import { Suspense, type ReactNode } from "react"
 import ApplicationsCounter from "~/applications/ApplicationCounter"
 import Header from "~/ui/Header"
 
+import { spacing } from "../../ui/tokens.stylex"
+
 export default function ApplicationsLayout({
   children,
 }: {
@@ -25,7 +27,7 @@ export default function ApplicationsLayout({
 const styles = stylex.create({
   container: {
     display: "flex",
-    gap: "32px",
+    gap: spacing.xLarge,
     flexDirection: "column",
     flexGrow: "1",
   },

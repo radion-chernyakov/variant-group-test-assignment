@@ -13,6 +13,7 @@ export default function HitYourGoal() {
   const applications = useApplications()
   if (!applications) return null
   const progress = applications.length
+  if (progress >= 5) return null
   return (
     <section {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.innerContainer)}>

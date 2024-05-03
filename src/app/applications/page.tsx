@@ -3,6 +3,8 @@ import { Suspense } from "react"
 import ApplicationsList from "~/applications/ApplicationsList"
 import HitYourGoal from "~/applications/HitYourGoal"
 
+import { spacing } from "../../ui/tokens.stylex"
+
 export default function ApplicationsPage() {
   return (
     <div {...stylex.props(styles.container)}>
@@ -20,7 +22,7 @@ const styles = stylex.create({
   container: {
     display: "grid",
     height: "max-content",
-    gap: "32px",
+    gap: spacing.xLarge,
     width: "100%",
   },
 })

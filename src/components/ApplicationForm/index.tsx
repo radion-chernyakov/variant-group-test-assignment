@@ -1,7 +1,7 @@
 "use client"
 
 import * as stylex from "@stylexjs/stylex"
-import { useId, useState, type ReactNode } from "react"
+import { type ComponentProps, useId, useState, type ReactNode } from "react"
 import { useZorm, unstable_inputProps as inputProps } from "react-zorm"
 import z from "zod"
 import Button from "~/ui/Button"
@@ -10,7 +10,7 @@ import Label from "~/ui/Label"
 import Text from "~/ui/Text"
 import Textarea from "~/ui/Textarea"
 
-import { spacing } from "../../ui/tokens.stylex"
+import { spacing, type Query } from "../../ui/tokens.stylex"
 
 const formSchema = z.object({
   position: z.string().min(1),
@@ -57,7 +57,9 @@ const formInputs = [
   },
   {
     name: "details",
-    component: Textarea,
+    component: (props: ComponentProps<typeof Textarea>) => (
+      <Textarea rows={10} {...props} />
+    ),
     label: "Additional details",
     placeholder:
       "I want to help you build awesome solutions to accomplish your goals and vision",
@@ -192,11 +194,22 @@ function InputContainer({
   )
 }
 
+const smallMediaQuery: Query["medium"] = "@media (max-width: 768px)"
+
 const style = stylex.create({
   container: {
     height: "100%",
     display: "grid",
     gridTemplateAreas: {
+      [smallMediaQuery]: `
+"jobTitle"
+"company"
+"skills"
+"details"
+"error"
+"submit"
+       
+      `,
       default: `
 "jobTitle company"
 "skills   skills"
@@ -210,6 +223,7 @@ const style = stylex.create({
       default: "max-content max-content 1fr max-content",
     },
     gridTemplateColumns: {
+      [smallMediaQuery]: "1fr",
       default: "1fr 1fr",
     },
     gap: spacing.normal,

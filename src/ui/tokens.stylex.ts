@@ -1,5 +1,19 @@
 import * as stylex from "@stylexjs/stylex"
 
+type ScreenWidth = {
+  small: 480,
+  medium: 768,
+  large: 1024
+  xLarge: 1200
+  xxLarge: 1440
+}
+
+type GenericQuery<Type extends Record<string, number>> = {
+  [Property in keyof Type]: `@media (max-width: ${Type[Property]}px)`;
+};
+
+export type Query = GenericQuery<ScreenWidth>
+
 export const borderRadius = stylex.defineVars({
   control: "6px",
   section: "12px",
@@ -60,8 +74,4 @@ export const inputsTokens = stylex.defineVars({
   boxShadow: `0px 0px 0px 4px ${colors.green50}`,
   boxShadowInvalid: `0px 0px 0px 4px ${colors.red100}`,
   placeholderColor: colors.gray400,
-})
-
-export const tmp = stylex.defineVars({
-  size: stylex.types.resolution("100px")
 })

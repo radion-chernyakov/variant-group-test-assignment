@@ -3,6 +3,7 @@
 import stylex from "@stylexjs/stylex"
 import Application from "~/ui/Application"
 
+import { spacing, type Query } from "../ui/tokens.stylex"
 import { removeApplicationsById, useApplications } from "./store"
 
 export default function ApplicationsList() {
@@ -22,10 +23,17 @@ export default function ApplicationsList() {
   )
 }
 
+const mediumQuery: Query["medium"] = "@media (max-width: 768px)"
+const xLargeQuery: Query["xLarge"] = "@media (max-width: 1200px)"
+
 const styles = stylex.create({
   container: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: "16px",
+    gridTemplateColumns: {
+      default: "1fr 1fr 1fr",
+      [mediumQuery]: "1fr",
+      [xLargeQuery]: "1fr 1fr",
+    },
+    gap: spacing.small,
   },
 })

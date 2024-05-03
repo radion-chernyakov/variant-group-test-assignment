@@ -9,6 +9,7 @@ import ApplicationForm from "~/components/ApplicationForm"
 import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
 import { type Result } from "~/utils/result"
 
+import { spacing, type Query } from "../ui/tokens.stylex"
 import { useApplication } from "./store"
 
 export default function UpdateApplication({
@@ -60,11 +61,15 @@ export default function UpdateApplication({
   )
 }
 
+const mediumMediaQuery: Query["medium"] = "@media (max-width: 768px)"
 const styles = stylex.create({
   container: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: "32px",
+    gridTemplateColumns: {
+      default: "1fr 1fr",
+      [mediumMediaQuery]: "1fr",
+    },
+    gap: spacing.xLarge,
     flexGrow: "1",
   },
 })
