@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import ApplicationLetter from "./index"
+import Application from "./index"
 
-const meta: Meta<typeof ApplicationLetter> = {
-  component: ApplicationLetter,
+const meta: Meta<typeof Application> = {
+  component: Application,
 }
 
 export default meta
-type Story = StoryObj<typeof ApplicationLetter>
+type Story = StoryObj<typeof Application>
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.

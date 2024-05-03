@@ -1,20 +1,26 @@
 "use client"
 
 import * as stylex from "@stylexjs/stylex"
-import { Fragment } from "react"
+import { Fragment, type MouseEventHandler } from "react"
 import type { Application } from "~/applications/store"
 import Button from "~/ui/Button"
 import { type Size as TextSize, getLineHeight } from "~/ui/Text"
 import TextWithTextClamp from "~/ui/TextWithTextClamp"
+import Copy from "~/ui/icons/Copy.svg"
+import Trash from "~/ui/icons/Trash.svg"
 
 import { borderRadius, colors, spacing } from "../tokens.stylex"
 
-export default function ApplicationLetter({
+export default function Application({
   application,
   textSize = "medium",
+  onDelete,
+  onCopy,
 }: {
+  onDelete: MouseEventHandler<HTMLButtonElement>
+  onCopy: MouseEventHandler<HTMLButtonElement>
   application: Application
-  textSize: TextSize
+  textSize?: TextSize
 }) {
   return (
     <section {...stylex.props(styles.container)}>
@@ -25,7 +31,7 @@ export default function ApplicationLetter({
         <TextWithTextClamp colorVariant="light" size={textSize} weight="normal">
           {application.letter.split("\n").map((paragraph, index) => (
             <Fragment key={index}>
-              <div key={index}>{paragraph}</div>
+              <span key={index}>{paragraph}</span>
               <br />
             </Fragment>
           ))}
@@ -37,7 +43,9 @@ export default function ApplicationLetter({
           alignSelf="flex-start"
           intent="functional"
           size="small"
-          onClick={() => console.log("delete")}
+          icon={Trash}
+          iconPosition="block-start"
+          onClick={onDelete}
         >
           Delete
         </Button>
@@ -45,7 +53,9 @@ export default function ApplicationLetter({
           alignSelf="flex-end"
           intent="functional"
           size="small"
-          onClick={() => console.log("copy")}
+          onClick={onCopy}
+          icon={Copy}
+          iconPosition="block-end"
         >
           Copy to clipboard
         </Button>
@@ -56,6 +66,7 @@ export default function ApplicationLetter({
 
 const styles = stylex.create({
   container: {
+    height: "max-content",
     display: "flex",
     flexDirection: "column",
     backgroundColor: colors.gray50,

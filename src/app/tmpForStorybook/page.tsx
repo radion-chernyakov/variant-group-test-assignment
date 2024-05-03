@@ -1,11 +1,11 @@
 "use client"
 
+import HitYourGoal from "~/applications/HitYourGoal"
 import ApplicationForm from "~/components/ApplicationForm"
-import ApplicationLetter from "~/ui/ApplicationLetter"
+import Application from "~/ui/Application"
 import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
 import Button from "~/ui/Button"
 import Header from "~/ui/Header"
-import HitYourGoal from "~/ui/HitYourGoal"
 import Input from "~/ui/Input"
 import Label from "~/ui/Label"
 import ProgressBar from "~/ui/ProgressBar"
@@ -18,7 +18,7 @@ console.log(
   Text,
   Plus,
   Header,
-  ApplicationLetter,
+  Application,
   HitYourGoal,
   ProgressBar,
   ApplicationLetterPreview,

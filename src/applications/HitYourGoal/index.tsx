@@ -1,11 +1,18 @@
+"use client"
+
 import * as stylex from "@stylexjs/stylex"
+import Link from "next/link"
+import Button from "~/ui/Button"
+import ProgressBar from "~/ui/ProgressBar"
 import Text from "~/ui/Text"
 
-import Button from "../Button"
-import ProgressBar from "../ProgressBar"
-import { borderRadius, colors, spacing } from "../tokens.stylex"
+import { borderRadius, colors, spacing } from "../../ui/tokens.stylex"
+import { useApplications } from "../store"
 
-export default function HitYourGoal({ progress }: { progress: number }) {
+export default function HitYourGoal() {
+  const applications = useApplications()
+  if (!applications) return null
+  const progress = applications.length
   return (
     <section {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.innerContainer)}>
@@ -23,10 +30,11 @@ export default function HitYourGoal({ progress }: { progress: number }) {
             hired faster
           </Text>
           <Button
+            as={Link}
+            href="/applications/new"
             alignSelf="center"
             size="medium"
             intent="submit"
-            onClick={() => console.log("click!")}
           >
             Create New
           </Button>
@@ -44,6 +52,7 @@ export default function HitYourGoal({ progress }: { progress: number }) {
 
 const styles = stylex.create({
   container: {
+    height: "max-content",
     display: "flex",
     justifyContent: "center",
     paddingVertical: 54,

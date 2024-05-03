@@ -2,6 +2,7 @@
 
 import * as stylex from "@stylexjs/stylex"
 import { type StyleXStyles } from "@stylexjs/stylex/lib/StyleXTypes"
+import type Link from "next/link"
 import {
   type ComponentProps,
   type ComponentType,
@@ -44,18 +45,42 @@ type ChildrenProps =
 
 type AlignSelf = "flex-start" | "flex-end" | "center"
 
+// type ActionProps =
+//   | {
+//       as: typeof Link
+//       href: string
+//     }
+//   | {
+//       as?: "button"
+//       href?: undefined
+//     }
+
+type ActionProps =
+  | {
+      as: typeof Link
+      href?: string
+      onClick?: MouseEventHandler<ComponentProps<typeof Link>>
+    }
+  | {
+      as?: "button"
+      href?: undefined
+      onClick?: MouseEventHandler<HTMLButtonElement>
+    }
+
 type Props = {
   grow?: boolean
   alignSelf?: AlignSelf
   size: Size
   intent: Intent
-  onClick?: MouseEventHandler<HTMLButtonElement>
   loading?: boolean
 } & ChildrenProps &
+  ActionProps &
   Pick<ComponentProps<"button">, "type" | "disabled">
 
 // TODO: avoid disabling buttons inside forms (using either context or selectors) to improve UX
 // see https://adrianroselli.com/2024/02/dont-disable-form-controls.html
+
+type NotNullable<T> = Exclude<T, null | undefined>
 
 export default function Button({
   children,
@@ -64,6 +89,7 @@ export default function Button({
   icon: Icon,
   iconPosition,
   onClick: rawOnClick,
+  as: As = "button",
   label: labeledBy,
   alignSelf,
   grow,
@@ -80,15 +106,15 @@ export default function Button({
     ? iconPositionMap[iconPosition]
     : undefined
 
-  const onClick = (e: Parameters<MouseEventHandler<HTMLButtonElement>>[0]) => {
+  const onClick = (e: Parameters<NotNullable<typeof rawOnClick>>[0]) => {
     if (loading) return
-    rawOnClick && rawOnClick(e)
+    rawOnClick?.(e)
   }
 
   const type = loading ? "button" : rawType
 
   return (
-    <button
+    <As
       aria-labelledby={!children ? labeledById : undefined}
       onClick={onClick}
       type={type}
@@ -129,7 +155,7 @@ export default function Button({
           {children}
         </Text>
       )}
-    </button>
+    </As>
   )
 }
 
@@ -157,6 +183,8 @@ const rotateAnimation = stylex.keyframes({
 
 const buttonStyles = stylex.create({
   base: {
+    outline: "none",
+    textDecoration: "none",
     position: "relative",
     borderRadius: borderRadius.control,
     cursor: { default: "pointer", ":disabled": "default" },

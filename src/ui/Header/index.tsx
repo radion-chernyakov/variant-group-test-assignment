@@ -1,6 +1,7 @@
 "use client"
 
 import * as stylex from "@stylexjs/stylex"
+import Link from "next/link"
 import { type ReactNode } from "react"
 import Button from "~/ui/Button"
 import Home from "~/ui/icons/Home.svg"
@@ -15,10 +16,11 @@ export default function Header({ userSection }: { userSection?: ReactNode }) {
       <div {...stylex.props(styles.userSection)}>
         {userSection}
         <Button
+          as={Link}
+          href="/applications"
           icon={Home}
           size="small"
           intent="action"
-          onClick={() => console.log("hey!")}
           label="Home page"
         />
       </div>

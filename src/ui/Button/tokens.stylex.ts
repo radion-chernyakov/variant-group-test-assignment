@@ -13,7 +13,7 @@ export const buttonSize = stylex.defineVars({
 })
 
 export const buttonIntent = stylex.defineVars({
-  focusRing: colors.green50,
+  focusRing: colors.green500,
   color: "white",
   colorDisabled: colors.gray300,
   colorHover: colors.gray50,
