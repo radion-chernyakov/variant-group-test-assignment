@@ -8,11 +8,12 @@ type ScreenWidth = {
   xxLarge: 1440
 }
 
-type GenericQuery<Type extends Record<string, number>> = {
-  [Property in keyof Type]: `@media (max-width: ${Type[Property]}px)`;
+type GenericQuery<Width extends Record<string, number>, QueryType extends string> = {
+  [Property in keyof Width]: `@${QueryType} (max-width: ${Width[Property]}px)`;
 };
 
-export type Query = GenericQuery<ScreenWidth>
+export type MediaQuery = GenericQuery<ScreenWidth, 'media'>
+export type ContainerQuery = GenericQuery<ScreenWidth, 'container'>
 
 export const borderRadius = stylex.defineVars({
   control: "6px",

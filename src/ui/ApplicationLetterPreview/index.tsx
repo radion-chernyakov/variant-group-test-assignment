@@ -1,7 +1,7 @@
 "use client"
 
 import * as stylex from "@stylexjs/stylex"
-import { Fragment, useId } from "react"
+import { Fragment, type Ref, useId, forwardRef } from "react"
 import { type Application } from "~/applications/store"
 import Text from "~/ui/Text"
 import { type Result } from "~/utils/result"
@@ -12,13 +12,16 @@ import { animationTokens } from "./tokens.stylex"
 
 type ApplicationResult = Result<Application>
 
-export default function ApplicationLetterPreview({
-  applicationResult,
-}: {
-  applicationResult: ApplicationResult | null
-}) {
+function ApplicationLetterPreview(
+  {
+    applicationResult,
+  }: {
+    applicationResult: ApplicationResult | null
+  },
+  ref: Ref<HTMLDivElement>,
+) {
   return (
-    <div {...stylex.props(styles.container)}>
+    <div ref={ref} {...stylex.props(styles.container)}>
       {!applicationResult && (
         <Text size="medium" colorVariant="light" weight="normal">
           Your personalized job application will appear here...
@@ -57,6 +60,8 @@ export default function ApplicationLetterPreview({
     </div>
   )
 }
+
+export default forwardRef(ApplicationLetterPreview)
 
 const styles = stylex.create({
   container: {

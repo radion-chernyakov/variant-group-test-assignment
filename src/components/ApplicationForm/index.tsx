@@ -10,7 +10,7 @@ import Label from "~/ui/Label"
 import Text from "~/ui/Text"
 import Textarea from "~/ui/Textarea"
 
-import { spacing, type Query } from "../../ui/tokens.stylex"
+import { spacing, type ContainerQuery } from "../../ui/tokens.stylex"
 
 const formSchema = z.object({
   position: z.string().min(1),
@@ -141,29 +141,31 @@ export default function ApplicationForm({
     inputs.find(({ field: fieldI }) => fieldI === field)?.input()
 
   return (
-    <form {...stylex.props(style.container)} ref={form.ref}>
-      <div {...stylex.props(style.jobTitle)}>{getInput("position")}</div>
-      <div {...stylex.props(style.company)}>{getInput("company")}</div>
-      <div {...stylex.props(style.skills)}>{getInput("skills")}</div>
-      <div {...stylex.props(style.details)}>{getInput("details")}</div>
-      {formState?.error && (
-        <div {...stylex.props(style.error)}>
-          <ErrorMessage message={formState.error} />
+    <div {...stylex.props(style.container)}>
+      <form {...stylex.props(style.form)} ref={form.ref}>
+        <div {...stylex.props(style.jobTitle)}>{getInput("position")}</div>
+        <div {...stylex.props(style.company)}>{getInput("company")}</div>
+        <div {...stylex.props(style.skills)}>{getInput("skills")}</div>
+        <div {...stylex.props(style.details)}>{getInput("details")}</div>
+        {formState?.error && (
+          <div {...stylex.props(style.error)}>
+            <ErrorMessage message={formState.error} />
+          </div>
+        )}
+        <div {...stylex.props(style.submit)}>
+          <Button
+            grow
+            disabled={!isValid}
+            type="submit"
+            size="medium"
+            intent="submit"
+            loading={formState?.loading}
+          >
+            Generate Now
+          </Button>
         </div>
-      )}
-      <div {...stylex.props(style.submit)}>
-        <Button
-          grow
-          disabled={!isValid}
-          type="submit"
-          size="medium"
-          intent="submit"
-          loading={formState?.loading}
-        >
-          Generate Now
-        </Button>
-      </div>
-    </form>
+      </form>
+    </div>
   )
 }
 
@@ -194,14 +196,18 @@ function InputContainer({
   )
 }
 
-const smallMediaQuery: Query["medium"] = "@media (max-width: 768px)"
+const smallContainerQuery: ContainerQuery["small"] =
+  "@container (max-width: 480px)"
 
 const style = stylex.create({
   container: {
+    containerType: "inline-size",
+  },
+  form: {
     height: "100%",
     display: "grid",
     gridTemplateAreas: {
-      [smallMediaQuery]: `
+      [smallContainerQuery]: `
 "jobTitle"
 "company"
 "skills"
@@ -217,13 +223,14 @@ const style = stylex.create({
 "error    error"
 "submit   submit"
       `,
-      // TODO: media query OR container query to one-col layout
     },
     gridTemplateRows: {
+      [smallContainerQuery]:
+        "max-content max-content max-content 1fr max-content max-content",
       default: "max-content max-content 1fr max-content",
     },
     gridTemplateColumns: {
-      [smallMediaQuery]: "1fr",
+      [smallContainerQuery]: "1fr",
       default: "1fr 1fr",
     },
     gap: spacing.normal,
