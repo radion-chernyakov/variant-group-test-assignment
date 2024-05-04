@@ -5,6 +5,7 @@ import Link from "next/link"
 import Button from "~/ui/Button"
 import ProgressBar from "~/ui/ProgressBar"
 import Text from "~/ui/Text"
+import PlusIcon from "~/ui/icons/Plus.svg"
 
 import {
   type MediaQuery,
@@ -41,6 +42,8 @@ export default function HitYourGoal() {
             alignSelf="center"
             size="medium"
             intent="submit"
+            icon={PlusIcon}
+            iconPosition="block-start"
           >
             Create New
           </Button>
