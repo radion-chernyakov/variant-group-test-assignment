@@ -40,8 +40,8 @@ export const colors = stylex.defineVars({
   gray600: "#4c4c4c",
   gray700: "#292929",
   gray800: "#344054",
-  gray900: "#101828", // check is it fits into 800
-  gray25: "#C6C7CB", // find proper number for this guy too
+  gray900: "#101828", // TODO: add 900 color for others
+  gray25: "#C6C7CB", // TODO: is it really 25 or fits to some other colors?
   red50: "#ffebe9",
   red100: "#fee4e2",
   red200: "#fda29b",
@@ -51,7 +51,7 @@ export const colors = stylex.defineVars({
   red600: "#891e20",
   red700: "#530f10",
   red800: "#350700",
-}) // #667085
+})
 
 export const spacing = stylex.defineVars({
   xSmall: "6px",
@@ -60,6 +60,14 @@ export const spacing = stylex.defineVars({
   normal: "16px",
   large: "24px",
   xLarge: "32px",
+})
+
+export const paddings = stylex.defineVars({
+  xSmall: "12px",
+  small: "24px",
+  medium: "32px",
+  large: "54px",
+  xLarge: "64px",
 })
 
 export const inputsTokens = stylex.defineVars({

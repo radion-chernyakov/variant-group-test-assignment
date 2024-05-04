@@ -24,15 +24,13 @@ export default function ApplicationsList() {
 }
 
 const mediumQuery: MediaQuery["medium"] = "@media (max-width: 768px)"
-const xLargeQuery: MediaQuery["xLarge"] = "@media (max-width: 1200px)"
 
 const styles = stylex.create({
   container: {
     display: "grid",
     gridTemplateColumns: {
-      default: "1fr 1fr 1fr",
+      default: "1fr 1fr",
       [mediumQuery]: "1fr",
-      [xLargeQuery]: "1fr 1fr",
     },
     gap: spacing.small,
   },

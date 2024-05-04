@@ -7,7 +7,7 @@ import Text from "~/ui/Text"
 import { type Result } from "~/utils/result"
 
 import Button from "../Button"
-import { borderRadius, colors, spacing } from "../tokens.stylex"
+import { borderRadius, colors, paddings, spacing } from "../tokens.stylex"
 import { animationTokens } from "./tokens.stylex"
 
 type ApplicationResult = Result<Application>
@@ -69,15 +69,16 @@ const styles = stylex.create({
     display: "flex",
     flexGrow: 1,
     flexDirection: "column",
-    padding: 24,
+    padding: paddings.small,
     gap: spacing.small,
     borderRadius: borderRadius.section,
     backgroundColor: colors.gray50,
     justifyContent: "space-between",
   },
   textContainer: {
-    paddingRight: "12px",
-    marginRight: "-12px",
+    overflowY: "scroll",
+    paddingRight: paddings.xSmall, // to add space for scroll bar
+    marginRight: `calc(-1 * ${paddings.xSmall})`,
   },
   loadingContainer: {
     flexGrow: 1,
@@ -86,10 +87,9 @@ const styles = stylex.create({
     justifyContent: "center",
   },
   buttonsContainer: {
-    paddingTop: "12px",
-    marginTop: "-12px",
-    // TODO: calculate ^ 12 px and 60% somehow to make it scalable
-    background: `linear-gradient(180deg, transparent 0%, ${colors.gray50} 60%)`,
+    paddingTop: paddings.xSmall, // to add space for background gradient
+    marginTop: `calc(-1 * ${paddings.xSmall})`,
+    background: `linear-gradient(180deg, transparent 0%, ${colors.gray50} 70%)`,
     position: "sticky",
     bottom: 0,
     display: "flex",

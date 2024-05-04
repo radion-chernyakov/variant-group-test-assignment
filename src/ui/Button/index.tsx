@@ -14,7 +14,7 @@ import {
 import Text, { type Size as TextSize } from "~/ui/Text"
 import Loading from "~/ui/icons/Loading.svg"
 
-import { borderRadius, colors } from "../tokens.stylex"
+import { borderRadius, colors, paddings } from "../tokens.stylex"
 import { baseButtonTokens, buttonSize, buttonIntent } from "./tokens.stylex"
 
 type Size = "small" | "medium"
@@ -241,8 +241,8 @@ const buttonStyles = stylex.create({
     alignSelf: "center",
   },
   functionalIntent: {
-    padding: "10px",
-    margin: "-10px",
+    padding: paddings.xSmall,
+    margin: `calc(-1 * ${paddings.xSmall})`,
     borderWidth: "0px",
   },
   iconOnly: {

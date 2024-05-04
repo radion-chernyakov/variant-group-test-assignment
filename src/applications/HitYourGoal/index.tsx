@@ -12,6 +12,7 @@ import {
   borderRadius,
   colors,
   spacing,
+  paddings,
 } from "../../ui/tokens.stylex"
 import { useApplications } from "../store"
 
@@ -67,12 +68,12 @@ const styles = stylex.create({
     display: "flex",
     justifyContent: "center",
     paddingVertical: {
-      default: 54,
-      [smallMediaQuery]: 28,
+      default: paddings.large,
+      [smallMediaQuery]: paddings.small,
     },
     paddingHorizontal: {
-      default: 64,
-      [smallMediaQuery]: 32,
+      default: paddings.xLarge,
+      [smallMediaQuery]: paddings.medium,
     },
     borderRadius: borderRadius.section,
     backgroundColor: colors.green50,

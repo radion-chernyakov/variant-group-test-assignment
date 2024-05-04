@@ -9,7 +9,7 @@ import TextWithTextClamp from "~/ui/TextWithTextClamp"
 import Copy from "~/ui/icons/Copy.svg"
 import Trash from "~/ui/icons/Trash.svg"
 
-import { borderRadius, colors, spacing } from "../tokens.stylex"
+import { borderRadius, colors, paddings, spacing } from "../tokens.stylex"
 
 export default function Application({
   application,
@@ -71,7 +71,7 @@ const styles = stylex.create({
     flexDirection: "column",
     backgroundColor: colors.gray50,
     borderRadius: borderRadius.control,
-    padding: "24px",
+    padding: paddings.small,
     gap: spacing.normal,
   },
   buttonSection: {

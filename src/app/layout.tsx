@@ -1,5 +1,6 @@
 import * as stylex from "@stylexjs/stylex"
 
+import { paddings } from "../ui/tokens.stylex"
 import "./globals.css"
 
 export const metadata = {
@@ -14,18 +15,23 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body {...stylex.props(styles.container)}>{children}</body>
+    <html {...stylex.props(styles.html)} lang="en">
+      <body {...stylex.props(styles.body)}>{children}</body>
     </html>
   )
 }
 
 const styles = stylex.create({
-  container: {
-    minHeight: "100vh",
-    paddingTop: "32px",
-    paddingBottom: "120px",
-    paddingHorizontal: "32px",
+  html: {
     display: "flex",
+    justifyContent: "center",
+  },
+  body: {
+    flexGrow: 1,
+    minHeight: "100vh",
+    paddingVertical: paddings.medium,
+    paddingHorizontal: paddings.medium,
+    display: "flex",
+    maxWidth: `calc(1120px + ${paddings.medium} * 2)`,
   },
 })
