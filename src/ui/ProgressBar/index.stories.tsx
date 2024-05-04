@@ -14,7 +14,7 @@ const meta: Meta<typeof ProgressBar> = {
       type: "number",
     },
     progressStyle: {
-      options: ["dot", "rounded"],
+      options: ["dots", "rounded"],
       control: { type: "radio" },
     },
     textStyle: {
@@ -22,6 +22,11 @@ const meta: Meta<typeof ProgressBar> = {
       control: { type: "radio" },
     },
   },
+  render: (props) => (
+    <div style={{ containerType: "inline-size" }}>
+      <ProgressBar {...props} />
+    </div>
+  ),
 }
 
 export default meta

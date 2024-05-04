@@ -46,7 +46,7 @@ export default function HitYourGoal() {
           </Button>
         </div>
         <ProgressBar
-          textStyle="full"
+          preferTextStyle="short"
           progress={progress}
           progressStyle="rounded"
           layout="vertical"

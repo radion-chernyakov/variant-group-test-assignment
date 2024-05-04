@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex"
 
 type ScreenWidth = {
+  xSmall: 320,
   small: 480,
   medium: 768,
   large: 1024

@@ -7,7 +7,7 @@ import Button from "~/ui/Button"
 import Home from "~/ui/icons/Home.svg"
 import Logo from "~/ui/icons/Logo.svg"
 
-import { spacing } from "../tokens.stylex"
+import { type MediaQuery, spacing } from "../tokens.stylex"
 
 export default function Header({ userSection }: { userSection?: ReactNode }) {
   return (
@@ -28,6 +28,9 @@ export default function Header({ userSection }: { userSection?: ReactNode }) {
   )
 }
 
+const mediumMediaQuery: MediaQuery["medium"] = "@media (max-width: 768px)"
+const smallMediaQuery: MediaQuery["small"] = "@media (max-width: 480px)"
+
 const styles = stylex.create({
   header: {
     display: "flex",
@@ -35,8 +38,15 @@ const styles = stylex.create({
     alignContent: "center",
   },
   userSection: {
+    containerType: "inline-size",
     display: "flex",
     alignItems: "center",
-    gap: spacing.large,
+    flexGrow: "1",
+    justifyContent: "flex-end",
+    gap: {
+      [smallMediaQuery]: spacing.small,
+      [mediumMediaQuery]: spacing.medium,
+      default: spacing.large,
+    },
   },
 })

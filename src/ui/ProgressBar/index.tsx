@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex"
 import Text from "~/ui/Text"
 import CheckIcon from "~/ui/icons/Check.svg"
 
-import { colors, spacing } from "../tokens.stylex"
+import { type ContainerQuery, colors, spacing } from "../tokens.stylex"
 
 const maxProgress = 5
 
@@ -13,29 +13,22 @@ type Layout = "vertical" | "horizontal"
 export default function ProgressBar({
   progress,
   progressStyle,
-  textStyle,
+  preferTextStyle = "full",
   layout,
 }: {
   progress: number
   progressStyle: ProgressStyle
-  textStyle: TextStyle
+  preferTextStyle?: TextStyle
   layout: Layout
 }) {
   const effectiveMaxProgress = progress < maxProgress ? maxProgress : progress
 
-  const compactText = `${progress} out of ${effectiveMaxProgress}`
+  const shortText = `${progress} out of ${effectiveMaxProgress}`
 
-  const fullProgressText =
+  const fullText =
     progress > maxProgress
       ? `${progress}/${effectiveMaxProgress} applications generated`
       : `${progress}/5 applications generated`
-
-  const displayTextMap: Record<TextStyle, string> = {
-    short: compactText,
-    full: fullProgressText,
-  }
-
-  const displayText = displayTextMap[textStyle]
 
   return (
     <div
@@ -44,7 +37,7 @@ export default function ProgressBar({
       aria-valuemin={0}
       aria-valuemax={effectiveMaxProgress}
       aria-valuenow={progress}
-      aria-valuetext={fullProgressText}
+      aria-valuetext={fullText}
     >
       <div {...stylex.props(styles.progressItemsContainer)}>
         {progress < maxProgress ? (
@@ -67,12 +60,30 @@ export default function ProgressBar({
         textAlign="center"
         weight="light"
         size="medium"
+        style={preferTextStyle === "full" ? styles.compactText : null}
       >
-        {displayText}
+        {shortText}
       </Text>
+      {preferTextStyle === "full" && (
+        <Text
+          colorVariant="light"
+          textAlign="center"
+          weight="light"
+          size="medium"
+          style={styles.fullText}
+        >
+          {fullText}
+        </Text>
+      )}
     </div>
   )
 }
+
+const xSmallContainerQuery: ContainerQuery["xSmall"] =
+  "@container (max-width: 320px)"
+
+const smallContainerQuery: ContainerQuery["small"] =
+  "@container (max-width: 480px)"
 
 const styles = stylex.create({
   container: {
@@ -91,7 +102,10 @@ const styles = stylex.create({
     justifyContent: "center",
     alignItems: "center",
     display: "flex",
-    gap: spacing.small,
+    gap: {
+      default: spacing.small,
+      [xSmallContainerQuery]: spacing.xSmall,
+    },
   },
   progressItemRounded: {
     width: "32px",
@@ -106,6 +120,19 @@ const styles = stylex.create({
   },
   progressItemCompleted: {
     backgroundColor: colors.gray900,
+  },
+  compactText: {
+    display: {
+      default: "none",
+      [xSmallContainerQuery]: "none",
+      [smallContainerQuery]: "block",
+    },
+  },
+  fullText: {
+    display: {
+      default: null,
+      [smallContainerQuery]: "none",
+    },
   },
 })
 
