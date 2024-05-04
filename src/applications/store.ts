@@ -50,9 +50,9 @@ export const updateApplication = ({ id, ...applicationData }: Application): Appl
   const applicationIndex = applications.findIndex(({ id: applicationId }) => applicationId === id)
   if (applicationIndex) {
     applications = applications.map((application, index) => {
-      if (index === applicationIndex) return application
+      if (index === applicationIndex) return updatedApplication
 
-      return updatedApplication
+      return application
     })
     emitChange()
     return updatedApplication
