@@ -6,7 +6,12 @@ import Button from "~/ui/Button"
 import ProgressBar from "~/ui/ProgressBar"
 import Text from "~/ui/Text"
 
-import { borderRadius, colors, spacing } from "../../ui/tokens.stylex"
+import {
+  type MediaQuery,
+  borderRadius,
+  colors,
+  spacing,
+} from "../../ui/tokens.stylex"
 import { useApplications } from "../store"
 
 export default function HitYourGoal() {
@@ -51,13 +56,21 @@ export default function HitYourGoal() {
   )
 }
 
+const smallMediaQuery: MediaQuery["small"] = "@media (max-width: 480px)"
+
 const styles = stylex.create({
   container: {
     height: "max-content",
     display: "flex",
     justifyContent: "center",
-    paddingVertical: 54,
-    paddingHorizontal: 64,
+    paddingVertical: {
+      default: 54,
+      [smallMediaQuery]: 28,
+    },
+    paddingHorizontal: {
+      default: 64,
+      [smallMediaQuery]: 32,
+    },
     borderRadius: borderRadius.section,
     backgroundColor: colors.green50,
   },
