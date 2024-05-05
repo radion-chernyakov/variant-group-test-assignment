@@ -63,6 +63,10 @@ export const backgroundColors = stylex.defineVars({
     default: colors.gray50,
     "@media (prefers-color-scheme: dark)": colors.gray700,
   },
+  grayHover: {
+    default: colors.gray75,
+    "@media (prefers-color-scheme: dark)": colors.gray800,
+  },
   green: {
     default: colors.green50,
     "@media (prefers-color-scheme: dark)": colors.green700,
