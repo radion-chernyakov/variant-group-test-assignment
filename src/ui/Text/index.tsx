@@ -95,7 +95,10 @@ export default function Text<T extends ElementType>({
 
 const styles = stylex.create({
   base: {
-    color: colorTokens.color,
+    color: {
+      "@media (prefers-color-scheme: light)": colorTokens.color,
+      "@media (prefers-color-scheme: dark)": colorTokens.colorDarkMode,
+    },
     fontVariationSettings: "'wdth' 80",
     fontWeight: weightTokens.fontWeight,
     fontSize: sizeTokens.fontSize,
@@ -171,24 +174,28 @@ const weightMap = {
 }
 
 const lightDefaultColor = stylex.createTheme(colorTokens, {
-  color: colors.gray400,
+  color: colors.gray300,
+  colorDarkMode: colors.gray200,
+})
+
+const defaultDefaultColor = stylex.createTheme(colorTokens, {
+  color: colors.gray700,
+  colorDarkMode: colors.gray50,
 })
 
 const lightDangerColor = stylex.createTheme(colorTokens, {
   color: colors.red400,
+  colorDarkMode: colors.red200,
 })
 
 const defaultDangerColor = stylex.createTheme(colorTokens, {
-  color: colors.red800,
-})
-
-const defaultDefaultColor = stylex.createTheme(colorTokens, {
-  color: colors.gray800,
+  color: colors.red900,
+  colorDarkMode: colors.red400,
 })
 
 const colorMap = {
   default: {
-    default: undefined,
+    default: defaultDefaultColor,
     light: lightDefaultColor,
   },
   danger: {

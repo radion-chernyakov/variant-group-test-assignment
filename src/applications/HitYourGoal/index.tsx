@@ -13,6 +13,7 @@ import {
   colors,
   spacing,
   paddings,
+  backgroundColors,
 } from "../../ui/tokens.stylex"
 import { useApplications } from "../store"
 
@@ -76,7 +77,7 @@ const styles = stylex.create({
       [smallMediaQuery]: paddings.medium,
     },
     borderRadius: borderRadius.section,
-    backgroundColor: colors.green50,
+    backgroundColor: backgroundColors.green,
   },
   innerContainer: {
     alignItems: "center",

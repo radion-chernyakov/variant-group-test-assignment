@@ -91,6 +91,7 @@ const styles = stylex.create({
     gap: spacing.xSmall,
   },
   textarea: {
+    backgroundColor: inputsTokens.backgroundColor,
     flexGrow: 1,
     fontSize: inputsTokens.fontSize,
     lineHeight: inputsTokens.lineHeight,

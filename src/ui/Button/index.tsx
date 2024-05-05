@@ -77,9 +77,6 @@ type Props = {
   ActionProps &
   Pick<ComponentProps<"button">, "type" | "disabled">
 
-// TODO: avoid disabling buttons inside forms (using either context or selectors) to improve UX
-// see https://adrianroselli.com/2024/02/dont-disable-form-controls.html
-
 type NotNullable<T> = Exclude<T, null | undefined>
 
 export default function Button({
@@ -199,7 +196,7 @@ const buttonStyles = stylex.create({
     justifyContent: "center",
     boxShadow: {
       default: "none",
-      ":focus-visible": `0px 0px 0px 4px ${buttonIntent.focusRing}`,
+      ":focus-visible": `0px 0px 0px 4px ${buttonIntent.focusRingColor}`,
     },
     color: {
       default: buttonIntent.color,
@@ -283,24 +280,100 @@ const sizeThemes = {
   small: smallSizeTheme,
 }
 
+const submitButtonTheme = stylex.createTheme(buttonIntent, {
+  focusRingColor: {
+    default: colors.green500,
+    "@media (prefers-color-scheme: dark)": colors.green400,
+  },
+  color: {
+    default: colors.gray150,
+    "@media (prefers-color-scheme: dark)": colors.gray800,
+  },
+  colorDisabled: {
+    default: colors.gray300,
+    "@media (prefers-color-scheme: dark)": colors.gray500,
+  },
+  colorHover: {
+    default: colors.gray50,
+    "@media (prefers-color-scheme: dark)": colors.gray900,
+  },
+  borderColor: {
+    default: colors.green500,
+    "@media (prefers-color-scheme: dark)": colors.green400,
+  },
+  borderColorDisabled: {
+    default: colors.gray100,
+    "@media (prefers-color-scheme: dark)": colors.gray700,
+  },
+  borderColorHover: {
+    default: colors.green400,
+    "@media (prefers-color-scheme: dark)": colors.green500,
+  },
+  backgroundColor: {
+    default: colors.green500,
+    "@media (prefers-color-scheme: dark)": colors.green400,
+  },
+  backgroundColorDisabled: {
+    default: colors.gray100,
+    "@media (prefers-color-scheme: dark)": colors.gray700,
+  },
+  backgroundColorHover: {
+    default: colors.green400,
+    "@media (prefers-color-scheme: dark)": colors.green500,
+  },
+})
+
 const actionIntentTheme = stylex.createTheme(buttonIntent, {
-  focusRing: colors.gray100,
-  color: colors.gray800,
-  colorDisabled: colors.gray300,
-  colorHover: colors.gray700,
-  borderColor: colors.gray100,
-  borderColorDisabled: colors.gray300,
-  borderColorHover: colors.gray200,
+  focusRingColor: {
+    default: colors.gray100,
+    "@media (prefers-color-scheme: dark)": colors.gray700,
+  },
+  color: {
+    default: colors.gray700,
+    "@media (prefers-color-scheme: dark)": colors.gray100,
+  },
+  colorDisabled: {
+    default: colors.gray300,
+    "@media (prefers-color-scheme: dark)": colors.gray600,
+  },
+  colorHover: {
+    default: colors.gray800,
+    "@media (prefers-color-scheme: dark)": colors.gray200,
+  },
+  borderColor: {
+    default: colors.gray100,
+    "@media (prefers-color-scheme: dark)": colors.gray700,
+  },
+  borderColorDisabled: {
+    default: colors.gray300,
+    "@media (prefers-color-scheme: dark)": colors.gray600,
+  },
+  borderColorHover: {
+    default: colors.gray200,
+    "@media (prefers-color-scheme: dark)": colors.gray800,
+  },
   backgroundColor: "transparent",
   backgroundColorDisabled: "transparent",
   backgroundColorHover: "transparent",
 })
 
 const functionalIntentTheme = stylex.createTheme(buttonIntent, {
-  focusRing: colors.gray100,
-  color: colors.gray500,
-  colorDisabled: colors.gray300,
-  colorHover: colors.gray400,
+  focusRingColor: {
+    default: colors.gray100,
+    "@media (prefers-color-scheme: dark)": colors.gray700,
+  },
+  color: {
+    default: colors.gray500,
+    "@media (prefers-color-scheme: dark)": colors.gray300,
+  },
+  colorDisabled: {
+    default: colors.gray300,
+    "@media (prefers-color-scheme: dark)": colors.gray600,
+  },
+  colorHover: {
+    default: colors.gray400,
+    "@media (prefers-color-scheme: dark)": colors.gray500,
+  },
   borderColor: "transparent",
   borderColorDisabled: "transparent",
   borderColorHover: "transparent",
@@ -310,7 +383,7 @@ const functionalIntentTheme = stylex.createTheme(buttonIntent, {
 })
 
 const intentThemes = {
-  submit: undefined,
+  submit: submitButtonTheme,
   action: actionIntentTheme,
   functional: functionalIntentTheme,
 }

@@ -116,10 +116,16 @@ const styles = stylex.create({
   progressItem: {
     borderRadius: "4px",
     height: "8px",
-    backgroundColor: colors.gray25,
+    backgroundColor: {
+      default: colors.gray150,
+      "@media (prefers-color-scheme: dark)": colors.gray700,
+    },
   },
   progressItemCompleted: {
-    backgroundColor: colors.gray900,
+    backgroundColor: {
+      default: colors.gray900,
+      "@media (prefers-color-scheme: dark)": colors.gray150,
+    },
   },
   compactText: {
     display: {

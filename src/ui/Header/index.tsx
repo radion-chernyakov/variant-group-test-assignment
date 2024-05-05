@@ -7,12 +7,12 @@ import Button from "~/ui/Button"
 import Home from "~/ui/icons/Home.svg"
 import Logo from "~/ui/icons/Logo.svg"
 
-import { type MediaQuery, spacing } from "../tokens.stylex"
+import { type MediaQuery, spacing, colors } from "../tokens.stylex"
 
 export default function Header({ userSection }: { userSection?: ReactNode }) {
   return (
     <header {...stylex.props(styles.header)}>
-      <Logo aria-label="logoLabelRef" />
+      <Logo aria-label="logoLabelRef" {...stylex.props(styles.logo)} />
       <div {...stylex.props(styles.userSection)}>
         {userSection}
         <Button
@@ -32,6 +32,12 @@ const mediumMediaQuery: MediaQuery["medium"] = "@media (max-width: 768px)"
 const smallMediaQuery: MediaQuery["small"] = "@media (max-width: 480px)"
 
 const styles = stylex.create({
+  logo: {
+    fill: {
+      "@media (prefers-color-scheme: light)": colors.gray900,
+      "@media (prefers-color-scheme: dark)": colors.gray50,
+    },
+  },
   header: {
     display: "flex",
     justifyContent: "space-between",

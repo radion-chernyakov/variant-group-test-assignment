@@ -17,6 +17,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
+  
   staticDirs: [{ from: "../public", to: "/assets" }],
   webpackFinal: async (config) => {
     // configure for absolute imports

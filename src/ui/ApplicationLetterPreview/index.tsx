@@ -7,7 +7,13 @@ import Text from "~/ui/Text"
 import { type Result } from "~/utils/result"
 
 import Button from "../Button"
-import { borderRadius, colors, paddings, spacing } from "../tokens.stylex"
+import {
+  backgroundColors,
+  borderRadius,
+  colors,
+  paddings,
+  spacing,
+} from "../tokens.stylex"
 import { animationTokens } from "./tokens.stylex"
 
 type ApplicationResult = Result<Application>
@@ -72,7 +78,7 @@ const styles = stylex.create({
     padding: paddings.small,
     gap: spacing.small,
     borderRadius: borderRadius.section,
-    backgroundColor: colors.gray50,
+    backgroundColor: backgroundColors.gray,
     justifyContent: "space-between",
   },
   textContainer: {
@@ -89,7 +95,7 @@ const styles = stylex.create({
   buttonsContainer: {
     paddingTop: paddings.xSmall, // to add space for background gradient
     marginTop: `calc(-1 * ${paddings.xSmall})`,
-    background: `linear-gradient(180deg, transparent 0%, ${colors.gray50} 70%)`,
+    background: `linear-gradient(180deg, transparent 0%, ${backgroundColors.gray} 70%)`,
     position: "sticky",
     bottom: 0,
     display: "flex",

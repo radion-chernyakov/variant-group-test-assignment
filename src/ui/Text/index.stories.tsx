@@ -7,6 +7,8 @@ const meta: Meta<typeof Text> = {
   args: {
     children: "Text",
     weight: "normal",
+    colorScheme: "default",
+    colorVariant: "default",
   },
   argTypes: {
     size: {
@@ -17,6 +19,18 @@ const meta: Meta<typeof Text> = {
     },
     weight: {
       options: ["light", "normal", "medium", "semibold", "bold"],
+      control: {
+        type: "radio",
+      },
+    },
+    colorScheme: {
+      options: ["default", "danger", "inherit"],
+      control: {
+        type: "radio",
+      },
+    },
+    colorVariant: {
+      options: ["light", "default"],
       control: {
         type: "radio",
       },

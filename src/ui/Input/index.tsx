@@ -40,6 +40,7 @@ export default function Input({
 
 const styles = stylex.create({
   input: {
+    backgroundColor: inputsTokens.backgroundColor,
     fontSize: inputsTokens.fontSize,
     lineHeight: inputsTokens.lineHeight,
     color: inputsTokens.color,

@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex"
 
-import { paddings } from "../ui/tokens.stylex"
+import { colors, paddings } from "../ui/tokens.stylex"
 import "./globals.css"
 
 export const metadata = {
@@ -23,6 +23,9 @@ export default function RootLayout({
 
 const styles = stylex.create({
   html: {
+    backgroundColor: {
+      "@media (prefers-color-scheme: dark)": colors.gray900,
+    },
     display: "flex",
     justifyContent: "center",
   },

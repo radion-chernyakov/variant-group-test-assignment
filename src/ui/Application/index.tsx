@@ -9,7 +9,13 @@ import TextWithTextClamp from "~/ui/TextWithTextClamp"
 import Copy from "~/ui/icons/Copy.svg"
 import Trash from "~/ui/icons/Trash.svg"
 
-import { borderRadius, colors, paddings, spacing } from "../tokens.stylex"
+import {
+  backgroundColors,
+  borderRadius,
+  colors,
+  paddings,
+  spacing,
+} from "../tokens.stylex"
 
 export default function Application({
   application,
@@ -69,7 +75,7 @@ const styles = stylex.create({
     height: "max-content",
     display: "flex",
     flexDirection: "column",
-    backgroundColor: colors.gray50,
+    backgroundColor: backgroundColors.gray,
     borderRadius: borderRadius.control,
     padding: paddings.small,
     gap: spacing.normal,
@@ -91,6 +97,6 @@ const styles = stylex.create({
     height: 1.43 * getLineHeight(textSize),
     pointerEvents: "none",
     width: "100%",
-    background: `linear-gradient(180deg, transparent 0%, ${colors.gray50} 100%)`,
+    background: `linear-gradient(180deg, transparent 0%, ${backgroundColors.gray} 100%)`,
   }),
 })
