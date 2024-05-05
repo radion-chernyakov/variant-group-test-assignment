@@ -1,21 +1,10 @@
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  font-family: "Fixel", "Fixel Fallback";
-  min-width: 0;
-}
-
-button {
-  all: unset;
-}
-
 @font-face {
   font-family: "Fixel";
   src: url("/FixelVariable.woff2") format("woff2-variations");
   font-weight: 125 950;
   font-stretch: 75% 125%;
   font-style: normal;
+  font-display: fallback;
 }
 
 @font-face {
@@ -27,4 +16,16 @@ button {
   descent-override: 18.99%;
   line-gap-override: 27.54%;
   size-adjust: 105.32%;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Fixel", "Fixel Fallback";
+  min-width: 0;
+}
+
+button {
+  all: unset;
 }

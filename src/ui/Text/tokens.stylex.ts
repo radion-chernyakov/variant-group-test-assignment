@@ -1,6 +1,5 @@
 import * as stylex from "@stylexjs/stylex"
 
-
 export const sizeTokens = stylex.defineVars({
   fontSize: "unset",
   lineHeight: "unset",

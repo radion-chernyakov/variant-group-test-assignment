@@ -34,6 +34,7 @@ export const colors = stylex.defineVars({
   green800: "#003211",
   green900: "#021d09",
   gray50: "#F2F4F7",
+  gray75: "#EAECF0",
   gray100: "#D0D5DD",
   gray150: "#C6C7CB",
   gray200: "#bdbdbd",

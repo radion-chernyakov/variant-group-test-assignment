@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex"
 import { type ComponentProps, type ReactNode } from "react"
 
 import Text from "../Text"
-import { paddings } from "../tokens.stylex"
+import { colors, paddings } from "../tokens.stylex"
 
 type Size = Extract<ComponentProps<typeof Text>["size"], "xLarge" | "large">
 
@@ -30,7 +30,10 @@ export default function PageHeader({
 
 const styles = stylex.create({
   container: {
-    borderColor: "#EAECF0",
+    borderColor: {
+      default: colors.gray75,
+      "@media (prefers-color-scheme: dark)": colors.gray700,
+    },
     borderStyle: "solid",
     borderWidth: `0px 0px 1px 0px`,
     display: "flex",
