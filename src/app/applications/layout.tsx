@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex"
 import { Suspense, type ReactNode } from "react"
 import ApplicationsCounter from "~/applications/ApplicationCounter"
-import Header from "~/ui/Header"
+import ApplicationHeader from "~/ui/ApplicationHeader"
 
 import { spacing } from "../../ui/tokens.stylex"
 
@@ -12,7 +12,7 @@ export default function ApplicationsLayout({
 }) {
   return (
     <div {...stylex.props(styles.container)}>
-      <Header
+      <ApplicationHeader
         userSection={
           <Suspense>
             <ApplicationsCounter />
