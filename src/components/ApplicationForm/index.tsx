@@ -58,7 +58,7 @@ const formInputs = [
   {
     name: "details",
     component: (props: ComponentProps<typeof Textarea>) => (
-      <Textarea rows={10} {...props} />
+      <Textarea rows={9} {...props} />
     ),
     label: "Additional details",
     placeholder:
@@ -230,7 +230,6 @@ const style = stylex.create({
     gap: spacing.normal,
   },
   form: {
-    height: "100%",
     display: "grid",
     gridTemplateAreas: {
       [smallContainerQuery]: `
@@ -251,9 +250,8 @@ const style = stylex.create({
       `,
     },
     gridTemplateRows: {
-      [smallContainerQuery]:
-        "max-content max-content max-content 1fr max-content max-content",
-      default: "max-content max-content 1fr max-content",
+      [smallContainerQuery]: "repeat(6,min-content)",
+      default: "repeat(4,min-content)",
     },
     gridTemplateColumns: {
       [smallContainerQuery]: "1fr",
@@ -275,6 +273,7 @@ const style = stylex.create({
     gridArea: "details",
   },
   submit: {
+    alignSelf: "flex-start",
     display: "flex",
     gridArea: "submit",
   },

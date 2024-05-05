@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex"
 import { type ReactNode } from "react"
 
-import { spacing, type MediaQuery } from "../tokens.stylex"
+import { paddings, spacing, type MediaQuery } from "../tokens.stylex"
 
 export default function FormWithPreviewLayout({
   form,
@@ -12,13 +12,14 @@ export default function FormWithPreviewLayout({
 }) {
   return (
     <div {...stylex.props(styles.container)}>
-      {form}
+      <div {...stylex.props(styles.formContainer)}>{form}</div>
       {preview}
     </div>
   )
 }
 
 const mediumMediaQuery: MediaQuery["medium"] = "@media (max-width: 768px)"
+const smallMediaQuery: MediaQuery["small"] = "@media (max-width: 480px)"
 
 const styles = stylex.create({
   container: {
@@ -33,5 +34,14 @@ const styles = stylex.create({
     },
     gap: spacing.xLarge,
     flexGrow: "1",
+  },
+  formContainer: {
+    position: "sticky",
+    top: paddings.medium,
+    alignSelf: "start",
+    paddingBlockEnd: {
+      default: null,
+      [mediumMediaQuery]: paddings.xxSmall,
+    },
   },
 })

@@ -87,7 +87,6 @@ const styles = stylex.create({
   container: {
     display: "flex",
     flexDirection: "column",
-    flexGrow: 1,
     gap: spacing.xSmall,
   },
   textarea: {

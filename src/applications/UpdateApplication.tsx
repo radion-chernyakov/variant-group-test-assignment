@@ -1,5 +1,6 @@
 "use client"
 
+import * as stylex from "@stylexjs/stylex"
 import { notFound } from "next/navigation"
 import { useState, useRef } from "react"
 import { type Application, updateApplication } from "~/applications/store"
@@ -9,6 +10,8 @@ import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
 import FormWithPreviewLayout from "~/ui/FormWithPreviewLayout"
 import { type Result } from "~/utils/result"
 
+import { spacing } from "../ui/tokens.stylex"
+import HitYourGoal from "./HitYourGoal"
 import { useApplication } from "./store"
 
 export default function UpdateApplication({
@@ -33,40 +36,54 @@ export default function UpdateApplication({
   if (!application) return null
 
   return (
-    <FormWithPreviewLayout
-      form={
-        <ApplicationForm
-          initialValues={{
-            position: application.position,
-            skills: application.skills,
-            company: application.company,
-            details: application.details,
-          }}
-          onSubmit={async ({ data, onResult }) => {
-            setResult({ loading: true })
-            try {
-              const letter = await generateLetter(data)
-              const application = updateApplication({
-                id: applicationId,
-                ...data,
-                letter,
-              })
-              setResult({ data: application })
-              onResult({})
-              previewRef.current?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              })
-            } catch {
-              onResult({ error: "Something went wrong" })
-              setResult({ error: "Something went wrong" })
-            }
-          }}
-        />
-      }
-      preview={
-        <ApplicationLetterPreview ref={previewRef} applicationResult={result} />
-      }
-    />
+    <div {...stylex.props(styles.container)}>
+      <FormWithPreviewLayout
+        form={
+          <ApplicationForm
+            initialValues={{
+              position: application.position,
+              skills: application.skills,
+              company: application.company,
+              details: application.details,
+            }}
+            onSubmit={async ({ data, onResult }) => {
+              setResult({ loading: true })
+              try {
+                const letter = await generateLetter(data)
+                const application = updateApplication({
+                  id: applicationId,
+                  ...data,
+                  letter,
+                })
+                setResult({ data: application })
+                onResult({})
+                previewRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                })
+              } catch {
+                onResult({ error: "Something went wrong" })
+                setResult({ error: "Something went wrong" })
+              }
+            }}
+          />
+        }
+        preview={
+          <ApplicationLetterPreview
+            ref={previewRef}
+            applicationResult={result}
+          />
+        }
+      />
+      <HitYourGoal />
+    </div>
   )
 }
+
+const styles = stylex.create({
+  container: {
+    display: "flex",
+    gap: spacing.xxLarge,
+    flexDirection: "column",
+  },
+})
