@@ -1,10 +1,9 @@
 import * as stylex from "@stylexjs/stylex"
 
-export const smallLineHeight = 16
 
 export const sizeTokens = stylex.defineVars({
-  fontSize: `${smallLineHeight}x`,
-  lineHeight: "24px",
+  fontSize: "unset",
+  lineHeight: "unset",
 })
 
 export const weightTokens = stylex.defineVars({

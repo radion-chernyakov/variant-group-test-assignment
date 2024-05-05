@@ -3,6 +3,7 @@
   padding: 0;
   margin: 0;
   font-family: "Fixel", "Fixel Fallback";
+  min-width: 0;
 }
 
 button {

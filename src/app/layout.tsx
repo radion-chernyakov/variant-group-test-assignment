@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex"
 
-import { colors, paddings } from "../ui/tokens.stylex"
+import { colors, paddings, type MediaQuery } from "../ui/tokens.stylex"
 import "./globals.css"
 
 export const metadata = {
@@ -21,6 +21,8 @@ export default function RootLayout({
   )
 }
 
+const smallMediaQuery: MediaQuery["small"] = "@media (max-width: 480px)"
+
 const styles = stylex.create({
   html: {
     backgroundColor: {
@@ -32,8 +34,10 @@ const styles = stylex.create({
   body: {
     flexGrow: 1,
     minHeight: "100vh",
-    paddingVertical: paddings.medium,
-    paddingHorizontal: paddings.medium,
+    padding: {
+      default: paddings.medium,
+      [smallMediaQuery]: paddings.xSmall,
+    },
     display: "flex",
     maxWidth: `calc(1120px + ${paddings.medium} * 2)`,
   },

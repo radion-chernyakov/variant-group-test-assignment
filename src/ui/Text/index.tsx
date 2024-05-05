@@ -2,13 +2,8 @@ import * as stylex from "@stylexjs/stylex"
 import { type StyleXStyles } from "@stylexjs/stylex/lib/StyleXTypes"
 import { type ComponentProps, type ElementType, type ReactNode } from "react"
 
-import { colors } from "../tokens.stylex"
-import {
-  sizeTokens,
-  weightTokens,
-  smallLineHeight,
-  colorTokens,
-} from "./tokens.stylex"
+import { colors, type MediaQuery } from "../tokens.stylex"
+import { sizeTokens, weightTokens, colorTokens } from "./tokens.stylex"
 
 export type Size = "xSmall" | "small" | "medium" | "large" | "xLarge"
 
@@ -115,7 +110,7 @@ const textAlignMap: Record<TextAlign, stylex.StyleXStyles> = {
 
 const lineHeightMap: Record<Size, number> = {
   xSmall: 20,
-  small: smallLineHeight,
+  small: 16,
   medium: 28,
   large: 44,
   xLarge: 60,
@@ -128,24 +123,37 @@ const xSmallSizeTheme = stylex.createTheme(sizeTokens, {
   lineHeight: `${lineHeightMap.xSmall}px`,
 })
 
+const smallSizeTheme = stylex.createTheme(sizeTokens, {
+  fontSize: `16x`,
+  lineHeight: `${lineHeightMap.small}px`,
+})
+
 const mediumSizeTheme = stylex.createTheme(sizeTokens, {
   fontSize: "18px",
   lineHeight: `${lineHeightMap.medium}px`,
 })
 
+const smallMediaQuery: MediaQuery["small"] = "@media (max-width: 480px)"
+
 const largeSizeTheme = stylex.createTheme(sizeTokens, {
-  fontSize: "36px",
+  fontSize: {
+    default: "36px",
+    [smallMediaQuery]: "20px",
+  },
   lineHeight: `${lineHeightMap.large}px`,
 })
 
 const xLargeSizeTheme = stylex.createTheme(sizeTokens, {
-  fontSize: "48px",
+  fontSize: {
+    default: "48px",
+    [smallMediaQuery]: "24px",
+  },
   lineHeight: `${lineHeightMap.xLarge}px`,
 })
 
 const sizeMap = {
   xSmall: xSmallSizeTheme,
-  small: undefined,
+  small: smallSizeTheme,
   medium: mediumSizeTheme,
   large: largeSizeTheme,
   xLarge: xLargeSizeTheme,
