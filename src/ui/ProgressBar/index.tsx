@@ -52,7 +52,7 @@ export default function ProgressBar({
             />
           ))
         ) : (
-          <CheckIcon />
+          <CheckIcon {...stylex.props(styles.icon)} />
         )}
       </div>
       <Text
@@ -138,6 +138,12 @@ const styles = stylex.create({
     display: {
       default: null,
       [smallContainerQuery]: "none",
+    },
+  },
+  icon: {
+    filter: {
+      default: null,
+      "@media (prefers-color-scheme: dark)": "brightness(0.7)",
     },
   },
 })
