@@ -152,16 +152,31 @@ const generatingCircleStyles = stylex.create({
     animationTimingFunction: "cubic-bezier(0.2, 0, 1, 0.8)",
     opacity: animationTokens.opacity,
     // TODO: use tokens instead of hardcoded colors
-    background: `radial-gradient(
-      60.16% 60.16% at ${animationTokens.top} 21.88%,
-      #FFFFFF 0%,
-      rgba(255, 255, 255, 0.16) 100%
-    ),
-    radial-gradient(
-      100% 100% at 0% 0%,
-      #FFFFFF 0%,
-      #D0D5DD 100%
-    )`,
-    boxShadow: "inset 0px -2px 32px rgba(16, 24, 40, 0.08)",
+    background: {
+      default: `radial-gradient(
+        60.16% 60.16% at ${animationTokens.top} 21.88%,
+        #FFFFFF 0%,
+        rgba(255, 255, 255, 0.16) 100%
+      ),
+      radial-gradient(
+        100% 100% at 0% 0%,
+        #FFFFFF 0%,
+        ${colors.gray100} 100%
+      )`,
+      "@media (prefers-color-scheme: dark)": `radial-gradient(
+        60.16% 60.16% at ${animationTokens.top} 21.88%,
+        ${colors.gray700} 0%,
+        rgba(0, 0, 0, 0.16) 100%
+      ),
+      radial-gradient(
+        100% 100% at 0% 0%,
+        ${colors.gray900} 0%,
+        ${colors.gray800} 100%
+      )`,
+    },
+    boxShadow: {
+      default: `inset 0px -2px 32px rgb(from ${colors.gray900} r g b / .08)`,
+      "@media (prefers-color-scheme: dark)": `inset 0px -2px 32px rgb(from ${colors.gray50} r g b / .08)`,
+    },
   },
 })
