@@ -8,6 +8,7 @@ import Copy from "~/ui/icons/Copy.svg"
 import { type Result } from "~/utils/result"
 
 import Button from "../Button"
+import CopyToClipboardButton from "../CopyToClipboardButton"
 import {
   backgroundColors,
   borderRadius,
@@ -54,15 +55,12 @@ function ApplicationLetterPreview(
               ))}
           </div>
           <div {...stylex.props(styles.buttonsContainer)}>
-            <Button
+            <CopyToClipboardButton
               size="small"
               intent="functional"
-              onClick={() => console.log("")}
-              icon={Copy}
               iconPosition="block-end"
-            >
-              Copy to clipboard
-            </Button>
+              text={applicationResult.data.letter}
+            />
           </div>
         </>
       )}

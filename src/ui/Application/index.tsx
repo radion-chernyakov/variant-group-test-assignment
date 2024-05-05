@@ -10,6 +10,7 @@ import TextWithTextClamp from "~/ui/TextWithTextClamp"
 import Copy from "~/ui/icons/Copy.svg"
 import Trash from "~/ui/icons/Trash.svg"
 
+import CopyToClipboardButton from "../CopyToClipboardButton"
 import VisuallyHidden from "../VisuallyHidden"
 import {
   backgroundColors,
@@ -83,16 +84,13 @@ export default function Application({
         >
           Delete
         </Button>
-        <Button
+        <CopyToClipboardButton
           alignSelf="flex-end"
           intent="functional"
           size="small"
-          onClick={onCopy}
-          icon={Copy}
           iconPosition="block-end"
-        >
-          Copy to clipboard
-        </Button>
+          text={application.letter}
+        />
       </div>
     </section>
   )
