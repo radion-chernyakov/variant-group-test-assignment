@@ -26,9 +26,11 @@ export default function UpdateApplication({
     return { data: application }
   })
 
-  if (!application || !result) {
+  if (application === undefined) {
     return notFound()
   }
+
+  if (!application) return null
 
   return (
     <FormWithPreviewLayout

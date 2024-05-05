@@ -1,12 +1,23 @@
 "use client"
 
 import * as stylex from "@stylexjs/stylex"
-import { type ComponentProps, useId, useState, type ReactNode } from "react"
-import { useZorm, unstable_inputProps as inputProps } from "react-zorm"
+import {
+  type ComponentProps,
+  useId,
+  useState,
+  type ReactNode,
+  useDeferredValue,
+} from "react"
+import {
+  useZorm,
+  unstable_inputProps as inputProps,
+  useValue,
+} from "react-zorm"
 import z from "zod"
 import Button from "~/ui/Button"
 import Input from "~/ui/Input"
 import Label from "~/ui/Label"
+import PageHeader from "~/ui/PageHeader"
 import Text from "~/ui/Text"
 import Textarea from "~/ui/Textarea"
 
@@ -24,17 +35,6 @@ export type ApplicationFormData = z.infer<typeof formSchema>
 type InitialValues = Partial<ApplicationFormData>
 
 type Result = { error?: undefined } | { error: string }
-
-type Props = {
-  initialValues?: InitialValues
-  onSubmit: ({
-    data,
-    onResult,
-  }: {
-    data: ApplicationFormData
-    onResult: (result: Result) => void
-  }) => void
-}
 
 const formInputs = [
   {
@@ -79,7 +79,16 @@ type FormState =
 export default function ApplicationForm({
   initialValues = {},
   onSubmit,
-}: Props) {
+}: {
+  initialValues?: InitialValues
+  onSubmit: ({
+    data,
+    onResult,
+  }: {
+    data: ApplicationFormData
+    onResult: (result: Result) => void
+  }) => void
+}) {
   const [formState, setFormState] = useState<FormState | null>(null)
   const form = useZorm("application", formSchema, {
     onValidSubmit: (e) => {
@@ -95,6 +104,16 @@ export default function ApplicationForm({
       })
     },
   })
+
+  const position = useValue({
+    zorm: form,
+    name: "position",
+  })
+  const company = useValue({
+    zorm: form,
+    name: "company",
+  })
+  const title = position && company ? `${position}, ${company}` : null
 
   const isValid = form.validation?.success ?? true
 
@@ -142,6 +161,10 @@ export default function ApplicationForm({
 
   return (
     <div {...stylex.props(style.container)}>
+      <PageHeader colorVariant={title ? undefined : "light"} size="large">
+        {title ?? "New application"}
+      </PageHeader>
+
       <form {...stylex.props(style.form)} ref={form.ref}>
         <div {...stylex.props(style.jobTitle)}>{getInput("position")}</div>
         <div {...stylex.props(style.company)}>{getInput("company")}</div>
@@ -202,6 +225,9 @@ const smallContainerQuery: ContainerQuery["small"] =
 const style = stylex.create({
   container: {
     containerType: "inline-size",
+    display: "flex",
+    flexDirection: "column",
+    gap: spacing.normal,
   },
   form: {
     height: "100%",

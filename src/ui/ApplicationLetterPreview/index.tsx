@@ -4,6 +4,7 @@ import * as stylex from "@stylexjs/stylex"
 import { Fragment, type Ref, useId, forwardRef } from "react"
 import { type Application } from "~/applications/store"
 import Text from "~/ui/Text"
+import Copy from "~/ui/icons/Copy.svg"
 import { type Result } from "~/utils/result"
 
 import Button from "../Button"
@@ -57,6 +58,8 @@ function ApplicationLetterPreview(
               size="small"
               intent="functional"
               onClick={() => console.log("")}
+              icon={Copy}
+              iconPosition="block-end"
             >
               Copy to clipboard
             </Button>
@@ -83,8 +86,8 @@ const styles = stylex.create({
   },
   textContainer: {
     overflowY: "scroll",
-    paddingRight: paddings.xSmall, // to add space for scroll bar
-    marginRight: `calc(-1 * ${paddings.xSmall})`,
+    paddingRight: paddings.xxSmall, // to add space for scroll bar
+    marginRight: `calc(-1 * ${paddings.xxSmall})`,
   },
   loadingContainer: {
     flexGrow: 1,
@@ -93,8 +96,8 @@ const styles = stylex.create({
     justifyContent: "center",
   },
   buttonsContainer: {
-    paddingTop: paddings.xSmall, // to add space for background gradient
-    marginTop: `calc(-1 * ${paddings.xSmall})`,
+    paddingTop: paddings.xxSmall, // to add space for background gradient
+    marginTop: `calc(-1 * ${paddings.xxSmall})`,
     background: `linear-gradient(180deg, transparent 0%, ${backgroundColors.gray} 70%)`,
     position: "sticky",
     bottom: 0,

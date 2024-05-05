@@ -76,7 +76,7 @@ export function useApplications() {
 }
 
 export function useApplication(id: string) {
-  return useSyncExternalStore(subscribe, () => applications.find(({ id: applicationId }) => applicationId === id) ?? null, () => null)
+  return useSyncExternalStore(subscribe, () => applications.find(({ id: applicationId }) => applicationId === id) ?? null, () => undefined)
 }
 
 function emitChange() {

@@ -7,7 +7,7 @@ const meta: Meta<typeof ProgressBar> = {
   args: {
     progress: 2,
     progressStyle: "rounded",
-    textStyle: "short",
+    preferTextStyle: "short",
   },
   argTypes: {
     progress: {
@@ -17,7 +17,7 @@ const meta: Meta<typeof ProgressBar> = {
       options: ["dots", "rounded"],
       control: { type: "radio" },
     },
-    textStyle: {
+    preferTextStyle: {
       options: ["short", "full"],
       control: { type: "radio" },
     },

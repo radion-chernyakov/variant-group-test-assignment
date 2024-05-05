@@ -12,7 +12,7 @@ export default function ApplicationsCounter() {
     <ProgressBar
       progress={applicationsCount}
       progressStyle="dots"
-      textStyle="full"
+      preferTextStyle="full"
       layout="horizontal"
     />
   )

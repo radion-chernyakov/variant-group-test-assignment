@@ -75,10 +75,12 @@ export const spacing = stylex.defineVars({
   normal: "16px",
   large: "24px",
   xLarge: "32px",
+  xxLarge: "48px",
 })
 
 export const paddings = stylex.defineVars({
-  xSmall: "12px",
+  xxSmall: "12px",
+  xSmall: "16px",
   small: "24px",
   medium: "32px",
   large: "54px",

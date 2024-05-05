@@ -45,16 +45,6 @@ type ChildrenProps =
 
 type AlignSelf = "flex-start" | "flex-end" | "center"
 
-// type ActionProps =
-//   | {
-//       as: typeof Link
-//       href: string
-//     }
-//   | {
-//       as?: "button"
-//       href?: undefined
-//     }
-
 type ActionProps =
   | {
       as: typeof Link
@@ -238,8 +228,8 @@ const buttonStyles = stylex.create({
     alignSelf: "center",
   },
   functionalIntent: {
-    padding: paddings.xSmall,
-    margin: `calc(-1 * ${paddings.xSmall})`,
+    padding: paddings.xxSmall,
+    margin: `calc(-1 * ${paddings.xxSmall})`,
     borderWidth: "0px",
   },
   iconOnly: {
@@ -282,11 +272,11 @@ const sizeThemes = {
 
 const submitButtonTheme = stylex.createTheme(buttonIntent, {
   focusRingColor: {
-    default: colors.green500,
-    "@media (prefers-color-scheme: dark)": colors.green400,
+    default: colors.green200,
+    "@media (prefers-color-scheme: dark)": colors.green600,
   },
   color: {
-    default: colors.gray150,
+    default: "white",
     "@media (prefers-color-scheme: dark)": colors.gray800,
   },
   colorDisabled: {
@@ -360,7 +350,7 @@ const actionIntentTheme = stylex.createTheme(buttonIntent, {
 const functionalIntentTheme = stylex.createTheme(buttonIntent, {
   focusRingColor: {
     default: colors.gray100,
-    "@media (prefers-color-scheme: dark)": colors.gray700,
+    "@media (prefers-color-scheme: dark)": colors.gray800,
   },
   color: {
     default: colors.gray500,
