@@ -21,11 +21,12 @@ export default function Modal({ children }: { children: ReactNode }) {
   const { modalProps, underlayProps } = useModalOverlay(
     {
       isDismissable: true,
-      isKeyboardDismissDisabled: true,
+      isKeyboardDismissDisabled: false,
     },
     {
       isOpen: true,
-      setOpen: () => {
+      setOpen: (isOpen) => {
+        if (!isOpen) router.back()
         // Only Next routes triggers modal open
       },
       open: () => {
@@ -72,6 +73,7 @@ const style = stylex.create({
       [smallMediaQuery]: paddings.small,
       default: paddings.large,
     },
+    maxWidth: `calc(1120px + ${paddings.medium} * 2)`,
     width: {
       [smallMediaQuery]: "100%",
       default: "80%",
