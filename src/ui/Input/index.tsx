@@ -1,17 +1,20 @@
 "use client"
 
 import * as stylex from "@stylexjs/stylex"
-import { useEffect, useRef, type ComponentProps } from "react"
+import { type ComponentProps } from "react"
 
 import { inputsTokens } from "../tokens.stylex"
 
+type TypeProp = Exclude<ComponentProps<"input">["type"], "checkbox" | "radio" | "reset" | "submit">
+
 type InputProps = Exclude<
   ComponentProps<"input">,
-  "className" | "style" | "disabled" | "value"
+  "className" | "style" | "disabled" | "type"
 >
 
 type CustomProps = {
   errorMessage?: string
+  type: TypeProp
 }
 
 type Props = InputProps & CustomProps

@@ -1,4 +1,4 @@
-import { type ComponentProps, type ReactNode } from "react"
+import { type ComponentProps } from "react"
 import Copy from "~/ui/icons/Copy.svg"
 import copyToClipboard from "~/utils/copyToClipboard"
 

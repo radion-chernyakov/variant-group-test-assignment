@@ -19,7 +19,6 @@ export default function FormWithPreviewLayout({
 }
 
 const mediumMediaQuery: MediaQuery["medium"] = "@media (max-width: 768px)"
-const smallMediaQuery: MediaQuery["small"] = "@media (max-width: 480px)"
 
 const styles = stylex.create({
   container: {

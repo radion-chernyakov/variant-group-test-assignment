@@ -15,7 +15,7 @@ export type Application = z.infer<typeof applicationSchema>
 
 const localStorageKey = 'applications'
 
-type ApplicationData = Omit<Application, "id">
+export type ApplicationData = Omit<Application, "id">
 
 let applications: Array<Application> = (() => {
   try {
@@ -34,6 +34,16 @@ export const addApplication = (application: ApplicationData) => {
   applications = [...applications, newApplication]
   emitChange()
   return newApplication
+}
+
+export const addApplications = (newApplicationsData: Array<ApplicationData>) => {
+  const newApplications = newApplicationsData.map(application => ({
+    id: crypto.randomUUID(),
+    ...application
+  }))
+  applications = [...applications, ...newApplications]
+  emitChange()
+  return newApplications
 }
 
 export const removeApplicationsById = (id: string) => {
@@ -79,7 +89,18 @@ export function useApplication(id: string) {
   return useSyncExternalStore(subscribe, () => applications.find(({ id: applicationId }) => applicationId === id) ?? null, () => undefined)
 }
 
+let saveToLocalStorageTimeout: NodeJS.Timeout | null = null
+
 function emitChange() {
   listeners.forEach(listener => listener())
-  localStorage.setItem(localStorageKey, JSON.stringify(applications))
+  if (saveToLocalStorageTimeout) clearTimeout(saveToLocalStorageTimeout)
+  saveToLocalStorageTimeout = setTimeout(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(applications))
+    saveToLocalStorageTimeout = null
+  }, 300)
+}
+
+export const clearApplications = () => {
+  applications = []
+  emitChange()
 }

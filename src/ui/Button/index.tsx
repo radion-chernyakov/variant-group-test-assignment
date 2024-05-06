@@ -60,8 +60,8 @@ type ActionProps =
 type Props = {
   grow?: boolean
   alignSelf?: AlignSelf
-  size: Size
-  intent: Intent
+  size?: Size
+  intent?: Intent
   loading?: boolean
 } & ChildrenProps &
   ActionProps &
@@ -71,8 +71,8 @@ type NotNullable<T> = Exclude<T, null | undefined>
 
 export default function Button({
   children,
-  size,
-  intent,
+  size = "medium",
+  intent = "submit",
   icon: Icon,
   iconPosition,
   onClick: rawOnClick,
@@ -95,6 +95,8 @@ export default function Button({
 
   const onClick = (e: Parameters<NotNullable<typeof rawOnClick>>[0]) => {
     if (loading) return
+    // @ts-expect-error TS can't inherit e for some reason. It has to be MouseEventHandler<ComponentProps<typeof Link>> | MouseEventHandler<HTMLButtonElement>
+    // while TS assumes it's MouseEventHandler<ComponentProps<typeof Link>> & MouseEventHandler<HTMLButtonElement>
     rawOnClick?.(e)
   }
 
@@ -103,6 +105,7 @@ export default function Button({
   return (
     <As
       aria-labelledby={!children ? labeledById : undefined}
+      // @ts-expect-error same event thing as above
       onClick={onClick}
       type={type}
       {...restButtonProps}

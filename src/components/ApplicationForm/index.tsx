@@ -6,7 +6,6 @@ import {
   useId,
   useState,
   type ReactNode,
-  useDeferredValue,
 } from "react"
 import {
   useZorm,
@@ -192,7 +191,13 @@ export default function ApplicationForm({
   )
 }
 
-function ErrorMessage({ message, id }: { message: string; id?: string }) {
+export function ErrorMessage({
+  message,
+  id,
+}: {
+  message: string
+  id?: string
+}) {
   return (
     <Text id={id} colorScheme="danger" colorVariant="light" size="xSmall">
       {message}
@@ -200,18 +205,22 @@ function ErrorMessage({ message, id }: { message: string; id?: string }) {
   )
 }
 
-function InputContainer({
+type InputContainerLayout = "vertical" | "horizontal"
+
+export function InputContainer({
   label,
   renderInput,
   errorMessage,
+  layout = "vertical",
 }: {
   label: string
   renderInput: (id: string) => ReactNode
   errorMessage: ReactNode
+  layout?: InputContainerLayout
 }) {
   const id = useId()
   return (
-    <div {...stylex.props(style.inputContainer)}>
+    <div {...stylex.props(style.inputContainer, layoutMapStyle[layout])}>
       <Label htmlFor={id}>{label}</Label>
       {renderInput(id)}
       {errorMessage}
@@ -283,8 +292,20 @@ const style = stylex.create({
   },
   inputContainer: {
     display: "flex",
-    flexGrow: 1,
-    flexDirection: "column",
+
     gap: spacing.xSmall,
   },
+  inputContainerHorizontal: {
+    flexDirection: "row-reverse",
+    justifyContent: "flex-end",
+  },
+  inputContainerVertical: {
+    flexGrow: 1,
+    flexDirection: "column",
+  },
 })
+
+const layoutMapStyle: Record<InputContainerLayout, stylex.StyleXStyles> = {
+  vertical: style.inputContainerVertical,
+  horizontal: style.inputContainerHorizontal,
+}

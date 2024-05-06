@@ -7,7 +7,6 @@ import type { Application } from "~/applications/store"
 import Button from "~/ui/Button"
 import { type Size as TextSize, getLineHeight } from "~/ui/Text"
 import TextWithTextClamp from "~/ui/TextWithTextClamp"
-import Copy from "~/ui/icons/Copy.svg"
 import Trash from "~/ui/icons/Trash.svg"
 
 import CopyToClipboardButton from "../CopyToClipboardButton"
@@ -19,16 +18,13 @@ import {
   paddings,
   spacing,
 } from "../tokens.stylex"
-import { tokens } from "./tokens"
 
 export default function Application({
   application,
   textSize = "medium",
   onDelete,
-  onCopy,
 }: {
   onDelete: MouseEventHandler<HTMLButtonElement>
-  onCopy: MouseEventHandler<HTMLButtonElement>
   application: Application
   textSize?: TextSize
 }) {

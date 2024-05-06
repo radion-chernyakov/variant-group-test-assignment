@@ -1,12 +1,12 @@
 /** @type {import("@stylexjs/nextjs-plugin").stylexPlugin} */
 import stylexPlugin from "@stylexjs/nextjs-plugin"
-
+import path from "path"
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
 /** @type {import("~/env.js").env } */
-const env = await import("./src/env.js")
+const { env } = await import("./src/env.js")
 
 /** @type {import('next').NextConfig} */
 const config = {
@@ -44,4 +44,18 @@ const config = {
 export default stylexPlugin({
   dev: env.NODE_ENV === "development",
   rootDir: import.meta.dirname,
+  runtimeInjection: false,
+  genConditionalClasses: true,
+  treeshakeCompensation: true,
+  useRemForFontSize: true,
+  unstable_moduleResolution: {
+    type: "commonJS",
+    rootDir: import.meta.dirname
+  },
+  babelConfig: {
+    babelrc: false,
+  },
+  aliases: {
+    '~/*': [path.join(import.meta.dirname, '*')],
+  },
 })(config)

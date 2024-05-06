@@ -129,3 +129,7 @@ export const inputsTokens = stylex.defineVars({
   },
   placeholderColor: colors.gray400,
 })
+
+export const zIndex = stylex.defineVars({
+  modal: 1000,
+})

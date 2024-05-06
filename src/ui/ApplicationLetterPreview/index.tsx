@@ -4,10 +4,8 @@ import * as stylex from "@stylexjs/stylex"
 import { Fragment, type Ref, useId, forwardRef } from "react"
 import { type Application } from "~/applications/store"
 import Text from "~/ui/Text"
-import Copy from "~/ui/icons/Copy.svg"
 import { type Result } from "~/utils/result"
 
-import Button from "../Button"
 import CopyToClipboardButton from "../CopyToClipboardButton"
 import {
   backgroundColors,

@@ -1,14 +1,18 @@
 import * as stylex from "@stylexjs/stylex"
+import Link from "next/link"
 import { Suspense, type ReactNode } from "react"
 import ApplicationsCounter from "~/applications/ApplicationCounter"
 import ApplicationHeader from "~/ui/ApplicationHeader"
+import Text from "~/ui/Text"
 
 import { spacing } from "../../ui/tokens.stylex"
 
 export default function ApplicationsLayout({
   children,
+  modal,
 }: {
   children: ReactNode
+  modal: ReactNode
 }) {
   return (
     <div {...stylex.props(styles.container)}>
@@ -20,6 +24,12 @@ export default function ApplicationsLayout({
         }
       />
       <main {...stylex.props(styles.main)}>{children}</main>
+      {modal}
+      <footer>
+        <Link scroll={false} href="/applications/settings">
+          <Text>Settings</Text>
+        </Link>
+      </footer>
     </div>
   )
 }

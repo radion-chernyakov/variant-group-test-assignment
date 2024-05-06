@@ -20,7 +20,6 @@ export default function Textarea({
 }: Props & { value?: string }) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const [currentLength, setCurrentLength] = useState(props.value?.length ?? 0)
-  const [isFocused, setIsFocused] = useState(false)
   const [touchedOnce, setIsTouchedOnce] = useState(false)
 
   useEffect(() => {
@@ -57,11 +56,9 @@ export default function Textarea({
         {...stylex.props(styles.textarea, ariaInvalid && styles.invalid)}
         onFocus={(e) => {
           setIsTouchedOnce(true)
-          setIsFocused(true)
           props.onFocus && props.onFocus(e)
         }}
         onBlur={(e) => {
-          setIsFocused(false)
           props.onBlur && props.onBlur(e)
         }}
         onChange={(e) => {

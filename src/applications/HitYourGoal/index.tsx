@@ -10,7 +10,6 @@ import PlusIcon from "~/ui/icons/Plus.svg"
 import {
   type MediaQuery,
   borderRadius,
-  colors,
   spacing,
   paddings,
   backgroundColors,

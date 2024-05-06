@@ -59,11 +59,11 @@ export default function UpdateApplication({
                 onResult({})
                 previewRef.current?.scrollIntoView({
                   behavior: "smooth",
-                  block: "start",
+                  block: "nearest",
                 })
               } catch {
                 onResult({ error: "Something went wrong" })
-                setResult({ error: "Something went wrong" })
+                setResult({ data: application })
               }
             }}
           />
@@ -82,6 +82,7 @@ export default function UpdateApplication({
 
 const styles = stylex.create({
   container: {
+    flexGrow: "1",
     display: "flex",
     gap: spacing.xxLarge,
     flexDirection: "column",

@@ -1,18 +1,4 @@
 {
   "presets": ["next/babel"],
-  "plugins": [
-    [
-      "@stylexjs/babel-plugin",
-      {
-        "runtimeInjection": false,
-        "genConditionalClasses": true,
-        "treeshakeCompensation": true,
-        "useRemForFontSize": true,
-        "unstable_moduleResolution": {
-          "type": "commonJS",
-          "rootDir": "/Users/radionchernyakov/work/variant-group-test-assignment"
-        }
-      }
-    ]
-  ]
+  "plugins": [["@stylexjs/babel-plugin"]]
 }
