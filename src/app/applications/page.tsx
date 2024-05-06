@@ -42,8 +42,8 @@ export default function ApplicationsPage() {
 
 const styles = stylex.create({
   container: {
-    display: "grid",
-    height: "max-content",
+    display: "flex",
+    flexDirection: "column",
     gap: spacing.xxLarge,
     width: "100%",
   },

@@ -6,6 +6,7 @@ import { getSettings } from './settings.server';
 import { type Settings, settingsSchema } from "./settingsSchema";
 import { cookies } from 'next/headers'
 import { templateBasedLetter } from "./letter";
+import reportError from "~/utils/reportError";
 
 async function gptBasedLetter(application: ApplicationFormData) {
   try {

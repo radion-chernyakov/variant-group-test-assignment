@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react"
 import z from "zod"
-
+import reportError from "~/utils/reportError";
 const applicationSchema = z.object({
   id: z.string(),
   company: z.string(),
@@ -21,6 +21,8 @@ let applications: Array<Application> = (() => {
   try {
     return z.array(applicationSchema).parse(JSON.parse(localStorage.getItem(localStorageKey) ?? ""))
   } catch {
+    localStorage.setItem(localStorageKey, JSON.stringify([]))
+    reportError('Failed to parse applications from local storage')
     return []
   }
 })()
