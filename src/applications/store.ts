@@ -21,7 +21,6 @@ let applications: Array<Application> = (() => {
   try {
     return z.array(applicationSchema).parse(JSON.parse(localStorage.getItem(localStorageKey) ?? ""))
   } catch {
-    localStorage.setItem(localStorageKey, JSON.stringify([]))
     reportError('Failed to parse applications from local storage')
     return []
   }

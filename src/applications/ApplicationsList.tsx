@@ -1,6 +1,5 @@
 "use client"
 
-import { vi } from "@faker-js/faker"
 import stylex from "@stylexjs/stylex"
 import {
   type CSSProperties,
@@ -9,22 +8,32 @@ import {
   useRef,
   useState,
 } from "react"
-import { FixedSizeList as List, FixedSizeGrid as Grid } from "react-window"
-import { ReactWindowScroller } from "react-window-scroller"
-import Application from "~/ui/Application"
+import { FixedSizeGrid as Grid } from "react-window"
+import {
+  ReactWindowScroller,
+  type ScrollerChildProps,
+} from "react-window-scroller"
+import Application, { calculateHeight } from "~/ui/Application"
 
-import { spacing, type MediaQuery } from "../ui/tokens.stylex"
+import {
+  type ExtractPXVarValue,
+  spacing,
+  type MediaQuery,
+  type ScreenWidth,
+} from "../ui/tokens.stylex"
 import { useClientSettings } from "./clientSettings"
-import { removeApplicationsById, useApplications } from "./store"
+import {
+  removeApplicationsById,
+  useApplications,
+  type Application as ApplicationType,
+} from "./store"
 
-type Size = {
-  height: number
-  width: number
-}
+const mediumWidth: ScreenWidth["medium"] = 768
+
+const textSize = "medium"
+const linesCount = 6
 
 export default function ApplicationsList() {
-  const sizeElementRef = useRef<HTMLDivElement>(null)
-  const [vitrualListSize, setVitrualListSize] = useState<null | Size>(null)
   const settings = useClientSettings()
   const applications = useApplications()
   const deferredApplications = useDeferredValue(applications)
@@ -33,72 +42,135 @@ export default function ApplicationsList() {
     ? deferredApplications
     : applications
 
-  useEffect(() => {
-    if (!sizeElementRef.current) return
-
-    console.log("kek")
-    const rect = sizeElementRef.current.getBoundingClientRect()
-    setVitrualListSize({
-      height: rect.height,
-      width: rect.width,
-    })
-  }, [sizeElementRef.current])
-
   if (!effectiveApplications || effectiveApplications.length === 0) return null
-  console.log(vitrualListSize)
 
-  return settings.virtualizedApplicationsRendering ? (
-    <div ref={sizeElementRef} {...stylex.props(styles.virtualizedGrid)}>
-      {vitrualListSize && (
-        <ReactWindowScroller isGrid>
-          {({ ref, outerRef, style, onScroll }) => (
-            <Grid
-              ref={ref}
-              outerRef={outerRef}
-              style={style}
-              height={window.innerHeight}
-              width={vitrualListSize.width}
-              columnCount={3}
-              columnWidth={vitrualListSize.width / 3}
-              rowCount={effectiveApplications.length / 3}
-              rowHeight={252}
-              onScroll={onScroll}
-            >
-              {({
-                columnIndex,
-                rowIndex,
-                style,
-              }: {
-                rowIndex: number
-                columnIndex: number
-                style: CSSProperties
-              }) => {
-                const application =
-                  effectiveApplications[columnIndex * 3 + rowIndex]!
-                return (
-                  <div style={style}>
-                    <Application
-                      onDelete={() => removeApplicationsById(application.id)}
-                      key={application.id}
-                      application={application}
-                    />
-                  </div>
-                )
-              }}
-            </Grid>
-          )}
-        </ReactWindowScroller>
-      )}
-    </div>
-  ) : (
+  if (settings.virtualizedApplicationsRendering) {
+    return <VirtualizedGridListWrapper applications={effectiveApplications} />
+  } else {
+    return <NativeGridList applications={effectiveApplications} />
+  }
+}
+
+function NativeGridList({ applications }: { applications: ApplicationType[] }) {
+  return (
     <div {...stylex.props(styles.gridContainer)}>
-      {effectiveApplications.map((application) => (
+      {applications.map((application) => (
         <Application
+          linesCount={linesCount}
+          textSize={textSize}
           onDelete={() => removeApplicationsById(application.id)}
           key={application.id}
           application={application}
         />
       ))}
+    </div>
+  )
+}
+
+function VirtualizedGridListWrapper({
+  applications,
+}: {
+  applications: ApplicationType[]
+}) {
+  const sizeElementRef = useRef<HTMLDivElement>(null)
+  const [virtualListWidth, setVirtualListWidth] = useState<null | number>(null)
+  useEffect(() => {
+    if (!sizeElementRef.current) return
+    const rect = sizeElementRef.current.getBoundingClientRect()
+    setVirtualListWidth(rect.width)
+
+    const observer = new ResizeObserver((entries) => {
+      const rect = entries[0]?.contentRect
+      if (!rect) return
+      setVirtualListWidth(rect.width)
+    })
+    observer.observe(sizeElementRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={sizeElementRef} {...stylex.props(styles.virtualizedGridWrapper)}>
+      {virtualListWidth && (
+        <VirtualizedGridList
+          applications={applications}
+          virtualListWidth={virtualListWidth}
+        />
+      )}
+    </div>
+  )
+}
+
+const itemHeight = calculateHeight(textSize, linesCount)
+const gap = spacing.small
+const gapSize: ExtractPXVarValue<typeof gap> = 8
+const rowHeight = itemHeight + gapSize
+
+function VirtualizedGridList({
+  applications,
+  virtualListWidth,
+}: {
+  applications: ApplicationType[]
+  virtualListWidth: number
+}) {
+  const columnsCount = virtualListWidth <= mediumWidth ? 1 : 2
+  const columnWidth = virtualListWidth / columnsCount
+
+  const rowCount = Math.ceil(applications.length / columnsCount)
+
+  return (
+    <div {...stylex.props(styles.virtualizedGrid(rowCount, rowHeight))}>
+      <ReactWindowScroller isGrid>
+        {({ ref, outerRef, style, onScroll }: ScrollerChildProps) => (
+          <Grid
+            ref={ref}
+            outerRef={outerRef}
+            style={style}
+            height={window.innerHeight}
+            width={virtualListWidth}
+            columnCount={columnsCount}
+            columnWidth={columnWidth}
+            rowCount={rowCount}
+            rowHeight={rowHeight}
+            onScroll={onScroll}
+          >
+            {({
+              columnIndex,
+              rowIndex,
+              style,
+            }: {
+              rowIndex: number
+              columnIndex: number
+              style: CSSProperties
+            }) => {
+              const index = columnIndex + rowIndex * columnsCount
+              const application = applications[index]
+              if (!application) return null
+              return (
+                <div
+                  data-application-id={application.id}
+                  data-application-index={index}
+                  style={style}
+                  {...stylex.props(styles.virtualGridCell)}
+                >
+                  <div
+                    {...stylex.props(
+                      styles.virtualGridItemContainer(columnWidth, rowHeight),
+                    )}
+                  >
+                    <Application
+                      linesCount={linesCount}
+                      textSize={textSize}
+                      onDelete={() => removeApplicationsById(application.id)}
+                      key={application.id}
+                      application={application}
+                    />
+                  </div>
+                </div>
+              )
+            }}
+          </Grid>
+        )}
+      </ReactWindowScroller>
     </div>
   )
 }
@@ -112,9 +184,23 @@ const styles = stylex.create({
       default: "1fr 1fr",
       [mediumQuery]: "1fr",
     },
-    gap: spacing.small,
+    gap,
   },
-  virtualizedGrid: {
-    height: "100%",
+  virtualizedGrid: (rowCount: number, rowHeight: number) => ({
+    height: `calc(${rowHeight}px * ${rowCount})`,
+  }),
+  virtualizedGridWrapper: {
+    margin: `calc(${spacing.small} * -1 / 2)`,
+    // negative margin to visually remove "gap" from outer grid cells
+    // and add space for hover effect
   },
+  virtualGridCell: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  virtualGridItemContainer: (columnWidth: number, rowHeight: number) => ({
+    width: `calc(${columnWidth}px - ${spacing.small})`,
+    height: `calc(${rowHeight}px - ${spacing.small})`,
+  }),
 })

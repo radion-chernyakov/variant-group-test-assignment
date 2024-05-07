@@ -1,6 +1,8 @@
 import * as stylex from "@stylexjs/stylex"
+import { type StyleXVar, type UnwrapVars } from "@stylexjs/stylex/lib/StyleXTypes"
+import { type ToNumber, type SplitTypedString } from "~/utils/crazyTypes"
 
-type ScreenWidth = {
+export type ScreenWidth = {
   xSmall: 320,
   small: 480,
   medium: 768,
@@ -81,7 +83,14 @@ export const spacing = stylex.defineVars({
   large: "24px",
   xLarge: "32px",
   xxLarge: "48px",
-})
+} as const)
+
+export type Spacing = {
+  [Property in keyof typeof spacing.__tokens]: {
+    px: UnwrapVars<typeof spacing[Property]>,
+    number: ToNumber<SplitTypedString<UnwrapVars<typeof spacing[Property]>, 'px'>[0]>
+  }
+};
 
 export const paddings = stylex.defineVars({
   xxSmall: "12px",
@@ -90,7 +99,17 @@ export const paddings = stylex.defineVars({
   medium: "32px",
   large: "54px",
   xLarge: "64px",
-})
+} as const)
+
+export type ExtractPXVarValue<T extends StyleXVar<string>> = T extends StyleXVar<`${infer U}px`> ? ToNumber<U> : never;
+
+export type Paddings = {
+  [Property in keyof typeof paddings.__tokens]: {
+    px: UnwrapVars<typeof paddings[Property]>,
+    string: ToNumber<SplitTypedString<UnwrapVars<typeof paddings[Property]>, 'px'>[0]>
+  }
+};
+
 
 export const inputsTokens = stylex.defineVars({
   fontSize: "16px",

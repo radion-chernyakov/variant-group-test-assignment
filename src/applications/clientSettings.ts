@@ -17,8 +17,8 @@ const defaultSettings = {
 let settings = (() => {
   try {
     return clientSettingsSchema.parse(JSON.parse(localStorage.getItem(localStorageKey) ?? ''))
-  } catch {
-    reportError('Failed to parse client settings from local storage')
+  } catch (e) {
+    reportError(e)
     return {
       deferredApplicationsRendering: true,
       virtualizedApplicationsRendering: false,

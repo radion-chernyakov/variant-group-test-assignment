@@ -17,13 +17,16 @@ import {
   colors,
   paddings,
   spacing,
+  type ExtractPXVarValue,
 } from "../tokens.stylex"
 
 export default function Application({
   application,
   textSize = "medium",
+  linesCount = 6,
   onDelete,
 }: {
+  linesCount: number
   onDelete: MouseEventHandler<HTMLButtonElement>
   application: Application
   textSize?: TextSize
@@ -59,7 +62,12 @@ export default function Application({
         </Link>
       </VisuallyHidden>
       <div {...stylex.props(styles.textWrapper)}>
-        <TextWithTextClamp colorVariant="light" size={textSize} weight="normal">
+        <TextWithTextClamp
+          lines={linesCount}
+          colorVariant="light"
+          size={textSize}
+          weight="normal"
+        >
           {application.letter.split("\n").map((paragraph, index) => (
             <Fragment key={index}>
               <span key={index}>{paragraph}</span>
@@ -92,6 +100,18 @@ export default function Application({
   )
 }
 
+const padding = paddings.small
+const gap = spacing.normal
+
+export const calculateHeight = (textSize: TextSize, linesCount: number) => {
+  const paddingSizeInPX: ExtractPXVarValue<typeof padding> = 24
+  const textSizeInPX = getLineHeight(textSize) * linesCount
+  const gapSizeInPX: ExtractPXVarValue<typeof gap> = 16
+  const buttonSize = 20 // Well, I'll leave it hardcoded, it's not likely it gonna change and it's easier to write a test that will make sure that such a hardcoded value is correct for functional button rather than write a function that will actually calculate it
+
+  return paddingSizeInPX * 2 + textSizeInPX + gapSizeInPX + buttonSize
+}
+
 const styles = stylex.create({
   container: {
     cursor: "pointer",
@@ -100,8 +120,8 @@ const styles = stylex.create({
     flexDirection: "column",
     backgroundColor: backgroundColors.gray,
     borderRadius: borderRadius.control,
-    padding: paddings.small,
-    gap: spacing.normal,
+    padding,
+    gap,
     boxShadow: {
       default: "none",
       ":hover:not(:focus-within)": `0px 0px 0px 2px ${backgroundColors.gray}`,

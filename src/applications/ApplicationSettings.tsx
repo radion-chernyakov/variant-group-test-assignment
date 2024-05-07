@@ -2,7 +2,7 @@
 
 import { faker } from "@faker-js/faker"
 import * as stylex from "@stylexjs/stylex"
-import { useState, useRef, useEffect, use } from "react"
+import { useState, useEffect } from "react"
 import { useZorm } from "react-zorm"
 import z from "zod"
 import { ErrorMessage, InputContainer } from "~/components/ApplicationForm"
@@ -10,7 +10,6 @@ import Button from "~/ui/Button"
 import Input from "~/ui/Input"
 import PageHeader from "~/ui/PageHeader"
 import Switch from "~/ui/Switch"
-import Text from "~/ui/Text"
 import { type Result } from "~/utils/result"
 
 import { spacing } from "../ui/tokens.stylex"
