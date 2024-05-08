@@ -95,7 +95,7 @@ function ApplicationsActions() {
             const generatorInstance = batchGeneration(
               generateApplications,
               populateApplicationsAmount,
-              500,
+              100,
             )()
             for (const applications of generatorInstance) {
               requestIdleCallback(() => {
