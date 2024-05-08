@@ -6,6 +6,7 @@ import Button from "~/ui/Button"
 import ProgressBar from "~/ui/ProgressBar"
 import Text from "~/ui/Text"
 import PlusIcon from "~/ui/icons/Plus.svg"
+import { mapResult } from "~/utils/result"
 
 import {
   type MediaQuery,
@@ -18,46 +19,52 @@ import { useApplications } from "../store"
 
 export default function HitYourGoal() {
   const applications = useApplications()
-  if (!applications) return null
-  const progress = applications.length
-  if (progress >= 5) return null
-  return (
-    <section {...stylex.props(styles.container)}>
-      <div {...stylex.props(styles.innerContainer)}>
-        <div {...stylex.props(styles.topSection)}>
-          <Text as="h2" size="large" weight="semibold" textAlign="center">
-            Hit your goal
-          </Text>
-          <Text
-            colorVariant="light"
-            size="medium"
-            weight="light"
-            textAlign="center"
-          >
-            Generate and send out couple more job applications today to get
-            hired faster
-          </Text>
-          <Button
-            as={Link}
-            href="/applications/new"
-            alignSelf="center"
-            size="medium"
-            intent="submit"
-            icon={PlusIcon}
-            iconPosition="block-start"
-          >
-            Create New
-          </Button>
-        </div>
-        <ProgressBar
-          preferTextStyle="short"
-          progress={progress}
-          progressStyle="rounded"
-          layout="vertical"
-        />
-      </div>
-    </section>
-  )
+
+  return mapResult(applications, {
+    onError: () => null, // TODO: handle error
+    onLoading: () => null, // TODO: handle loading
+    onData: (applications) => {
+      const progress = applications.length
+      if (progress >= 5) return null
+      return (
+        <section {...stylex.props(styles.container)}>
+          <div {...stylex.props(styles.innerContainer)}>
+            <div {...stylex.props(styles.topSection)}>
+              <Text as="h2" size="large" weight="semibold" textAlign="center">
+                Hit your goal
+              </Text>
+              <Text
+                colorVariant="light"
+                size="medium"
+                weight="light"
+                textAlign="center"
+              >
+                Generate and send out couple more job applications today to get
+                hired faster
+              </Text>
+              <Button
+                as={Link}
+                href="/applications/new"
+                alignSelf="center"
+                size="medium"
+                intent="submit"
+                icon={PlusIcon}
+                iconPosition="block-start"
+              >
+                Create New
+              </Button>
+            </div>
+            <ProgressBar
+              preferTextStyle="short"
+              progress={progress}
+              progressStyle="rounded"
+              layout="vertical"
+            />
+          </div>
+        </section>
+      )
+    },
+  })
 }
 
 const smallMediaQuery: MediaQuery["small"] = "@media (max-width: 480px)"

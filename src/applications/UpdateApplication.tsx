@@ -8,7 +8,7 @@ import { type ApplicationFormData } from "~/components/ApplicationForm"
 import ApplicationForm from "~/components/ApplicationForm"
 import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
 import FormWithPreviewLayout from "~/ui/FormWithPreviewLayout"
-import { type Result } from "~/utils/result"
+import { mapResult, type Result } from "~/utils/result"
 
 import { spacing } from "../ui/tokens.stylex"
 import HitYourGoal from "./HitYourGoal"
@@ -22,62 +22,56 @@ export default function UpdateApplication({
   generateLetter: (data: ApplicationFormData) => Promise<string>
 }) {
   const previewRef = useRef<HTMLDivElement>(null)
-  const application = useApplication(applicationId)
-  const [result, setResult] = useState<Result<Application> | null>(() => {
-    if (!application) return null
+  const applicationResult = useApplication(applicationId)
+  const [result, setResult] = useState<Result<Application> | null>(null)
 
-    return { data: application }
+  return mapResult(applicationResult, {
+    onError: () => notFound(),
+    onLoading: () => "loading...", // TODO: handle loading,
+    onData: (application) => (
+      <div {...stylex.props(styles.container)}>
+        <FormWithPreviewLayout
+          form={
+            <ApplicationForm
+              initialValues={{
+                position: application.position,
+                skills: application.skills,
+                company: application.company,
+                details: application.details,
+              }}
+              onSubmit={async ({ data, onResult }) => {
+                setResult({ loading: true })
+                try {
+                  const letter = await generateLetter(data)
+                  const application = updateApplication({
+                    id: applicationId,
+                    ...data,
+                    letter,
+                  })
+                  setResult({ data: application })
+                  onResult({})
+                  previewRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                  })
+                } catch {
+                  onResult({ error: "Something went wrong" })
+                  setResult({ data: application })
+                }
+              }}
+            />
+          }
+          preview={
+            <ApplicationLetterPreview
+              ref={previewRef}
+              applicationResult={result ?? { data: application }}
+            />
+          }
+        />
+        <HitYourGoal />
+      </div>
+    ),
   })
-
-  if (application === undefined) {
-    return notFound()
-  }
-
-  if (!application) return null
-
-  return (
-    <div {...stylex.props(styles.container)}>
-      <FormWithPreviewLayout
-        form={
-          <ApplicationForm
-            initialValues={{
-              position: application.position,
-              skills: application.skills,
-              company: application.company,
-              details: application.details,
-            }}
-            onSubmit={async ({ data, onResult }) => {
-              setResult({ loading: true })
-              try {
-                const letter = await generateLetter(data)
-                const application = updateApplication({
-                  id: applicationId,
-                  ...data,
-                  letter,
-                })
-                setResult({ data: application })
-                onResult({})
-                previewRef.current?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "nearest",
-                })
-              } catch {
-                onResult({ error: "Something went wrong" })
-                setResult({ data: application })
-              }
-            }}
-          />
-        }
-        preview={
-          <ApplicationLetterPreview
-            ref={previewRef}
-            applicationResult={result}
-          />
-        }
-      />
-      <HitYourGoal />
-    </div>
-  )
 }
 
 const styles = stylex.create({

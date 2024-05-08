@@ -14,6 +14,7 @@ import {
   type ScrollerChildProps,
 } from "react-window-scroller"
 import Application, { calculateHeight } from "~/ui/Application"
+import { mapResult } from "~/utils/result"
 
 import {
   type ExtractPXVarValue,
@@ -36,19 +37,28 @@ const linesCount = 6
 export default function ApplicationsList() {
   const settings = useClientSettings()
   const applications = useApplications()
-  const deferredApplications = useDeferredValue(applications)
+  const deferredApplications = useDeferredValue(applications.data ?? [])
 
-  const effectiveApplications = settings.deferredApplicationsRendering
-    ? deferredApplications
-    : applications
+  return mapResult(applications, {
+    onError: () => null, // TODO: handle error
+    onLoading: () => null, // TODO: handle loading
+    onData: (applications) => {
+      const effectiveApplications = settings.deferredApplicationsRendering
+        ? deferredApplications
+        : applications
 
-  if (!effectiveApplications || effectiveApplications.length === 0) return null
+      if (!effectiveApplications || effectiveApplications.length === 0)
+        return null
 
-  if (settings.virtualizedApplicationsRendering) {
-    return <VirtualizedGridListWrapper applications={effectiveApplications} />
-  } else {
-    return <NativeGridList applications={effectiveApplications} />
-  }
+      if (settings.virtualizedApplicationsRendering) {
+        return (
+          <VirtualizedGridListWrapper applications={effectiveApplications} />
+        )
+      } else {
+        return <NativeGridList applications={effectiveApplications} />
+      }
+    },
+  })
 }
 
 function NativeGridList({ applications }: { applications: ApplicationType[] }) {

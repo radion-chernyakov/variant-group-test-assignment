@@ -12,10 +12,10 @@ const applicationSchema = z.object({
 export type Application = z.infer<typeof applicationSchema>
 
 const {
-  useStore: useApplications,
+  useStoreWithResult: useApplications,
   setData: setApplications,
   useStoreWithSelector,
-} = makeStore<Application[]>(z.array(applicationSchema), 'applications', [])
+} = makeStore<Application[]>(z.array(applicationSchema), 'applications', [], 1000)
 
 export function useApplication(id: string) {
   return useStoreWithSelector((applications) => applications.find(application => application.id === id))
@@ -67,7 +67,6 @@ export const updateApplication = ({ id, ...applicationData }: Application): Appl
     })
   })
   return updatedApplication
-
 }
 
 export const clearApplications = () => {
