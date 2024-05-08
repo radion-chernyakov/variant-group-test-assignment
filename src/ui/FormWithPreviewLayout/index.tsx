@@ -19,6 +19,7 @@ export default function FormWithPreviewLayout({
 }
 
 const mediumMediaQuery: MediaQuery["medium"] = "@media (max-width: 768px)"
+const smallMediaQuery: MediaQuery["small"] = "@media (max-width: 480px)"
 
 const styles = stylex.create({
   container: {
@@ -35,7 +36,10 @@ const styles = stylex.create({
     flexGrow: "1",
   },
   formContainer: {
-    position: "sticky",
+    position: {
+      default: "sticky",
+      [smallMediaQuery]: "static",
+    },
     top: paddings.medium,
     alignSelf: "start",
     paddingBlockEnd: {

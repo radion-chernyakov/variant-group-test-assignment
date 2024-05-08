@@ -7,7 +7,9 @@ import { type Application, updateApplication } from "~/applications/store"
 import { type ApplicationFormData } from "~/components/ApplicationForm"
 import ApplicationForm from "~/components/ApplicationForm"
 import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
+import Button from "~/ui/Button"
 import FormWithPreviewLayout from "~/ui/FormWithPreviewLayout"
+import RepeatIcon from "~/ui/icons/Repeat.svg"
 import { mapResult, type Result } from "~/utils/result"
 
 import { spacing } from "../ui/tokens.stylex"
@@ -59,6 +61,20 @@ export default function UpdateApplication({
                   setResult({ data: application })
                 }
               }}
+              renderSubmitButton={({ loading, disabled }) => (
+                <Button
+                  grow
+                  icon={RepeatIcon}
+                  iconPosition="block-start"
+                  disabled={disabled}
+                  type="submit"
+                  size="medium"
+                  intent="action"
+                  loading={loading}
+                >
+                  Try Again
+                </Button>
+              )}
             />
           }
           preview={

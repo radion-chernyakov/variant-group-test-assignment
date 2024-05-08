@@ -1,12 +1,7 @@
 "use client"
 
 import * as stylex from "@stylexjs/stylex"
-import {
-  type ComponentProps,
-  useId,
-  useState,
-  type ReactNode,
-} from "react"
+import { type ComponentProps, useId, useState, type ReactNode } from "react"
 import {
   useZorm,
   unstable_inputProps as inputProps,
@@ -78,6 +73,7 @@ type FormState =
 export default function ApplicationForm({
   initialValues = {},
   onSubmit,
+  renderSubmitButton,
 }: {
   initialValues?: InitialValues
   onSubmit: ({
@@ -87,6 +83,10 @@ export default function ApplicationForm({
     data: ApplicationFormData
     onResult: (result: Result) => void
   }) => void
+  renderSubmitButton: (props: {
+    loading: boolean
+    disabled: boolean
+  }) => ReactNode
 }) {
   const [formState, setFormState] = useState<FormState | null>(null)
   const form = useZorm("application", formSchema, {
@@ -175,16 +175,11 @@ export default function ApplicationForm({
           </div>
         )}
         <div {...stylex.props(style.submit)}>
-          <Button
-            grow
-            disabled={!isValid}
-            type="submit"
-            size="medium"
-            intent="submit"
-            loading={formState?.loading}
-          >
-            Generate Now
-          </Button>
+          {renderSubmitButton({
+            loading: formState?.loading ?? false,
+            disabled: !isValid,
+          })}
+          
         </div>
       </form>
     </div>

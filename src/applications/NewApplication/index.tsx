@@ -6,6 +6,7 @@ import { type Application, addApplication } from "~/applications/store"
 import { type ApplicationFormData } from "~/components/ApplicationForm"
 import ApplicationForm from "~/components/ApplicationForm"
 import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
+import Button from "~/ui/Button"
 import FormWithPreviewLayout from "~/ui/FormWithPreviewLayout"
 import { type Result } from "~/utils/result"
 
@@ -21,6 +22,18 @@ export default function NewApplication({
     <FormWithPreviewLayout
       form={
         <ApplicationForm
+          renderSubmitButton={({ loading, disabled }) => (
+            <Button
+              grow
+              disabled={disabled}
+              type="submit"
+              size="medium"
+              intent="submit"
+              loading={loading}
+            >
+              Generate Now
+            </Button>
+          )}
           onSubmit={async ({ data, onResult }) => {
             setResult({ loading: true })
             try {
