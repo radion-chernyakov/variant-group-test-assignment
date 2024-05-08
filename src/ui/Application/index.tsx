@@ -2,7 +2,13 @@
 
 import * as stylex from "@stylexjs/stylex"
 import Link from "next/link"
-import { Fragment, useRef, useState, type MouseEventHandler } from "react"
+import {
+  type ComponentProps,
+  Fragment,
+  useRef,
+  useState,
+  type MouseEventHandler,
+} from "react"
 import type { Application } from "~/applications/store"
 import Button from "~/ui/Button"
 import { type Size as TextSize, getLineHeight } from "~/ui/Text"
@@ -20,13 +26,16 @@ import {
   type ExtractPXVarValue,
 } from "../tokens.stylex"
 
+const defaultTextSize = "medium"
+const defaultLinesCount = 6
+
 export default function Application({
   application,
-  textSize = "medium",
-  linesCount = 6,
+  textSize = defaultTextSize,
+  linesCount = defaultLinesCount,
   onDelete,
 }: {
-  linesCount: number
+  linesCount?: number
   onDelete: MouseEventHandler<HTMLButtonElement>
   application: Application
   textSize?: TextSize
@@ -112,6 +121,16 @@ export const calculateHeight = (textSize: TextSize, linesCount: number) => {
   return paddingSizeInPX * 2 + textSizeInPX + gapSizeInPX + buttonSize
 }
 
+export function ApplicationSkeleton({
+  linesCount = defaultLinesCount,
+  textSize = defaultTextSize,
+}: Pick<ComponentProps<typeof Application>, "linesCount" | "textSize">) {
+  const height = calculateHeight(textSize, linesCount)
+  return (
+    <div {...stylex.props(styles.container, styles.skeleton(height))}></div>
+  )
+}
+
 const styles = stylex.create({
   container: {
     cursor: "pointer",
@@ -127,6 +146,9 @@ const styles = stylex.create({
       ":hover:not(:focus-within)": `0px 0px 0px 2px ${backgroundColors.gray}`,
     },
   },
+  skeleton: (height: number) => ({
+    height,
+  }),
   containerWithLinkFocused: {
     boxShadow: `0px 0px 0px 2px ${colors.green400}`,
   },

@@ -1,4 +1,4 @@
-import { useMemo, useSyncExternalStore } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { type ZodType } from "zod";
 import reportError from "~/utils/reportError";
 import type { Result } from "./result";
@@ -23,6 +23,7 @@ export default function makeStore<T>(schema: ZodType<T>, localStorageKey: string
     }
   }
   let data = getDataOutOfLocalStorage()
+  let dataResult = { data } as Result<T>
 
   type Listener = () => void
   const listeners = new Set<Listener>();
@@ -40,6 +41,7 @@ export default function makeStore<T>(schema: ZodType<T>, localStorageKey: string
     } else {
       data = setData
     }
+    dataResult = { data } as Result<T>
 
     listeners.forEach(listener => listener())
     if (saveToLocalStorageTimeout) clearTimeout(saveToLocalStorageTimeout)
@@ -62,8 +64,7 @@ export default function makeStore<T>(schema: ZodType<T>, localStorageKey: string
   const loadingResult = { loading: true }
 
   const useStoreWithResult = () => {
-    const memoizedResult = useMemo(() => ({ data } as Result<T>), [data])
-    return useSyncExternalStore(subscribe, () => memoizedResult, () => loadingResult as Result<T>)
+    return useSyncExternalStore(subscribe, () => dataResult, () => loadingResult as Result<T>)
   }
 
   const useStore = () => {
@@ -73,16 +74,22 @@ export default function makeStore<T>(schema: ZodType<T>, localStorageKey: string
   const selectErrorResult = { error: 'Selector returned undefined' }
 
   const useStoreWithSelector = <P>(selector: (data: T) => P | undefined): Result<P> => {
-    const memoizedResult = useMemo(() => {
-      const selectedData = selector(data)
-      if (selectedData === undefined) {
-        return selectErrorResult as Result<P>
-      }
-      return { data: selectedData } as Result<P>
-    }, [data])
+    const resultRef = useRef<Result<P>>()
     return useSyncExternalStore(
       subscribe,
-      () => memoizedResult,
+      () => {
+        const selectedData = selector(data)
+
+        if (selectedData === undefined) {
+          return selectErrorResult as Result<P>
+        }
+        if (selectedData === resultRef.current?.data) {
+          return resultRef.current
+        }
+        const newResult = { data: selectedData } as Result<P>
+        resultRef.current = newResult
+        return newResult
+      },
       () => loadingResult as Result<P>)
   }
 

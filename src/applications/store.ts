@@ -21,6 +21,10 @@ export function useApplication(id: string) {
   return useStoreWithSelector((applications) => applications.find(application => application.id === id))
 }
 
+export function useApplicationsCount() {
+  return useStoreWithSelector((applications) => applications.length)
+}
+
 export { useApplications }
 
 export type ApplicationData = Omit<Application, "id">

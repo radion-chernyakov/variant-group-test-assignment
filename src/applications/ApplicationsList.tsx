@@ -7,13 +7,17 @@ import {
   useEffect,
   useRef,
   useState,
+  useLayoutEffect,
 } from "react"
 import { FixedSizeGrid as Grid } from "react-window"
 import {
   ReactWindowScroller,
   type ScrollerChildProps,
 } from "react-window-scroller"
-import Application, { calculateHeight } from "~/ui/Application"
+import Application, {
+  calculateHeight,
+  ApplicationSkeleton,
+} from "~/ui/Application"
 import { mapResult } from "~/utils/result"
 
 import {
@@ -41,7 +45,7 @@ export default function ApplicationsList() {
 
   return mapResult(applications, {
     onError: () => null, // TODO: handle error
-    onLoading: () => null, // TODO: handle loading
+    onLoading: () => <Skeleton />, // TODO: handle loading
     onData: (applications) => {
       const effectiveApplications = settings.deferredApplicationsRendering
         ? deferredApplications
@@ -59,6 +63,16 @@ export default function ApplicationsList() {
       }
     },
   })
+}
+
+function Skeleton() {
+  return (
+    <div {...stylex.props(styles.gridContainer)} id="kek!">
+      <ApplicationSkeleton />
+      <ApplicationSkeleton />
+      <ApplicationSkeleton />
+    </div>
+  )
 }
 
 function NativeGridList({ applications }: { applications: ApplicationType[] }) {
@@ -84,7 +98,7 @@ function VirtualizedGridListWrapper({
 }) {
   const sizeElementRef = useRef<HTMLDivElement>(null)
   const [virtualListWidth, setVirtualListWidth] = useState<null | number>(null)
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!sizeElementRef.current) return
     const rect = sizeElementRef.current.getBoundingClientRect()
     setVirtualListWidth(rect.width)

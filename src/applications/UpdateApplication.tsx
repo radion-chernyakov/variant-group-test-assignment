@@ -27,7 +27,7 @@ export default function UpdateApplication({
 
   return mapResult(applicationResult, {
     onError: () => notFound(),
-    onLoading: () => "loading...", // TODO: handle loading,
+    onLoading: () => null, // TODO: handle loading,
     onData: (application) => (
       <div {...stylex.props(styles.container)}>
         <FormWithPreviewLayout

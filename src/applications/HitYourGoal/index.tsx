@@ -15,17 +15,16 @@ import {
   paddings,
   backgroundColors,
 } from "../../ui/tokens.stylex"
-import { useApplications } from "../store"
+import { useApplicationsCount } from "../store"
 
 export default function HitYourGoal() {
-  const applications = useApplications()
+  const applicationsCount = useApplicationsCount()
 
-  return mapResult(applications, {
-    onError: () => null, // TODO: handle error
-    onLoading: () => null, // TODO: handle loading
-    onData: (applications) => {
-      const progress = applications.length
-      if (progress >= 5) return null
+  return mapResult(applicationsCount, {
+    onError: () => null,
+    onLoading: () => null,
+    onData: (applicationsCount) => {
+      if (applicationsCount >= 5) return null
       return (
         <section {...stylex.props(styles.container)}>
           <div {...stylex.props(styles.innerContainer)}>
@@ -56,7 +55,7 @@ export default function HitYourGoal() {
             </div>
             <ProgressBar
               preferTextStyle="short"
-              progress={progress}
+              progress={applicationsCount}
               progressStyle="rounded"
               layout="vertical"
             />

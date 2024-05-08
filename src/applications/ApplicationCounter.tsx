@@ -1,18 +1,16 @@
 "use client"
 
-import { useApplications } from "~/applications/store"
+import { useApplicationsCount } from "~/applications/store"
 import ProgressBar from "~/ui/ProgressBar"
 import { mapResult } from "~/utils/result"
 
 export default function ApplicationsCounter() {
-  const applicationsResult = useApplications()
+  const applicationsCountResult = useApplicationsCount()
 
-  return mapResult(applicationsResult, {
-    onError: () => null, // TODO: handle error
-    onLoading: () => null, // TODO: handle loading
-    onData: (applications) => {
-      const applicationsCount = applications.length
-
+  return mapResult(applicationsCountResult, {
+    onError: () => null,
+    onLoading: () => null,
+    onData: (applicationsCount) => {
       return (
         <ProgressBar
           progress={applicationsCount}
