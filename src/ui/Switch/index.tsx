@@ -35,7 +35,7 @@ const styles = stylex.create({
     height: 25,
     backgroundColor: {
       default: colors.gray100,
-      "@media (prefers-color-scheme: dark)": colors.gray700,
+      "@media (prefers-color-scheme: dark)": colors.gray600,
     },
     borderRadius: "9999px",
     position: "relative",
