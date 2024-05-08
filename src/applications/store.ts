@@ -1,6 +1,5 @@
-import { useSyncExternalStore } from "react"
 import z from "zod"
-import reportError from "~/utils/reportError";
+import makeStore from "~/utils/makeStore";
 const applicationSchema = z.object({
   id: z.string(),
   company: z.string(),
@@ -12,19 +11,19 @@ const applicationSchema = z.object({
 
 export type Application = z.infer<typeof applicationSchema>
 
+const {
+  useStore: useApplications,
+  setData: setApplications,
+  useStoreWithSelector,
+} = makeStore<Application[]>(z.array(applicationSchema), 'applications', [])
 
-const localStorageKey = 'applications'
+export function useApplication(id: string) {
+  return useStoreWithSelector((applications) => applications.find(application => application.id === id))
+}
+
+export { useApplications }
 
 export type ApplicationData = Omit<Application, "id">
-
-let applications: Array<Application> = (() => {
-  try {
-    return z.array(applicationSchema).parse(JSON.parse(localStorage.getItem(localStorageKey) ?? ""))
-  } catch {
-    reportError('Failed to parse applications from local storage')
-    return []
-  }
-})()
 
 export const addApplication = (application: ApplicationData) => {
   const id = crypto.randomUUID()
@@ -32,8 +31,9 @@ export const addApplication = (application: ApplicationData) => {
     id,
     ...application
   }
-  applications = [...applications, newApplication]
-  emitChange()
+  setApplications((applications) => {
+    return [...applications, newApplication]
+  })
   return newApplication
 }
 
@@ -42,14 +42,15 @@ export const addApplications = (newApplicationsData: Array<ApplicationData>) => 
     id: crypto.randomUUID(),
     ...application
   }))
-  applications = [...applications, ...newApplications]
-  emitChange()
+  setApplications((applications) => [
+    ...applications,
+    ...newApplications
+  ])
   return newApplications
 }
 
 export const removeApplicationsById = (id: string) => {
-  applications = applications.filter(application => application.id !== id)
-  emitChange()
+  setApplications((applications) => applications.filter(application => application.id !== id))
 }
 
 export const updateApplication = ({ id, ...applicationData }: Application): Application => {
@@ -57,51 +58,18 @@ export const updateApplication = ({ id, ...applicationData }: Application): Appl
     id,
     ...applicationData
   }
-
-  const applicationIndex = applications.findIndex(({ id: applicationId }) => applicationId === id)
-  if (applicationIndex) {
-    applications = applications.map((application, index) => {
+  setApplications((applications) => {
+    const applicationIndex = applications.findIndex(({ id: applicationId }) => applicationId === id)
+    return applications.map((application, index) => {
       if (index === applicationIndex) return updatedApplication
 
       return application
     })
-    emitChange()
-    return updatedApplication
-  } else {
-    // TODO: throw & report error
-    return updatedApplication
-  }
-}
+  })
+  return updatedApplication
 
-type Listener = () => void
-const listeners = new Set<Listener>();
-
-function subscribe(listener: Listener) {
-  listeners.add(listener)
-
-  return () => listeners.delete(listener)
-}
-
-export function useApplications() {
-  return useSyncExternalStore(subscribe, () => applications, () => null)
-}
-
-export function useApplication(id: string) {
-  return useSyncExternalStore(subscribe, () => applications.find(({ id: applicationId }) => applicationId === id) ?? null, () => undefined)
-}
-
-let saveToLocalStorageTimeout: NodeJS.Timeout | null = null
-
-function emitChange() {
-  listeners.forEach(listener => listener())
-  if (saveToLocalStorageTimeout) clearTimeout(saveToLocalStorageTimeout)
-  saveToLocalStorageTimeout = setTimeout(() => {
-    localStorage.setItem(localStorageKey, JSON.stringify(applications))
-    saveToLocalStorageTimeout = null
-  }, 300)
 }
 
 export const clearApplications = () => {
-  applications = []
-  emitChange()
+  setApplications([])
 }
