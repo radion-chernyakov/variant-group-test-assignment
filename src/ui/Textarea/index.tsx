@@ -34,9 +34,9 @@ export default function Textarea({
   }, [ariaInvalid])
 
   const moreThanMaxLength =
-    maxLength !== undefined ? maxLength <= currentLength : false
+    maxLength !== undefined ? currentLength > maxLength : false
   const lessThanMinLength =
-    minLength !== undefined ? minLength >= currentLength : false
+    minLength !== undefined ? currentLength < minLength : false
 
   const notInAcceptedRange = moreThanMaxLength || lessThanMinLength
   const isNotAcceptedRangeError = ariaInvalid === true && notInAcceptedRange
