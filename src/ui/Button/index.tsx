@@ -131,14 +131,20 @@ export default function Button({
           <Loading />
         </div>
       )}
-      {Icon && <Icon width={iconSize} height={iconSize} />}
+      {Icon && (
+        <Icon
+          {...stylex.props(loading && buttonStyles.loadingContent)}
+          width={iconSize}
+          height={iconSize}
+        />
+      )}
       {children && (
         <Text
           colorScheme="inherit"
           weight="semibold"
           style={[
             textPositionAdjustmentMap[size],
-            loading && buttonStyles.textLoading,
+            loading && buttonStyles.loadingContent,
           ]}
           size={textSizeMap[size]}
         >
@@ -207,7 +213,7 @@ const buttonStyles = stylex.create({
   loading: {
     cursor: "default",
   },
-  textLoading: {
+  loadingContent: {
     opacity: 0,
   },
   loadingSpinner: {
