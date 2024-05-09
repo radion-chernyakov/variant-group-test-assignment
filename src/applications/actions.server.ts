@@ -1,5 +1,5 @@
 "use server"
-import { type ApplicationFormData } from "~/components/ApplicationForm";
+import { type ApplicationFormData } from "~/applications/ApplicationForm";
 import client from "~/utils/openAI";
 import wait from "~/utils/wait";
 import { getSettings } from './settings.server';

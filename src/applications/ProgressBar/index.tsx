@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex"
 import Text from "~/ui/Text"
 import CheckIcon from "~/ui/icons/Check.svg"
 
-import { type ContainerQuery, colors, spacing } from "../tokens.stylex"
+import { type ContainerQuery, colors, spacing } from "../../ui/tokens.stylex"
 
 const maxProgress = 5
 

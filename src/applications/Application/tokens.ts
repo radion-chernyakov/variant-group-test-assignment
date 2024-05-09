@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex"
-import { backgroundColors } from "../tokens.stylex"
+import { backgroundColors } from "../../ui/tokens.stylex"
 
 export const tokens = stylex.defineVars({
   backgroundColor: {

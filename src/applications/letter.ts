@@ -1,4 +1,4 @@
-import { type ApplicationFormData } from "~/components/ApplicationForm"
+import { type ApplicationFormData } from "~/applications/ApplicationForm"
 
 export function templateBasedLetter(application: ApplicationFormData) {
   return `

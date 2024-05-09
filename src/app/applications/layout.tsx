@@ -1,8 +1,8 @@
 import * as stylex from "@stylexjs/stylex"
 import { type ReactNode } from "react"
 import ApplicationsCounter from "~/applications/ApplicationCounter"
-import SettingsLink from "~/components/SettingsLink"
-import ApplicationHeader from "~/ui/ApplicationHeader"
+import ApplicationHeader from "~/applications/ApplicationHeader"
+import SettingsLink from "~/applications/SettingsLink"
 
 import { spacing } from "../../ui/tokens.stylex"
 

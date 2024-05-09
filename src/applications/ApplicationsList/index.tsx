@@ -16,7 +16,7 @@ import {
 import Application, {
   calculateHeight,
   ApplicationSkeleton,
-} from "~/ui/Application"
+} from "~/applications/Application"
 import { mapResult } from "~/utils/result"
 
 import {
@@ -24,13 +24,13 @@ import {
   spacing,
   type MediaQuery,
   type ScreenWidth,
-} from "../ui/tokens.stylex"
-import { useClientSettings } from "./clientSettings"
+} from "../../ui/tokens.stylex"
+import { useClientSettings } from "../clientSettings"
 import {
   removeApplicationsById,
   useApplications,
   type Application as ApplicationType,
-} from "./store"
+} from "../store"
 
 const mediumWidth: ScreenWidth["medium"] = 768
 
@@ -44,7 +44,7 @@ export default function ApplicationsList() {
 
   return mapResult(applications, {
     onError: () => null, // TODO: handle error
-    onLoading: () => <Skeleton />, // TODO: handle loading
+    onLoading: () => <Skeleton />,
     onData: (applications) => {
       const effectiveApplications = settings.deferredApplicationsRendering
         ? deferredApplications

@@ -15,8 +15,8 @@ import { type Size as TextSize, getLineHeight } from "~/ui/Text"
 import TextWithTextClamp from "~/ui/TextWithTextClamp"
 import Trash from "~/ui/icons/Trash.svg"
 
-import CopyToClipboardButton from "../CopyToClipboardButton"
-import VisuallyHidden from "../VisuallyHidden"
+import CopyToClipboardButton from "../../ui/CopyToClipboardButton"
+import VisuallyHidden from "../../ui/VisuallyHidden"
 import {
   backgroundColors,
   borderRadius,
@@ -24,7 +24,7 @@ import {
   paddings,
   spacing,
   type ExtractPXVarValue,
-} from "../tokens.stylex"
+} from "../../ui/tokens.stylex"
 
 const defaultTextSize = "medium"
 const defaultLinesCount = 6

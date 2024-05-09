@@ -1,7 +1,7 @@
 "use client"
 
+import ProgressBar from "~/applications/ProgressBar"
 import { useApplicationsCount } from "~/applications/store"
-import ProgressBar from "~/ui/ProgressBar"
 import { mapResult } from "~/utils/result"
 
 export default function ApplicationsCounter() {

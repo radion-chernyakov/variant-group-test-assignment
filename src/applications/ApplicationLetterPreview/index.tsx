@@ -6,14 +6,14 @@ import { type Application } from "~/applications/store"
 import Text from "~/ui/Text"
 import { type Result } from "~/utils/result"
 
-import CopyToClipboardButton from "../CopyToClipboardButton"
+import CopyToClipboardButton from "../../ui/CopyToClipboardButton"
 import {
   backgroundColors,
   borderRadius,
   colors,
   paddings,
   spacing,
-} from "../tokens.stylex"
+} from "../../ui/tokens.stylex"
 import { animationTokens } from "./tokens.stylex"
 
 type ApplicationResult = Result<Application>

@@ -7,9 +7,13 @@ import Button from "~/ui/Button"
 import Home from "~/ui/icons/Home.svg"
 import Logo from "~/ui/icons/Logo.svg"
 
-import { type MediaQuery, spacing, colors } from "../tokens.stylex"
+import { type MediaQuery, spacing, colors } from "../../ui/tokens.stylex"
 
-export default function ApplicationHeader({ userSection }: { userSection?: ReactNode }) {
+export default function ApplicationHeader({
+  userSection,
+}: {
+  userSection?: ReactNode
+}) {
   return (
     <header {...stylex.props(styles.header)}>
       <Logo aria-label="logoLabelRef" {...stylex.props(styles.logo)} />

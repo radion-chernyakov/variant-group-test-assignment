@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { type ApplicationFormData } from "~/applications/ApplicationForm"
+import ApplicationForm from "~/applications/ApplicationForm"
+import ApplicationLetterPreview from "~/applications/ApplicationLetterPreview"
 import { type Application, addApplication } from "~/applications/store"
-import { type ApplicationFormData } from "~/components/ApplicationForm"
-import ApplicationForm from "~/components/ApplicationForm"
-import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
 import Button from "~/ui/Button"
 import FormWithPreviewLayout from "~/ui/FormWithPreviewLayout"
 import { type Result } from "~/utils/result"

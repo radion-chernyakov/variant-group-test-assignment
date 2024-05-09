@@ -71,7 +71,7 @@ type FormState =
 
 export default function ApplicationForm({
   initialValues = {},
-  onSubmit, // TODO: Pass result object as prop instead of having callback
+  onSubmit,
   renderSubmitButton,
 }: {
   initialValues?: InitialValues

@@ -2,8 +2,8 @@
 
 import * as stylex from "@stylexjs/stylex"
 import Link from "next/link"
+import ProgressBar from "~/applications/ProgressBar"
 import Button from "~/ui/Button"
-import ProgressBar from "~/ui/ProgressBar"
 import Text from "~/ui/Text"
 import PlusIcon from "~/ui/icons/Plus.svg"
 import { mapResult } from "~/utils/result"

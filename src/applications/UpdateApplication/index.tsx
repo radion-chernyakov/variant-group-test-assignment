@@ -3,18 +3,18 @@
 import * as stylex from "@stylexjs/stylex"
 import { notFound } from "next/navigation"
 import { useState, useRef } from "react"
+import { type ApplicationFormData } from "~/applications/ApplicationForm"
+import ApplicationForm from "~/applications/ApplicationForm"
+import ApplicationLetterPreview from "~/applications/ApplicationLetterPreview"
 import { type Application, updateApplication } from "~/applications/store"
-import { type ApplicationFormData } from "~/components/ApplicationForm"
-import ApplicationForm from "~/components/ApplicationForm"
-import ApplicationLetterPreview from "~/ui/ApplicationLetterPreview"
 import Button from "~/ui/Button"
 import FormWithPreviewLayout from "~/ui/FormWithPreviewLayout"
 import RepeatIcon from "~/ui/icons/Repeat.svg"
 import { mapResult, type Result } from "~/utils/result"
 
-import { spacing } from "../ui/tokens.stylex"
-import HitYourGoal from "./HitYourGoal"
-import { useApplication } from "./store"
+import { spacing } from "../../ui/tokens.stylex"
+import HitYourGoal from "../HitYourGoal"
+import { useApplication } from "../store"
 
 export default function UpdateApplication({
   applicationId,
