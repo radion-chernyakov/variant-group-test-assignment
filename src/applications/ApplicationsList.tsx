@@ -4,7 +4,6 @@ import stylex from "@stylexjs/stylex"
 import {
   type CSSProperties,
   useDeferredValue,
-  useEffect,
   useRef,
   useState,
   useLayoutEffect,
