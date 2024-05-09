@@ -8,8 +8,8 @@ export const baseButtonTokens = stylex.defineVars({
 
 export const buttonSize = stylex.defineVars({
   gap: spacing.medium,
-  paddingVertical: "16px",
-  paddingHorizontal: "28px",
+  paddingVertical: "unset",
+  paddingHorizontal: "unset",
 })
 
 export const buttonIntent = stylex.defineVars({

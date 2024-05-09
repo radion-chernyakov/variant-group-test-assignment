@@ -1,5 +1,5 @@
 import * as stylex from "@stylexjs/stylex"
-import { Suspense, type ReactNode } from "react"
+import { type ReactNode } from "react"
 import ApplicationsCounter from "~/applications/ApplicationCounter"
 import SettingsLink from "~/components/SettingsLink"
 import ApplicationHeader from "~/ui/ApplicationHeader"
@@ -15,18 +15,12 @@ export default function ApplicationsLayout({
 }) {
   return (
     <div {...stylex.props(styles.container)}>
-      <ApplicationHeader
-        userSection={
-          <Suspense>
-            <ApplicationsCounter />
-          </Suspense>
-        }
-      />
+      <ApplicationHeader userSection={<ApplicationsCounter />} />
       <main {...stylex.props(styles.main)}>{children}</main>
-      {modal}
       <footer>
         <SettingsLink />
       </footer>
+      {modal}
     </div>
   )
 }

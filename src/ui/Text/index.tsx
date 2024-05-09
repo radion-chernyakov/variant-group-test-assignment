@@ -151,7 +151,7 @@ const xLargeSizeTheme = stylex.createTheme(sizeTokens, {
   lineHeight: `${lineHeightMap.xLarge}px`,
 })
 
-const sizeMap = {
+const sizeMap: Record<Size, stylex.Theme<typeof sizeTokens>> = {
   xSmall: xSmallSizeTheme,
   small: smallSizeTheme,
   medium: mediumSizeTheme,

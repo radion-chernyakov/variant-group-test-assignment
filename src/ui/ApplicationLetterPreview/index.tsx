@@ -82,7 +82,7 @@ const styles = stylex.create({
   },
   textContainer: {
     overflowY: "scroll",
-    paddingRight: paddings.xxSmall, // to add space for scroll bar
+    paddingRight: paddings.xxSmall, // to add space for scroll bar while keeping visual size untouched
     marginRight: `calc(-1 * ${paddings.xxSmall})`,
   },
   loadingContainer: {
@@ -92,8 +92,8 @@ const styles = stylex.create({
     justifyContent: "center",
   },
   buttonsContainer: {
-    paddingTop: paddings.xxSmall, // to add space for background gradient
-    marginTop: `calc(-1 * ${paddings.xxSmall})`,
+    paddingTop: paddings.xxSmall,
+    marginTop: `calc(-1 * ${paddings.xxSmall})`, // to add space for background gradient but keep visual size untouched
     background: `linear-gradient(180deg, transparent 0%, ${backgroundColors.gray} 70%)`,
     position: "sticky",
     bottom: 0,

@@ -2,7 +2,6 @@
 
 import stylex from "@stylexjs/stylex"
 import Link from "next/link"
-import { Suspense } from "react"
 import ApplicationsList from "~/applications/ApplicationsList"
 import HitYourGoal from "~/applications/HitYourGoal"
 import Button from "~/ui/Button"
@@ -30,12 +29,8 @@ export default function ApplicationsPage() {
       >
         Applications
       </PageHeader>
-      <Suspense>
-        <ApplicationsList />
-      </Suspense>
-      <Suspense>
-        <HitYourGoal />
-      </Suspense>
+      <ApplicationsList />
+      <HitYourGoal />
     </div>
   )
 }

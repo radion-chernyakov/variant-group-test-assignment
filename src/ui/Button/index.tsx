@@ -163,9 +163,6 @@ const rotateAnimation = stylex.keyframes({
   from: {
     rotate: "0deg",
   },
-  // "50%": {
-  //   rotate: "180deg",
-  // },
   to: {
     rotate: "180deg",
   },
@@ -268,8 +265,13 @@ const smallSizeTheme = stylex.createTheme(buttonSize, {
   paddingHorizontal: "18px",
 })
 
-const sizeThemes = {
-  medium: undefined,
+const mediumSizeTheme = stylex.createTheme(buttonSize, {
+  paddingVertical: "16px",
+  paddingHorizontal: "28px",
+})
+
+const sizeThemes: Record<Size, stylex.Theme<typeof buttonSize>> = {
+  medium: mediumSizeTheme,
   small: smallSizeTheme,
 }
 
@@ -375,7 +377,7 @@ const functionalIntentTheme = stylex.createTheme(buttonIntent, {
   backgroundColorHover: "transparent",
 })
 
-const intentThemes = {
+const intentThemes: Record<Intent, stylex.Theme<typeof buttonIntent>> = {
   submit: submitButtonTheme,
   action: actionIntentTheme,
   functional: functionalIntentTheme,

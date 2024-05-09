@@ -116,7 +116,10 @@ export const calculateHeight = (textSize: TextSize, linesCount: number) => {
   const paddingSizeInPX: ExtractPXVarValue<typeof padding> = 24
   const textSizeInPX = getLineHeight(textSize) * linesCount
   const gapSizeInPX: ExtractPXVarValue<typeof gap> = 16
-  const buttonSize = 20 // Well, I'll leave it hardcoded, it's not likely it gonna change and it's easier to write a test that will make sure that such a hardcoded value is correct for functional button rather than write a function that will actually calculate it
+
+  // Well, I'll leave it hardcoded, it's not likely it gonna change and it's easier to write a test that will make sure that such a hardcoded value is correct
+  //  for functional button rather than write a function that will actually calculate it
+  const buttonSize = 20
 
   return paddingSizeInPX * 2 + textSizeInPX + gapSizeInPX + buttonSize
 }

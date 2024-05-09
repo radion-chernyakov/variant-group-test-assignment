@@ -42,12 +42,14 @@ export default function NewApplication({
                 ...data,
                 letter,
               })
-              setResult({ data: application })
-              onResult({})
+              const result = { data: application } as Result<Application>
+              setResult(result)
+              onResult(result)
               router.push(`/applications/${application.id}`)
             } catch {
-              onResult({ error: "Something went wrong" })
-              setResult({ error: "Something went wrong" })
+              const result = { error: "Something went wrong" }
+              onResult(result)
+              setResult(result)
             }
           }}
         />
