@@ -150,7 +150,6 @@ const generatingCircleStyles = stylex.create({
     animationIterationCount: "infinite",
     animationTimingFunction: "cubic-bezier(0.2, 0, 1, 0.8)",
     opacity: animationTokens.opacity,
-    // TODO: use tokens instead of hardcoded colors
     background: {
       default: `radial-gradient(
         60.16% 60.16% at ${animationTokens.top} 21.88%,

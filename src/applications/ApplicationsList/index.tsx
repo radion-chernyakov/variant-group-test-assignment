@@ -43,7 +43,7 @@ export default function ApplicationsList() {
   const deferredApplications = useDeferredValue(applications.data ?? [])
 
   return mapResult(applications, {
-    onError: () => null, // TODO: handle error
+    onError: () => null,
     onLoading: () => <Skeleton />,
     onData: (applications) => {
       const effectiveApplications = settings.deferredApplicationsRendering
